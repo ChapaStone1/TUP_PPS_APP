@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/Clientes/ClientesListPage.dart';
-import 'package:flutter_application_1/pages/clientes/ClienteInfoPage.dart';
-import 'package:flutter_application_1/pages/harry_potter/harry_potter_screens.dart';
-import 'package:flutter_application_1/pages/marvelchars/MarvelCharsInfoPage.dart';
-import 'package:flutter_application_1/pages/marvelchars/MarvelCharsListPage.dart';
-import 'package:flutter_application_1/pages/patients/PatientsMapPage.dart';
-import 'package:flutter_application_1/pages/patients/PatientsListPage.dart';
+
 import 'package:flutter_application_1/pages/ProfilePage.dart';
-import 'package:flutter_application_1/pages/patients/PatientInfoPage.dart';
-import 'package:flutter_application_1/widgets/marvelchars/SpidermanGame.dart';
-import 'package:flutter_application_1/pages/pokemon/PokemonListPage.dart';
-import 'package:flutter_application_1/pages/pokemon/PokemonInfoPage.dart';
 
 class MainRouter {
   static List<Route> routes = <Route>[
@@ -23,7 +13,7 @@ class MainRouter {
         subtitle: "",
         show: true),
     //Rutas Matias Bussetti
-    Route(
+    /*Route(
         id: "patientsList",
         path: '/patients',
         widget: const PatientsPage(),
@@ -47,65 +37,7 @@ class MainRouter {
         icon: const Icon(Icons.accessibility_new_rounded),
         title: "Paciente",
         subtitle: "",
-        show: false),
-    //Rutas Otro
-    Route(
-        id: "marvelCharsList",
-        path: '/marvelchars/',
-        widget: const MarvelCharsListPage(),
-        icon: const Icon(Icons.star_border),
-        title: "Lista de Personajes de Marvel",
-        subtitle: "Juan Chaparro",
-        show: true),
-    Route(
-        id: "marvelCharsSpidermanGame",
-        path: '/marvelchars/game',
-        widget: const SpidermanCatchGame(),
-        icon: const Icon(Icons.star_border),
-        title: "Juego de Marvel Spider-Man - Atrapá a Venom",
-        subtitle: "Juan Chaparro",
-        show: true),
-    Route(
-        id: "marvelCharsInfo",
-        path: '/marvelchars/id',
-        widget: const MarvelCharsInfoPage(),
-        icon: const Icon(Icons.star_border),
-        title: "Personajes de Marvel",
-        subtitle: "",
-        show: false),
-    Route(
-        id: "pokemonList",
-        path: '/pokemon/list',
-        widget: const PokemonListPage(),
-        icon: const Icon(Icons.catching_pokemon),
-        title: "Lista de Pokémon",
-        subtitle: "Diego Bruno",
-        show: true),
-    Route(
-        id: "pokemonInfo",
-        path: '/pokemon-info',
-        widget: const PokemonInfoPage(),
-        icon: const Icon(Icons.info),
-        title: "Detalle de Pokémon",
-        subtitle: "",
-        show: false),
-
-    Route(
-        id: "clientesList",
-        path: '/clientes',
-        widget: const ClientesListPage(),
-        icon: const Icon(Icons.people),
-        title: "Lista de Clientes",
-        subtitle: "Ponin Eric",
-        show: true),
-    Route(
-        id: "clienteInfo",
-        path: '/cliente/buscar',
-        widget: const ClienteInfoPage(),
-        icon: const Icon(Icons.person),
-        title: "Detalle del Cliente",
-        subtitle: "",
-        show: false),
+        show: false),*/
   ];
 
   static Map<String, WidgetBuilder> generateRoutes(BuildContext context) {

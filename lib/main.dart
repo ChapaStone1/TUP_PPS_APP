@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/HomePage.dart';
+import 'package:flutter_application_1/pages/auth/login.dart';
 import 'package:flutter_application_1/MainRouter.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
@@ -33,9 +33,9 @@ class _MyAppState extends State<MyApp> {
         .temaActual; // Escucha el cambio de tema
 
     return MaterialApp(
-      title: 'Grupo 15',
+      title: 'Clinica UTN',
       theme: theme,
-      home: const HomePage(title: 'Grupo 15'),
+      home: const LoginPage(title: 'Clinica UTN'),
       routes: MainRouter.generateRoutes(context),
     );
   }
