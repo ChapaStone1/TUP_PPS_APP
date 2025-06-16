@@ -53,32 +53,6 @@ class MainRouter {
         title: "Logearse",
         subtitle: ".",
         show: true),
-    //Rutas Matias Bussetti
-    /*Route(
-        id: "patientsList",
-        path: '/patients',
-        widget: const PatientsPage(),
-        icon: const Icon(Icons.person_search_rounded),
-        title: "Lista de Pacientes",
-        subtitle: "Matias Bussetti",
-        show: true),
-
-    Route(
-        id: "patientsMap",
-        path: '/patients/map',
-        widget: const PatientsMapPage(),
-        icon: const Icon(Icons.map),
-        title: "Mapa de Pacientes",
-        subtitle: "Matias Bussetti",
-        show: true),
-    Route(
-        id: "patientInfo",
-        path: '/paciente/id',
-        widget: const PatientInfoPage(),
-        icon: const Icon(Icons.accessibility_new_rounded),
-        title: "Paciente",
-        subtitle: "",
-        show: false),*/
   ];
 
   static Map<String, WidgetBuilder> generateRoutes(BuildContext context) {
