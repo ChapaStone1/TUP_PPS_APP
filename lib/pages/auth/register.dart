@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/classes/Registro.dart'; // Asegurate de que el path coincida con la ubicación real
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -30,31 +31,36 @@ class _RegisterPageState extends State<RegisterPage> {
 
     setState(() => _isLoading = true);
 
+    final registro = Registro(
+      nombre: _nombreController.text.trim(),
+      dni: _dniController.text.trim(),
+      sexo: _sexoController.text.trim(),
+      fechaNac: _fechaNacController.text.trim(),
+      telefono: _telefonoController.text.trim(),
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+      grupoSanguineo: _grupoSanguineoController.text.trim(),
+      obraSocial: _obraSocialController.text.trim(),
+    );
+
     final url = Uri.parse('https://tup-pps-api.onrender.com/api/auth/register');
     final headers = {'Content-Type': 'application/json'};
-
-    final body = jsonEncode({
-      "nombre": _nombreController.text.trim(),
-      "dni": _dniController.text.trim(),
-      "sexo": _sexoController.text.trim(),
-      "fecha_nac": _fechaNacController.text.trim(),
-      "telefono": _telefonoController.text.trim(),
-      "email": _emailController.text.trim(),
-      "password": _passwordController.text.trim(),
-      "grupo_sanguineo": _grupoSanguineoController.text.trim(),
-      "obra_social": _obraSocialController.text.trim(),
-    });
+    final body = jsonEncode(registro.toJson());
 
     try {
       final response = await http.post(url, headers: headers, body: body);
-
-      final message = response.statusCode == 200
-          ? 'Registro exitoso. Iniciá sesión.'
-          : 'No se pudo registrar. Reintentá.';
+      final json = jsonDecode(response.body);
+      final status = json['status'];
+      final data = json['data'];
+      final message = data['message'] ?? 'Registro exitoso. Iniciá sesión.';
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message),
       ));
+
+      if (status == 200) {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error al conectar: $e'),
@@ -62,9 +68,6 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     setState(() => _isLoading = false);
-
-    // Redirigir al login siempre
-    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
