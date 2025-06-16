@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/classes/HarryPotterCharacters.dart';
 
 class DefaultTheme {
   static const Color primary = Colors.red;
   static const Color secondary = Colors.grey;
   static final Color primaryHover = Colors.red.shade600;
-
-  // Colores por casa
-  static final Map<House, List<Color>> houseColors = {
-    House.GRYFFINDOR: [Colors.red, Colors.yellow],
-    House.SLYTHERIN: [Colors.green, Colors.grey],
-    House.HUFFLEPUFF: [Colors.yellow, Colors.black],
-    House.RAVENCLAW: [Colors.blue, Colors.brown],
-  };
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
       primaryColor: Colors.amber,

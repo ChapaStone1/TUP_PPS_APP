@@ -102,17 +102,6 @@ class _BodyProfileState extends State<BodyProfile> {
             initialValue: Preferences.apellido,
             keyboardType: TextInputType.text,
             decoration: decorationInput(label: 'Apellido')),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-            onChanged: (value) {
-              Preferences.nombre = value;
-            },
-            style: const TextStyle(fontSize: 18),
-            initialValue: Preferences.nombre,
-            keyboardType: TextInputType.text,
-            decoration: decorationInput(label: 'Nombre'))
       ],
     );
   }

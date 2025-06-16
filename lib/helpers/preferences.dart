@@ -1,10 +1,8 @@
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
   static bool _darkmode = false;
   static String _apellido = '';
-  static String _nombre = '';
   static String _email = '';
   static String _telefono = '';
   static final List<String> _favs = [];
@@ -29,11 +27,6 @@ class Preferences {
     _prefs.setString('apellido', value);
   }
 
-  static set nombre(String value) {
-    _nombre = value;
-    _prefs.setString('nombre', value);
-  }
-
   static set email(String value) {
     _email = value;
     _prefs.setString('email', value);
@@ -55,10 +48,6 @@ class Preferences {
 
   static String get apellido {
     return _prefs.getString('apellido') ?? _apellido;
-  }
-
-  static String get nombre {
-    return _prefs.getString('nombre') ?? _nombre;
   }
 
   static String get email {

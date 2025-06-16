@@ -3,8 +3,8 @@ import 'package:flutter_application_1/MainRouter.dart';
 import 'package:flutter_application_1/widgets/NavigatorCardWidget.dart';
 import 'package:flutter_application_1/widgets/DrawerMenu.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.title});
+class HomeMedico extends StatelessWidget {
+  const HomeMedico({super.key, required this.title});
   final String title;
 
   @override
