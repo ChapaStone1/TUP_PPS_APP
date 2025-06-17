@@ -4,14 +4,15 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Route;
 import 'package:flutter_application_1/MainRouter.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({super.key});
+  final List<Route> routes;
+  const DrawerMenu({super.key, required this.routes});
 
   @override
   Widget build(BuildContext context) {
@@ -23,29 +24,22 @@ class DrawerMenu extends StatelessWidget {
         children: [
           _DrawerHeaderAlternative(screenWidth: screenWidth),
           ...ListTile.divideTiles(
-              context: context,
-              tiles: MainRouter.routes
-                  .map((route) => route.show
-                      ? ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 10),
-                          dense: true,
-                          minLeadingWidth: 25,
-                          iconColor: Colors.blueGrey,
-                          title: Text(route.title,
-                              style:
-                                  const TextStyle(fontFamily: 'FuzzyBubbles')),
-                          leading: route.icon,
-                          /* trailing: const Icon(Icons.arrow_right), */
-                          onTap: () {
-                            Navigator.pop(context);
-                            //Navigator.pushReplacementNamed(context, item['route']!);
-                            Navigator.pushNamed(context, route.path);
-                          },
-                        )
-                      : null)
-                  .whereType<ListTile>()
-                  .toList())
+            context: context,
+            tiles: routes.where((route) => route.show).map((route) => ListTile(
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                  dense: true,
+                  minLeadingWidth: 25,
+                  iconColor: Colors.blueGrey,
+                  title: Text(route.title,
+                      style: const TextStyle(fontFamily: 'FuzzyBubbles')),
+                  leading: route.icon,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, route.path);
+                  },
+                )),
+          ).toList()
         ],
       ),
     );

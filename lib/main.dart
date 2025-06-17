@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/auth/login.dart';
 import 'package:flutter_application_1/MainRouter.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
@@ -8,7 +7,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Preferences.initShared();
-
+  MainRouter.initRoutes();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<ThemeProvider>(
@@ -35,7 +34,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Clinica UTN',
       theme: theme,
-      home: const LoginPage(title: 'Clinica UTN'),
+      // home: const LoginPage(title: 'Clinica UTN'), // <-- comentar o borrar esta línea
+      initialRoute: '/login', // <-- definir ruta inicial
       routes: MainRouter.generateRoutes(context),
     );
   }

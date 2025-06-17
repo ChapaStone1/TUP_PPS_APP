@@ -49,7 +49,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(
+        automaticallyImplyLeading: false, // 👈 Oculta la flecha de "volver"
+        title: Text(widget.title),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Form(
@@ -57,8 +60,10 @@ class _LoginPageState extends State<LoginPage> {
           child: ListView(
             children: [
               const SizedBox(height: 40),
-              const Text('Iniciar sesión',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+              const Text(
+                'Iniciar sesión',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 40),
               TextFormField(
                 controller: _emailController,
@@ -87,7 +92,9 @@ class _LoginPageState extends State<LoginPage> {
               _isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : ElevatedButton(
-                      onPressed: _login, child: const Text('Ingresar')),
+                      onPressed: _login,
+                      child: const Text('Ingresar'),
+                    ),
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () {
