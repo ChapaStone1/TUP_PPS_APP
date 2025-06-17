@@ -1,7 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_application_1/classes/Registro.dart'; // Asegurate de que el path coincida con la ubicación real
+import 'package:flutter_application_1/classes/Registro.dart';
+import 'package:flutter_application_1/services/registro_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -13,16 +12,15 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _nombreController = TextEditingController();
-  final TextEditingController _dniController = TextEditingController();
-  final TextEditingController _sexoController = TextEditingController();
-  final TextEditingController _fechaNacController = TextEditingController();
-  final TextEditingController _telefonoController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _grupoSanguineoController =
-      TextEditingController();
-  final TextEditingController _obraSocialController = TextEditingController();
+  final _nombreController = TextEditingController();
+  final _dniController = TextEditingController();
+  final _sexoController = TextEditingController();
+  final _fechaNacController = TextEditingController();
+  final _telefonoController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _grupoSanguineoController = TextEditingController();
+  final _obraSocialController = TextEditingController();
 
   bool _isLoading = false;
 
@@ -43,28 +41,16 @@ class _RegisterPageState extends State<RegisterPage> {
       obraSocial: _obraSocialController.text.trim(),
     );
 
-    final url = Uri.parse('https://tup-pps-api.onrender.com/api/auth/register');
-    final headers = {'Content-Type': 'application/json'};
-    final body = jsonEncode(registro.toJson());
+    final servicio = RegistroService();
+    final result = await servicio.registrar(registro);
 
-    try {
-      final response = await http.post(url, headers: headers, body: body);
-      final json = jsonDecode(response.body);
-      final status = json['status'];
-      final data = json['data'];
-      final message = data['message'] ?? 'Registro exitoso. Iniciá sesión.';
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(result['message']),
+    ));
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(message),
-      ));
-
-      if (status == 200) {
-        Navigator.pushReplacementNamed(context, '/login');
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error al conectar: $e'),
-      ));
+    if (result['ok']) {
+      Navigator.pushReplacementNamed(
+          context, '/login'); // Reemplaza la pantalla
     }
 
     setState(() => _isLoading = false);
@@ -73,7 +59,10 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Registro de paciente')),
+      appBar: AppBar(
+        title: const Text('Registro de paciente'),
+        automaticallyImplyLeading: false, // Quita la flecha de "atrás"
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Form(
@@ -140,7 +129,9 @@ class _RegisterPageState extends State<RegisterPage> {
               _isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : ElevatedButton(
-                      onPressed: _register, child: const Text('Registrarse')),
+                      onPressed: _register,
+                      child: const Text('Registrarse'),
+                    ),
             ],
           ),
         ),

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/MarvelCharacters.dart';
 import 'package:flutter_application_1/widgets/marvelchars/MarvelCharacterItem.dart';
-import 'package:flutter_application_1/widgets/search/MarvelSearchDelegate.dart';
+import 'package:flutter_application_1/widgets/custom/MarvelSearchDelegate.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';

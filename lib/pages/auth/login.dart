@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_application_1/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -18,60 +16,33 @@ class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
 
   Future<void> _login() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading = true);
+    if (!_formKey.currentState!.validate()) return;
 
-      final url = Uri.parse('https://tup-pps-api.onrender.com/api/auth/login');
-      final headers = {'Content-Type': 'application/json'};
-      final body = jsonEncode({
-        'email': _emailController.text,
-        'password': _passwordController.text,
-      });
+    setState(() => _isLoading = true);
 
-      try {
-        final response = await http.post(url, headers: headers, body: body);
+    final authService = AuthService();
+    final result = await authService.login(
+      _emailController.text.trim(),
+      _passwordController.text.trim(),
+    );
 
-        if (response.statusCode == 200) {
-          final json = jsonDecode(response.body);
+    setState(() => _isLoading = false);
 
-          // Extraer data del cuerpo
-          final data = json['data'];
-          final token = data['token'];
-          final tipo = data['tipo'];
-          final message = data['message'] ?? 'Login exitoso';
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(result['message'] ?? 'Error desconocido')),
+    );
 
-          // Guardar en SharedPreferences
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('token', token);
-          await prefs.setString('tipo', tipo);
-
-          // Mostrar mensaje de éxito
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(message)),
-          );
-
-          // Redirigir según tipo de usuario
-          if (tipo == 'medico') {
-            Navigator.pushReplacementNamed(context, '/home-medico');
-          } else if (tipo == 'paciente') {
-            Navigator.pushReplacementNamed(context, '/home-paciente');
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Tipo de usuario desconocido')),
-            );
-          }
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Credenciales incorrectas')),
-          );
-        }
-      } catch (e) {
+    if (result['ok']) {
+      final tipo = result['tipo'];
+      if (tipo == 'medico') {
+        Navigator.pushReplacementNamed(context, '/home-medico');
+      } else if (tipo == 'paciente') {
+        Navigator.pushReplacementNamed(context, '/home-paciente');
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al conectar: $e')),
+          const SnackBar(content: Text('Tipo de usuario desconocido')),
         );
       }
-
-      setState(() => _isLoading = false);
     }
   }
 
