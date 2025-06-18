@@ -1,50 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/HistoriaMedica.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
-import 'package:flutter_application_1/pages/ProfilePage.dart';
+import 'package:flutter_application_1/pages/medicos/ProfileMedico.dart';
+import 'package:flutter_application_1/pages/pacientes/ProfilePaciente.dart';
 import 'package:flutter_application_1/pages/auth/Login.dart';
 import 'package:flutter_application_1/pages/pacientes/RegisterPaciente.dart';
 import 'package:flutter_application_1/pages/medicos/RegisterMedico.dart';
 
 class MainRouter {
-  static List<Route> allRoutes = [];
+  static List<Route> generalRoutes = [];
+  static List<Route> medicoRoutes = [];
+  static List<Route> pacienteRoutes = [];
 
-  // Inicializador (para evitar que se construya antes de tener funciones)
   static void initRoutes() {
-    allRoutes = [
-      Route(
-        id: "profile",
-        path: '/profile',
-        widget: const ProfilePage(),
-        icon: const Icon(Icons.settings),
-        title: "Perfil de Usuario",
-        subtitle: "",
-        show: true,
-      ),
-      Route(
-        id: "home-medico",
-        path: '/home-medico',
-        widget: HomeMedico(
-          title: 'Bienvenido.',
-          routes: medicoRoutes(),
-        ),
-        icon: const Icon(Icons.person),
-        title: "Inicio Médico",
-        subtitle: "Opciones para médicos",
-        show: false,
-      ),
-      Route(
-        id: "home-paciente",
-        path: '/home-paciente',
-        widget: HomePaciente(
-          title: 'Bienvenido.',
-          routes: pacienteRoutes(),
-        ),
-        icon: const Icon(Icons.person_outline),
-        title: "Inicio Paciente",
-        subtitle: "Opciones para pacientes",
-        show: false,
-      ),
+    generalRoutes = [
       Route(
         id: "register",
         path: '/register',
@@ -55,23 +25,34 @@ class MainRouter {
         show: true,
       ),
       Route(
-        id: "login",
-        path: '/login',
-        widget: const LoginPage(title: 'Iniciar sesión'),
-        icon: const Icon(Icons.login),
-        title: "Iniciar sesión",
-        subtitle: "",
-        show: true,
+        id: "home-medico",
+        path: '/home-medico',
+        widget: HomeMedico(
+          title: 'Bienvenido Doctor.',
+        ),
+        icon: const Icon(Icons.person),
+        title: "Inicio Médico",
+        subtitle: "Opciones para médicos",
+        show: false,
+      ),
+      Route(
+        id: "home-paciente",
+        path: '/home-paciente',
+        widget: HomePaciente(
+          title: 'Bienvenido Paciente.',
+        ),
+        icon: const Icon(Icons.person_outline),
+        title: "Inicio Paciente",
+        subtitle: "Opciones para pacientes",
+        show: false,
       ),
     ];
-  }
-
-  static List<Route> medicoRoutes() {
-    return [
+    // separo las rutas de acuerdo a quien se logea.
+    medicoRoutes = [
       Route(
-        id: "profile",
-        path: '/profile',
-        widget: const ProfilePage(),
+        id: "profile-medico",
+        path: '/profile-medico',
+        widget: const ProfileMedicoPage(),
         icon: const Icon(Icons.settings),
         title: "Perfil",
         subtitle: "Ver y editar perfil",
@@ -80,10 +61,10 @@ class MainRouter {
       Route(
         id: "login",
         path: '/login',
-        widget: const LoginPage(title: 'Iniciar sesión'),
+        widget: const LoginPage(title: 'Iniciar sesión.'),
         icon: const Icon(Icons.login),
-        title: "Iniciar sesión",
-        subtitle: "",
+        title: "Cerrar sesión",
+        subtitle: "Volver al login.",
         show: true,
       ),
       Route(
@@ -95,30 +76,45 @@ class MainRouter {
         subtitle: "",
         show: true,
       ),
-      // Agregá más rutas específicas para médicos si querés
     ];
-  }
 
-  static List<Route> pacienteRoutes() {
-    return [
+    pacienteRoutes = [
       Route(
-        id: "profile",
-        path: '/profile',
-        widget: const ProfilePage(),
+        id: "profile-paciente",
+        path: '/profile-paciente',
+        widget: const ProfilePacientePage(),
         icon: const Icon(Icons.settings),
         title: "Perfil",
         subtitle: "Ver y editar perfil",
         show: true,
       ),
-      // Agregá más rutas específicas para pacientes si querés
+      Route(
+        id: "historia-medica",
+        path: '/historia-medica',
+        widget: const HistoriaMedicaPage(),
+        icon: const Icon(Icons.settings),
+        title: "Historia Médica",
+        subtitle: "",
+        show: true,
+      ),
+      Route(
+        id: "login",
+        path: '/login',
+        widget: const LoginPage(title: 'Iniciar sesión.'),
+        icon: const Icon(Icons.login),
+        title: "Cerrar sesión",
+        subtitle: "Volver al login.",
+        show: true,
+      ),
+      // Podés agregar más rutas acá si querés
     ];
   }
 
   static Map<String, WidgetBuilder> generateRoutes(BuildContext context) {
     final all = [
-      ...allRoutes,
-      ...medicoRoutes(),
-      ...pacienteRoutes(),
+      ...generalRoutes,
+      ...medicoRoutes,
+      ...pacienteRoutes,
     ];
 
     return {

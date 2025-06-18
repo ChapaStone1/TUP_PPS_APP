@@ -28,14 +28,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeProvider>(context)
-        .temaActual; // Escucha el cambio de tema
+    final theme = Provider.of<ThemeProvider>(context).temaActual;
 
     return MaterialApp(
-      title: 'Clinica UTN',
       theme: theme,
-      // home: const LoginPage(title: 'Clinica UTN'), // <-- comentar o borrar esta línea
-      initialRoute: '/login', // <-- definir ruta inicial
+      initialRoute: '/login',
       routes: MainRouter.generateRoutes(context),
     );
   }

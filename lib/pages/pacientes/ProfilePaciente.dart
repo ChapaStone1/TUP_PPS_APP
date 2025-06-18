@@ -3,8 +3,8 @@ import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ProfilePacientePage extends StatelessWidget {
+  const ProfilePacientePage({super.key});
 
   @override
   Widget build(BuildContext context) {

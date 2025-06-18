@@ -61,8 +61,9 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const SizedBox(height: 40),
               const Text(
-                'Iniciar sesión',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                'Clinica UTN',
+                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
               TextFormField(
