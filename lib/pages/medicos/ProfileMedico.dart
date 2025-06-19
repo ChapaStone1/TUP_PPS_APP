@@ -23,7 +23,6 @@ class ProfileMedicoPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HeaderProfile(size: size),
             const Padding(
               padding: EdgeInsets.all(15.0),
               child: BodyProfile(),
@@ -278,39 +277,6 @@ class _BodyProfileState extends State<BodyProfile> {
           fillColor: Theme.of(context).inputDecorationTheme.fillColor ??
               Colors.grey.shade900,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-        ),
-      ),
-    );
-  }
-}
-
-class HeaderProfile extends StatelessWidget {
-  const HeaderProfile({
-    super.key,
-    required this.size,
-  });
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: size.height * 0.40,
-      color: const Color(0xff2d3e4f),
-      child: Center(
-        child: CircleAvatar(
-          radius: 100,
-          child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1),
-                  borderRadius: BorderRadius.circular(90),
-                  image: const DecorationImage(
-                      image: NetworkImage(
-                          "https://ethic.es/wp-content/uploads/2023/03/imagen.jpg"),
-                      fit: BoxFit.cover))),
         ),
       ),
     );
