@@ -17,7 +17,7 @@ class ProfileMedicoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Editar perfil.'),
+        title: const Text('Editar perfil'),
         elevation: 10,
       ),
       body: SingleChildScrollView(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/classes/MarvelCharacters.dart';
+import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/widgets/IsFavoriteIcon.dart';
 
 class MarvelCharacterDescription extends StatelessWidget {
@@ -10,7 +10,7 @@ class MarvelCharacterDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    MarvelChars character = MarvelChars.fromJson(data["data"]);
+    Paciente paciente = Paciente.fromJson(data["data"]);
 
     return Scaffold(
       body: CustomScrollView(
@@ -18,14 +18,14 @@ class MarvelCharacterDescription extends StatelessWidget {
           SliverAppBar(
             expandedHeight: screenWidth,
             floating: false,
-            pinned: true, 
-            automaticallyImplyLeading: false, 
+            pinned: true,
+            automaticallyImplyLeading: false,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Padding(
-                padding: const EdgeInsets.only(top: 10), 
+                padding: const EdgeInsets.only(top: 10),
                 child: Text(
-                  character.name,
+                  paciente.nombre,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 25,
@@ -45,23 +45,13 @@ class MarvelCharacterDescription extends StatelessWidget {
                 children: [
                   Container(
                     height: screenWidth,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        alignment: Alignment.center,
-                        image: NetworkImage(character.thumbnail),
-                        fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.2),
-                          BlendMode.darken,
-                        ),
-                      ),
-                    ),
+                    decoration: BoxDecoration(),
                   ),
                   Positioned(
                     top: 14.0,
                     right: 8.0,
                     child: IsFavoriteIcon(
-                      id: character.name,
+                      id: paciente.nombre,
                       color: Colors.yellow,
                       size: 40.0,
                     ),
@@ -73,7 +63,7 @@ class MarvelCharacterDescription extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                if (character.description.isNotEmpty)
+                if (paciente.obraSocial.isNotEmpty)
                   RowData(
                     icon: Icons.description,
                     children: [
@@ -82,8 +72,8 @@ class MarvelCharacterDescription extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            character.description.isNotEmpty
-                                ? character.description
+                            paciente.obraSocial.isNotEmpty
+                                ? paciente.obraSocial
                                 : 'Sin descripción disponible.',
                             textAlign: TextAlign.justify,
                             style: const TextStyle(fontSize: 16),
@@ -92,7 +82,7 @@ class MarvelCharacterDescription extends StatelessWidget {
                       ),
                     ],
                   ),
-                if (character.series.isNotEmpty)
+                if (paciente.grupoSanguineo.isNotEmpty)
                   RowData(
                     icon: Icons.tv,
                     children: [
@@ -103,7 +93,7 @@ class MarvelCharacterDescription extends StatelessWidget {
                           child: Wrap(
                             spacing: 8.0,
                             runSpacing: 4.0,
-                            children: character.series
+                            children: paciente.grupoSanguineo
                                 .map((serie) => Chip(
                                       label: Text(
                                         serie,
@@ -123,6 +113,10 @@ class MarvelCharacterDescription extends StatelessWidget {
       ),
     );
   }
+}
+
+extension on String {
+  map(Chip Function(dynamic serie) param0) {}
 }
 
 class RowData extends StatelessWidget {

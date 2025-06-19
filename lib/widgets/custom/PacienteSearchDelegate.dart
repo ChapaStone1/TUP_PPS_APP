@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/classes/MarvelCharacters.dart';
-import 'package:flutter_application_1/widgets/marvelchars/MarvelCharacterItem.dart';
+import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/widgets/paciente/MarvelCharacterItem.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class MarvelSearchDelegate extends SearchDelegate<MarvelChars?> {
+class MarvelSearchDelegate extends SearchDelegate<Paciente?> {
   MarvelSearchDelegate();
 
-  Future<List<MarvelChars>> _fetchSearchResults(String query) async {
+  Future<List<Paciente>> _fetchSearchResults(String query) async {
     const int limit = 20;
     final url =
         "https://tup-labo-4-grupo-15.onrender.com/api/v1/marvel/chars?nameStartsWith=$query&limit=$limit";
@@ -16,7 +16,7 @@ class MarvelSearchDelegate extends SearchDelegate<MarvelChars?> {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      return MarvelChars.listFromJson(data);
+      return Paciente.listFromJson(data);
     } else {
       throw Exception('Error fetching search results');
     }
@@ -46,7 +46,7 @@ class MarvelSearchDelegate extends SearchDelegate<MarvelChars?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return FutureBuilder<List<MarvelChars>>(
+    return FutureBuilder<List<Paciente>>(
       future: _fetchSearchResults(query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -78,7 +78,7 @@ class MarvelSearchDelegate extends SearchDelegate<MarvelChars?> {
     if (query.isEmpty) {
       return const Center(child: Text('Introduce un nombre para buscar.'));
     }
-    return FutureBuilder<List<MarvelChars>>(
+    return FutureBuilder<List<Paciente>>(
       future: _fetchSearchResults(query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -96,19 +96,18 @@ class MarvelSearchDelegate extends SearchDelegate<MarvelChars?> {
         return ListView.builder(
           itemCount: suggestions.length,
           itemBuilder: (context, index) {
-            final character = suggestions[index];
+            final paciente = suggestions[index];
 
             return InkWell(
               onTap: () {
-                query = character.name;
+                query = paciente.nombre;
                 showResults(context);
               },
-              child: MarvelCharacterItem(character: character),
+              child: MarvelCharacterItem(character: paciente),
             );
           },
         );
       },
     );
   }
-
 }

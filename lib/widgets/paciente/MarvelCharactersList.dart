@@ -1,9 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/classes/MarvelCharacters.dart';
-import 'package:flutter_application_1/widgets/marvelchars/MarvelCharacterItem.dart';
-import 'package:flutter_application_1/widgets/custom/MarvelSearchDelegate.dart';
+import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/classes/PacientesResponse.dart';
+import 'package:flutter_application_1/widgets/paciente/MarvelCharacterItem.dart';
+import 'package:flutter_application_1/widgets/custom/PacienteSearchDelegate.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -21,7 +22,7 @@ class MarvelCharactersList extends StatefulWidget {
 }
 
 class _MarvelCharactersListState extends State<MarvelCharactersList> {
-  late List<MarvelChars> _characters;
+  late List<Paciente> _characters;
   // ignore: unused_field
   bool _isSearching = false;
   String _searchQuery = "";
@@ -35,7 +36,7 @@ class _MarvelCharactersListState extends State<MarvelCharactersList> {
   @override
   void initState() {
     super.initState();
-    _characters = MarvelChars.listFromJson(widget.data);
+    _characters = Pacientes.listFromJson(widget.data);
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }

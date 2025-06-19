@@ -28,7 +28,7 @@ class MainRouter {
         id: "home-medico",
         path: '/home-medico',
         widget: HomeMedico(
-          title: 'Bienvenido Doctor.',
+          title: 'Bienvenido',
         ),
         icon: const Icon(Icons.person),
         title: "Inicio Médico",
@@ -39,7 +39,7 @@ class MainRouter {
         id: "home-paciente",
         path: '/home-paciente',
         widget: HomePaciente(
-          title: 'Bienvenido Paciente.',
+          title: 'Bienvenido',
         ),
         icon: const Icon(Icons.person_outline),
         title: "Inicio Paciente",
