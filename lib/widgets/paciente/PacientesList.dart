@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/services/pacientes_service.dart';
 import 'package:flutter_application_1/widgets/paciente/PacienteItem.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
-import 'dart:convert';
 
 class PacientesList extends StatefulWidget {
   const PacientesList({
@@ -47,39 +45,19 @@ class _PacientesListState extends State<PacientesList> {
     super.dispose();
   }
 
-  Future<List<Paciente>> _fetchSearchResults(String query, int offset) async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-
-    if (token == null) throw Exception('Token no encontrado');
-
-    final url =
-        "https://tup-pps-api.onrender.com/api/medicos/all-pacientes?dni=$query&limit=$_limit&offset=$offset";
-
-    final response = await http.get(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return Paciente.listFromJson(data['data']);
-    } else {
-      throw Exception('Error al buscar pacientes');
-    }
-  }
-
   Future<void> _fetchMorePacientes() async {
     if (_isLoadingMore || !_hasMore) return;
 
     setState(() => _isLoadingMore = true);
 
     try {
-      final newPacientes =
-          await _fetchSearchResults(_searchQuery, _currentPage * _limit);
+      final _pacienteService = PacienteService();
+
+      final newPacientes = await _pacienteService.fetchPacientes(
+        query: _searchQuery,
+        limit: _limit,
+        offset: _currentPage * _limit,
+      );
 
       setState(() {
         final existingDnis = _pacientes.map((p) => p.dni).toSet();

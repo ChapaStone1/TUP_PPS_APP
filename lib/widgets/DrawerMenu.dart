@@ -32,7 +32,7 @@ class DrawerMenu extends StatelessWidget {
                   minLeadingWidth: 25,
                   iconColor: Colors.blueGrey,
                   title: Text(route.title,
-                      style: const TextStyle(fontFamily: 'FuzzyBubbles')),
+                      style: const TextStyle(fontFamily: 'CoolveticaRG')),
                   leading: route.icon,
                   onTap: () {
                     Navigator.pop(context);

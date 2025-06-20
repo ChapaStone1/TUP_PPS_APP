@@ -31,7 +31,7 @@ class _IsFavoriteIconState extends State<IsFavoriteIcon> {
 
   Color invertirColor(Color color) {
     if (color == Colors.yellow) {
-      return color; // Juan lo agrege para que no me invierta el amarillo
+      return color;
     }
     return Color.fromARGB(
       color.alpha,
