@@ -14,8 +14,9 @@ class PacienteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomCardPaciente(
       title: paciente.nombre,
+      subtitle: 'DNI: ${paciente.dni}  |  Grupo: ${paciente.grupoSanguineo}',
       trailingIcon: IsFavoriteIcon(
-        id: paciente.nombre,
+        id: paciente.dni, // mejor identificador
         color: Colors.yellow,
         size: 32,
       ),

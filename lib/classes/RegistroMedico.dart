@@ -7,7 +7,7 @@ class RegistroMedico {
   final String telefono;
   final String password;
   final String matricula;
-  final String especialidad;
+  final int especialidad;
 
   RegistroMedico({
     required this.nombre,
@@ -17,8 +17,8 @@ class RegistroMedico {
     required this.email,
     required this.telefono,
     required this.password,
-    this.matricula = '',
-    this.especialidad = '',
+    required this.matricula,
+    required this.especialidad,
   });
 
   Map<String, dynamic> toJson() {

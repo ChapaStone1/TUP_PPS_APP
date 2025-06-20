@@ -21,7 +21,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _matriculaController = TextEditingController();
-  final _especialidadController = TextEditingController();
+  int? _especialidadId;
 
   bool _isLoading = false;
   String _sexoSeleccionado = 'M';
@@ -58,7 +58,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
       email: _emailController.text.trim(),
       password: _passwordController.text.trim(),
       matricula: _matriculaController.text.trim(),
-      especialidad: _especialidadController.text.trim(),
+      especialidad: _especialidadId!.toInt(),
     );
 
     final servicio = RegistroService();
@@ -158,12 +158,19 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
                     v == null || v.isEmpty ? 'Campo requerido' : null,
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                controller: _especialidadController,
+              DropdownButtonFormField<int>(
+                value: _especialidadId,
                 decoration:
                     _inputDecoration('Especialidad', Icons.medical_services),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                items: [
+                  DropdownMenuItem(value: 1, child: Text('Clínico')),
+                  DropdownMenuItem(value: 2, child: Text('Pediatra')),
+                  DropdownMenuItem(value: 3, child: Text('Cardiólogo')),
+                  // Agregá más según tu backend
+                ],
+                onChanged: (val) => setState(() => _especialidadId = val),
+                validator: (val) =>
+                    val == null ? 'Seleccioná una especialidad' : null,
               ),
               const SizedBox(height: 30),
               _isLoading

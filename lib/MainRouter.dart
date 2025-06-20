@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/HistoriaMedica.dart';
+import 'package:flutter_application_1/pages/HistoriaClinica.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedico.dart';
@@ -99,11 +99,11 @@ class MainRouter {
         show: true,
       ),
       Route(
-        id: "historia-medica",
-        path: '/historia-medica',
+        id: "historia-clinica",
+        path: '/historia-clinica',
         widget: const HistoriaMedicaPage(),
         icon: const Icon(Icons.settings),
-        title: "Historia Médica",
+        title: "Historia Clinica",
         subtitle: "",
         show: true,
       ),

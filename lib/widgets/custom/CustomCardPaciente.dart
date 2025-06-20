@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CustomCardPaciente extends StatelessWidget {
-  final String title;
+  final String title; // Para el nombre del paciente
+  final String subtitle; // Para el DNI
   final Widget? trailingIcon;
   final VoidCallback onTap;
-  final String name = 'assets/images/paciente.jpg';
 
   const CustomCardPaciente({
     super.key,
     required this.title,
+    required this.subtitle,
     this.trailingIcon,
     required this.onTap,
   });
@@ -18,51 +19,40 @@ class CustomCardPaciente extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
-        elevation: 4.0,
+        elevation: 3,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(10),
         ),
-        margin: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(12.0)),
-              child: Image.asset(
-                name,
-                height: 150,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 109, 5, 5),
-                borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(12.0)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      title.toUpperCase(),
-                      overflow: TextOverflow.ellipsis,
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
                       style: const TextStyle(
-                          fontFamily: "CoolveticaRg",
-                          fontSize: 18,
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontWeight: FontWeight.w900),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  if (trailingIcon != null) trailingIcon!,
-                ],
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              if (trailingIcon != null) trailingIcon!,
+            ],
+          ),
         ),
       ),
     );
