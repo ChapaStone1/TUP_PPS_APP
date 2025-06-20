@@ -10,10 +10,10 @@ class PacienteInfoPage extends StatefulWidget {
   const PacienteInfoPage({super.key});
 
   @override
-  State<PacienteInfoPage> createState() => _MarvelCharsInfoPageState();
+  State<PacienteInfoPage> createState() => _PacienteInfoPageState();
 }
 
-class _MarvelCharsInfoPageState extends State<PacienteInfoPage> {
+class _PacienteInfoPageState extends State<PacienteInfoPage> {
   @override
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
@@ -30,7 +30,7 @@ class _MarvelCharsInfoPageState extends State<PacienteInfoPage> {
               "https://tup-pps-api.onrender.com/api/medicos/buscar-paciente/${paciente.dni}", // URL a la API de Marvel
           widget: (data) {
             return PacienteDescription(
-                data: data); // Aquí se pasa la información obtenida
+                paciente: paciente); // Aquí se pasa la información obtenida
           },
         ),
       ),

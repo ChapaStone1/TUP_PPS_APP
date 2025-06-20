@@ -3,23 +3,22 @@ import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/widgets/IsFavoriteIcon.dart';
 
 class PacienteDescription extends StatelessWidget {
-  final Map<String, dynamic> data;
+  final Paciente paciente;
 
-  const PacienteDescription({super.key, required this.data});
+  const PacienteDescription({super.key, required this.paciente});
 
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    Paciente paciente = Paciente.fromJson(data["data"]);
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: screenWidth,
+            expandedHeight: screenWidth * 0.6,
             floating: false,
             pinned: true,
-            automaticallyImplyLeading: false,
+            automaticallyImplyLeading: true,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Padding(
@@ -28,7 +27,7 @@ class PacienteDescription extends StatelessWidget {
                   paciente.nombre,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     shadows: [
@@ -44,8 +43,7 @@ class PacienteDescription extends StatelessWidget {
               background: Stack(
                 children: [
                   Container(
-                    height: screenWidth,
-                    decoration: BoxDecoration(),
+                    color: Colors.blue[200],
                   ),
                   Positioned(
                     top: 14.0,
@@ -63,49 +61,28 @@ class PacienteDescription extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                if (paciente.obraSocial.isNotEmpty)
-                  RowData(
-                    icon: Icons.description,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            paciente.obraSocial.isNotEmpty
-                                ? paciente.obraSocial
-                                : 'Sin descripción disponible.',
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                if (paciente.grupoSanguineo.isNotEmpty)
-                  RowData(
-                    icon: Icons.tv,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: Wrap(
-                            spacing: 8.0,
-                            runSpacing: 4.0,
-                            children: paciente.grupoSanguineo
-                                .map((serie) => Chip(
-                                      label: Text(
-                                        serie,
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                    ))
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                InfoRow(icon: Icons.badge, label: "DNI", value: paciente.dni),
+                InfoRow(
+                    icon: Icons.person, label: "Sexo", value: paciente.sexo),
+                InfoRow(
+                    icon: Icons.cake,
+                    label: "Fecha de Nacimiento",
+                    value: paciente.fechaNac),
+                InfoRow(
+                    icon: Icons.phone,
+                    label: "Teléfono",
+                    value: paciente.telefono.toString()),
+                InfoRow(
+                    icon: Icons.email, label: "Email", value: paciente.email),
+                InfoRow(
+                    icon: Icons.opacity,
+                    label: "Grupo Sanguíneo",
+                    value: paciente.grupoSanguineo),
+                InfoRow(
+                    icon: Icons.local_hospital,
+                    label: "Obra Social",
+                    value: paciente.obraSocial),
+                const SizedBox(height: 30),
               ],
             ),
           ),
@@ -115,37 +92,40 @@ class PacienteDescription extends StatelessWidget {
   }
 }
 
-extension on String {
-  map(Chip Function(dynamic serie) param0) {}
-}
-
-class RowData extends StatelessWidget {
-  const RowData({
-    super.key,
-    required this.children,
-    required this.icon,
-  });
-
-  final List<Widget> children;
+class InfoRow extends StatelessWidget {
   final IconData icon;
+  final String label;
+  final String value;
+
+  const InfoRow({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            icon,
-            color: Colors.red[200],
-            size: 35.0,
-          ),
+          Icon(icon, color: Colors.red[200], size: 30),
           const SizedBox(width: 20),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: children,
+            child: RichText(
+              text: TextSpan(
+                style:
+                    DefaultTextStyle.of(context).style.copyWith(fontSize: 16),
+                children: [
+                  TextSpan(
+                    text: "$label: ",
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: value),
+                ],
+              ),
             ),
           ),
         ],

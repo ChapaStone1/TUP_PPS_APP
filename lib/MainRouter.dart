@@ -3,6 +3,7 @@ import 'package:flutter_application_1/pages/HistoriaClinica.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedico.dart';
+import 'package:flutter_application_1/pages/pacientes/PacienteInfoPage.dart';
 import 'package:flutter_application_1/pages/pacientes/PacienteListPage.dart';
 import 'package:flutter_application_1/pages/pacientes/ProfilePaciente.dart';
 import 'package:flutter_application_1/pages/auth/Login.dart';
@@ -76,6 +77,15 @@ class MainRouter {
         title: "Lista de pacientes",
         subtitle: "",
         show: true,
+      ),
+      Route(
+        id: "Datos de paciente",
+        path: '/datos-paciente',
+        widget: const PacienteInfoPage(),
+        icon: const Icon(Icons.settings),
+        title: "Datos de paciente",
+        subtitle: "",
+        show: false,
       ),
       Route(
         id: "login",

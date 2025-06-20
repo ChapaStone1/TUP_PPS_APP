@@ -19,40 +19,21 @@ class CustomCardPaciente extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
-        elevation: 3,
+        elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(8),
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              if (trailingIcon != null) trailingIcon!,
-            ],
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        child: ListTile(
+          trailing: trailingIcon,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          title: Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
+          subtitle:
+              Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis),
         ),
       ),
     );

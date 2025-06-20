@@ -12,18 +12,24 @@ class PacienteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nombre = paciente.nombre.isNotEmpty ? paciente.nombre : 'Sin nombre';
+    final dni = paciente.dni.isNotEmpty ? paciente.dni : 'N/D';
+    final obra = paciente.obraSocial.isNotEmpty ? paciente.obraSocial : 'N/A';
+
     return CustomCardPaciente(
-      title: paciente.nombre,
-      subtitle: 'DNI: ${paciente.dni}  |  Grupo: ${paciente.grupoSanguineo}',
       trailingIcon: IsFavoriteIcon(
-        id: paciente.dni, // mejor identificador
+        id: paciente.dni,
         color: Colors.yellow,
-        size: 32,
+        size: 25,
       ),
+      title: nombre,
+      subtitle:
+          'DNI: $dni   |  Obra Social: $obra', //|  Correo: $email  |  Obra Social: $obra
+
       onTap: () {
         Navigator.pushNamed(
           context,
-          '/paciente/id',
+          '/datos-paciente',
           arguments: paciente,
         );
       },

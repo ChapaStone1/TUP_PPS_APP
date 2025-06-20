@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/widgets/paciente/PacienteItem.dart';
-import 'package:flutter_application_1/widgets/custom/PacienteSearchDelegate.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'dart:convert';
 
 class PacientesList extends StatefulWidget {
   const PacientesList({
@@ -17,45 +20,155 @@ class PacientesList extends StatefulWidget {
 
 class _PacientesListState extends State<PacientesList> {
   late List<Paciente> _pacientes;
+  String _searchQuery = "";
+  int _currentPage = 0;
+  final int _limit = 20;
+  bool _isLoadingMore = false;
+  bool _hasMore = true;
+  late ScrollController _scrollController;
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
     _pacientes = Paciente.listFromJson(widget.data['data']);
+    _scrollController = ScrollController()..addListener(_onScroll);
+
+    // 🔧 Fuerza un rebuild tras el primer frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  Future<List<Paciente>> _fetchSearchResults(String query, int offset) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    if (token == null) throw Exception('Token no encontrado');
+
+    final url =
+        "https://tup-pps-api.onrender.com/api/medicos/all-pacientes?dni=$query&limit=$_limit&offset=$offset";
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return Paciente.listFromJson(data['data']);
+    } else {
+      throw Exception('Error al buscar pacientes');
+    }
+  }
+
+  Future<void> _fetchMorePacientes() async {
+    if (_isLoadingMore || !_hasMore) return;
+
+    setState(() => _isLoadingMore = true);
+
+    try {
+      final newPacientes =
+          await _fetchSearchResults(_searchQuery, _currentPage * _limit);
+
+      setState(() {
+        final existingDnis = _pacientes.map((p) => p.dni).toSet();
+        for (final paciente in newPacientes) {
+          if (!existingDnis.contains(paciente.dni)) {
+            _pacientes.add(paciente);
+          }
+        }
+        _hasMore = newPacientes.length == _limit;
+        _currentPage++;
+      });
+    } catch (error) {
+      debugPrint('Error al cargar más pacientes: $error');
+    } finally {
+      setState(() => _isLoadingMore = false);
+    }
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      _fetchMorePacientes();
+    }
+  }
+
+  void _handleSearch(String value) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    _debounce = Timer(const Duration(milliseconds: 500), () async {
+      final query = value.trim();
+      if (query == _searchQuery) return;
+
+      setState(() {
+        _searchQuery = query;
+        _currentPage = 0;
+        _hasMore = true;
+        _pacientes.clear();
+      });
+
+      await _fetchMorePacientes();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lista de Pacientes'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              showSearch<Paciente?>(
-                context: context,
-                delegate: PacienteSearchDelegate(),
-              ).then((selectedPaciente) {
-                if (selectedPaciente != null) {
-                  // Aquí podés manejar el paciente seleccionado, por ejemplo:
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content:
-                            Text('Seleccionaste: ${selectedPaciente.nombre}')),
-                  );
-                }
-              });
-            },
-          ),
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: _pacientes.length,
-        itemBuilder: (BuildContext context, int index) {
-          final paciente = _pacientes[index];
-          return PacienteItem(paciente: paciente);
-        },
+      appBar: AppBar(title: const Text('Lista de pacientes')),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Material(
+                elevation: 1,
+                borderRadius: BorderRadius.circular(8),
+                clipBehavior: Clip.antiAlias, // Previene glitches visuales
+                child: TextField(
+                  key: const Key('dni_search_input'),
+                  textAlignVertical: TextAlignVertical.center,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: const InputDecoration(
+                    labelText: 'Buscar por DNI',
+                    prefixIcon: Icon(Icons.search, color: Colors.grey),
+                    border: InputBorder.none,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  ),
+                  onChanged: _handleSearch,
+                ),
+              ),
+            ),
+            const SizedBox(height: 18),
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                itemCount: _pacientes.length + (_isLoadingMore ? 1 : 0),
+                padding: const EdgeInsets.only(top: 4, bottom: 12),
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == _pacientes.length) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  final paciente = _pacientes[index];
+                  return PacienteItem(paciente: paciente);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
