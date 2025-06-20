@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CustomCardMarvelChars extends StatelessWidget {
-  final String imageUrl;
+class CustomCardPaciente extends StatelessWidget {
   final String title;
   final Widget? trailingIcon;
   final VoidCallback onTap;
+  final String name = 'assets/images/paciente.jpg';
 
-  const CustomCardMarvelChars({
+  const CustomCardPaciente({
     super.key,
-    required this.imageUrl,
     required this.title,
     this.trailingIcon,
     required this.onTap,
@@ -19,7 +18,7 @@ class CustomCardMarvelChars extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
-        elevation: 4.0, 
+        elevation: 4.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -28,12 +27,11 @@ class CustomCardMarvelChars extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12.0)),
-              child: Image.network( // Acá hice esto porque la API tira una imagen por default re fea cuando no tiene imagen el PJ
-                (imageUrl.isEmpty || imageUrl == 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg')
-                    ? 'https://wallpapers.com/images/hd/marvel-logo-in-red-background-3p16v5avq80km4ns.jpg'
-                    : imageUrl,
-                height: 150, 
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(12.0)),
+              child: Image.asset(
+                name,
+                height: 150,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -51,14 +49,13 @@ class CustomCardMarvelChars extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      title.toUpperCase(), 
+                      title.toUpperCase(),
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        fontFamily: "MarvelRegular",
-                        fontSize: 18,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        fontWeight: FontWeight.w900 
-                      ),
+                          fontFamily: "CoolveticaRg",
+                          fontSize: 18,
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontWeight: FontWeight.w900),
                     ),
                   ),
                   if (trailingIcon != null) trailingIcon!,

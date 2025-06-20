@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/widgets/IsFavoriteIcon.dart';
 
-class MarvelCharacterDescription extends StatelessWidget {
+class PacienteDescription extends StatelessWidget {
   final Map<String, dynamic> data;
 
-  const MarvelCharacterDescription({super.key, required this.data});
+  const PacienteDescription({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FutureFetcher extends StatefulWidget {
   final String url;
@@ -26,7 +27,16 @@ class _FutureFetcherState extends State<FutureFetcher> {
   }
 
   Future<Map<String, dynamic>> fetchData() async {
-    final response = await http.get(Uri.parse(widget.url));
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    final response = await http.get(
+      Uri.parse(widget.url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
 
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = jsonDecode(response.body);

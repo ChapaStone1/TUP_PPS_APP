@@ -1,16 +1,15 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, unused_element
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
-import 'package:flutter_application_1/classes/PacientesResponse.dart';
-import 'package:flutter_application_1/widgets/paciente/MarvelCharacterItem.dart';
+import 'package:flutter_application_1/widgets/paciente/PacienteItem.dart';
 import 'package:flutter_application_1/widgets/custom/PacienteSearchDelegate.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-class MarvelCharactersList extends StatefulWidget {
-  const MarvelCharactersList({
+class PacientesList extends StatefulWidget {
+  const PacientesList({
     super.key,
     required this.data,
   });
@@ -18,11 +17,11 @@ class MarvelCharactersList extends StatefulWidget {
   final Map<String, dynamic> data;
 
   @override
-  State<MarvelCharactersList> createState() => _MarvelCharactersListState();
+  State<PacientesList> createState() => _PacientesListState();
 }
 
-class _MarvelCharactersListState extends State<MarvelCharactersList> {
-  late List<Paciente> _characters;
+class _PacientesListState extends State<PacientesList> {
+  late List<Paciente> _pacientes;
   // ignore: unused_field
   bool _isSearching = false;
   String _searchQuery = "";
@@ -36,7 +35,7 @@ class _MarvelCharactersListState extends State<MarvelCharactersList> {
   @override
   void initState() {
     super.initState();
-    _characters = Pacientes.listFromJson(widget.data);
+    _pacientes = Paciente.listFromJson(widget.data['data']);
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }
@@ -48,8 +47,7 @@ class _MarvelCharactersListState extends State<MarvelCharactersList> {
     super.dispose();
   }
 
-  Future<List<MarvelChars>> _fetchSearchResults(
-      String query, int offset) async {
+  Future<List<Paciente>> _fetchSearchResults(String query, int offset) async {
     final url =
         "https://tup-labo-4-grupo-15.onrender.com/api/v1/marvel/chars?nameStartsWith=$query&limit=$_limit&offset=$offset";
 
@@ -57,7 +55,7 @@ class _MarvelCharactersListState extends State<MarvelCharactersList> {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      return MarvelChars.listFromJson(data);
+      return Paciente.listFromJson(data);
     } else {
       throw Exception('Error fetching search results');
     }
@@ -74,7 +72,7 @@ class _MarvelCharactersListState extends State<MarvelCharactersList> {
       final newCharacters =
           await _fetchSearchResults(_searchQuery, _currentPage * _limit);
       setState(() {
-        _characters.addAll(newCharacters);
+        _pacientes.addAll(newCharacters);
         _hasMore = newCharacters.length == _limit;
         _currentPage++;
       });
@@ -103,7 +101,7 @@ class _MarvelCharactersListState extends State<MarvelCharactersList> {
         _isSearching = value.isNotEmpty;
         _currentPage = 0;
         _hasMore = true;
-        _characters.clear();
+        _pacientes.clear();
       });
 
       _fetchMoreCharacters();
@@ -121,7 +119,7 @@ class _MarvelCharactersListState extends State<MarvelCharactersList> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: MarvelSearchDelegate(),
+                delegate: PacienteSearchDelegate(),
               );
             },
           ),
@@ -130,13 +128,13 @@ class _MarvelCharactersListState extends State<MarvelCharactersList> {
       body: ListView.builder(
         controller: _scrollController,
         shrinkWrap: true,
-        itemCount: _characters.length + (_isLoadingMore ? 1 : 0),
+        itemCount: _pacientes.length + (_isLoadingMore ? 1 : 0),
         itemBuilder: (BuildContext context, int index) {
-          if (index == _characters.length) {
+          if (index == _pacientes.length) {
             return const Center(child: CircularProgressIndicator());
           }
-          final character = _characters[index];
-          return MarvelCharacterItem(character: character);
+          final paciente = _pacientes[index];
+          return PacienteItem(paciente: paciente);
         },
       ),
     );

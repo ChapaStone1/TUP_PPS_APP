@@ -3,6 +3,7 @@ import 'package:flutter_application_1/pages/HistoriaMedica.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedico.dart';
+import 'package:flutter_application_1/pages/pacientes/PacienteListPage.dart';
 import 'package:flutter_application_1/pages/pacientes/ProfilePaciente.dart';
 import 'package:flutter_application_1/pages/auth/Login.dart';
 import 'package:flutter_application_1/pages/pacientes/RegisterPaciente.dart';
@@ -59,21 +60,30 @@ class MainRouter {
         show: true,
       ),
       Route(
+        id: "register-medico",
+        path: '/register-medico',
+        widget: const RegisterMedicoPage(),
+        icon: const Icon(Icons.settings),
+        title: "Registrar Medico",
+        subtitle: "",
+        show: true,
+      ),
+      Route(
+        id: "pacientes-list",
+        path: '/pacientes-list',
+        widget: const PacienteListPage(),
+        icon: const Icon(Icons.settings),
+        title: "Lista de pacientes",
+        subtitle: "",
+        show: true,
+      ),
+      Route(
         id: "login",
         path: '/login',
         widget: const LoginPage(title: 'Iniciar sesión.'),
         icon: const Icon(Icons.login),
         title: "Cerrar sesión",
         subtitle: "Volver al login.",
-        show: true,
-      ),
-      Route(
-        id: "register-medico",
-        path: '/register-medico',
-        widget: const RegisterMedicoPage(),
-        icon: const Icon(Icons.login),
-        title: "Registrar Medico",
-        subtitle: "",
         show: true,
       ),
     ];

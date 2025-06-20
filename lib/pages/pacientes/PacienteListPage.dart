@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
-import 'package:flutter_application_1/widgets/paciente/MarvelCharactersList.dart';
+import 'package:flutter_application_1/widgets/paciente/PacientesList.dart';
 
-class MarvelCharsListPage extends StatelessWidget {
-  const MarvelCharsListPage({super.key});
+class PacienteListPage extends StatelessWidget {
+  const PacienteListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +11,9 @@ class MarvelCharsListPage extends StatelessWidget {
       body: Center(
         child: FutureFetcher(
           url:
-              "https://tup-labo-4-grupo-15.onrender.com/api/v1/marvel/chars?limit=20&offset=0",
+              "https://tup-pps-api.onrender.com/api/medicos/all-pacientes?&limit=20",
           widget: (data) {
-            return MarvelCharactersList(data: data);
+            return PacientesList(data: data);
           },
         ),
       ),

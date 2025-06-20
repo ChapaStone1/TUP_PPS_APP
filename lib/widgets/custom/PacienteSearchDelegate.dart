@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
-import 'package:flutter_application_1/widgets/paciente/MarvelCharacterItem.dart';
+import 'package:flutter_application_1/widgets/paciente/PacienteItem.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class MarvelSearchDelegate extends SearchDelegate<Paciente?> {
-  MarvelSearchDelegate();
+class PacienteSearchDelegate extends SearchDelegate<Paciente?> {
+  PacienteSearchDelegate();
 
   Future<List<Paciente>> _fetchSearchResults(String query) async {
     const int limit = 20;
     final url =
-        "https://tup-labo-4-grupo-15.onrender.com/api/v1/marvel/chars?nameStartsWith=$query&limit=$limit";
+        "https://tup-pps-api.onrender.com/api/medicos/all-pacientes?dni=$query&limit=$limit";
 
     final response = await http.get(Uri.parse(url));
 
@@ -55,18 +55,18 @@ class MarvelSearchDelegate extends SearchDelegate<Paciente?> {
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
-        final characters = snapshot.data ?? [];
+        final pacientes = snapshot.data ?? [];
 
-        if (characters.isEmpty) {
+        if (pacientes.isEmpty) {
           return const Center(child: Text('No se encontraron resultados.'));
         }
 
         return ListView.builder(
-          itemCount: characters.length,
+          itemCount: pacientes.length,
           itemBuilder: (context, index) {
-            final character = characters[index];
+            final paciente = pacientes[index];
 
-            return MarvelCharacterItem(character: character);
+            return PacienteItem(paciente: paciente);
           },
         );
       },
@@ -103,7 +103,7 @@ class MarvelSearchDelegate extends SearchDelegate<Paciente?> {
                 query = paciente.nombre;
                 showResults(context);
               },
-              child: MarvelCharacterItem(character: paciente),
+              child: PacienteItem(paciente: paciente),
             );
           },
         );

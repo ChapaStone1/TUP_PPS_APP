@@ -60,21 +60,15 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   fonts:
-    - family: PokemonHollow
+    - family: CoolveticaRG
       fonts:
-        - asset: lib/assets/fonts/Pokemon_Hollow.ttf
-    - family: PokemonSolid
+        - asset: lib/assets/fonts/CoolveticaRG.otf
+    - family: CoolveticaRgCond
       fonts:
-        - asset: lib/assets/fonts/Pokemon_Solid.ttf
+        - asset: lib/assets/fonts/CoolveticaRgCond.otf
   assets:
-      - lib/assets/images/spiderman.png
-      - lib/assets/images/venom.png
-      - lib/assets/images/pokeball_wallpaper.png
-      - lib/assets/images/gryffindor.png
-      - lib/assets/images/slytherin.png
-      - lib/assets/images/hufflepuff.png
-      - lib/assets/images/ravenclaw.png
-      - lib/assets/images/ministry_of_magic.png
+      - lib/assets/images/paciente.jpg
+      - lib/assets/images/UTN.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

@@ -2,29 +2,28 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
-import 'package:flutter_application_1/widgets/custom/CustomCardMarvelChars.dart';
 import 'package:flutter_application_1/widgets/IsFavoriteIcon.dart';
+import 'package:flutter_application_1/widgets/custom/CustomCardPaciente.dart';
 
-class MarvelCharacterItem extends StatelessWidget {
-  final Paciente character;
+class PacienteItem extends StatelessWidget {
+  final Paciente paciente;
 
-  const MarvelCharacterItem({super.key, required this.character});
+  const PacienteItem({super.key, required this.paciente});
 
   @override
   Widget build(BuildContext context) {
-    return CustomCardMarvelChars(
-      imageUrl: character.thumbnail,
-      title: character.name,
+    return CustomCardPaciente(
+      title: paciente.nombre,
       trailingIcon: IsFavoriteIcon(
-        id: character.name,
+        id: paciente.nombre,
         color: Colors.yellow,
         size: 32,
       ),
       onTap: () {
         Navigator.pushNamed(
           context,
-          '/marvelchars/id',
-          arguments: character,
+          '/paciente/id',
+          arguments: paciente,
         );
       },
     );
