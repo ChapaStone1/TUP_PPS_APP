@@ -1,26 +1,22 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
-import 'package:flutter_application_1/services/pacientes_service.dart';
+import 'package:flutter_application_1/services/PacienteService.dart';
 import 'package:flutter_application_1/widgets/medicos/PacienteItem.dart';
 import 'dart:async';
 
 class PacientesList extends StatefulWidget {
-  const PacientesList({
-    super.key,
-    required this.data,
-  });
-
-  final Map<String, dynamic> data;
+  const PacientesList({super.key});
 
   @override
   State<PacientesList> createState() => _PacientesListState();
 }
 
 class _PacientesListState extends State<PacientesList> {
-  late List<Paciente> _pacientes;
+  List<Paciente> _pacientes = [];
   String _searchQuery = "";
   int _currentPage = 0;
-  final int _limit = 20;
+  final int _limit = 10;
   bool _isLoadingMore = false;
   bool _hasMore = true;
   late ScrollController _scrollController;
@@ -29,13 +25,8 @@ class _PacientesListState extends State<PacientesList> {
   @override
   void initState() {
     super.initState();
-    _pacientes = Paciente.listFromJson(widget.data['data']);
     _scrollController = ScrollController()..addListener(_onScroll);
-
-    // 🔧 Fuerza un rebuild tras el primer frame
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {});
-    });
+    _fetchMorePacientes(); // Cargar la primera página
   }
 
   @override
@@ -114,7 +105,7 @@ class _PacientesListState extends State<PacientesList> {
               child: Material(
                 elevation: 1,
                 borderRadius: BorderRadius.circular(8),
-                clipBehavior: Clip.antiAlias, // Previene glitches visuales
+                clipBehavior: Clip.antiAlias,
                 child: TextField(
                   key: const Key('dni_search_input'),
                   textAlignVertical: TextAlignVertical.center,

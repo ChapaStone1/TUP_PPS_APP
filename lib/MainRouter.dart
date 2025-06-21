@@ -107,7 +107,7 @@ class MainRouter {
         show: false,
       ),
       Route(
-        id: "¿Esta seguro?",
+        id: "eliminar-paciente",
         path: '/eliminar-paciente',
         widget: const HistoriaClinicaInfoPage(),
         icon: const Icon(Icons.settings),

@@ -1,40 +1,69 @@
-// ignore: unused_import
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/HistoriaClinica.dart';
+import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/utils/PDFGenerator.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
-import 'package:flutter_application_1/widgets/pacientes/HistoriaClinicaDescription.dart'; // La descripción personalizada para los personajes Marvel
+import 'package:flutter_application_1/widgets/pacientes/HistoriaClinicaCard.dart';
 
 class MiHistoriaClinicaInfoPage extends StatefulWidget {
   const MiHistoriaClinicaInfoPage({super.key});
 
   @override
   State<MiHistoriaClinicaInfoPage> createState() =>
-      HistoriaClinicaInfoPageState();
+      _MiHistoriaClinicaInfoPageState();
 }
 
-class HistoriaClinicaInfoPageState extends State<MiHistoriaClinicaInfoPage> {
+class _MiHistoriaClinicaInfoPageState extends State<MiHistoriaClinicaInfoPage> {
   @override
   Widget build(BuildContext context) {
-    // Extract the arguments from the current ModalRoute
-    final HistoriaClinica historiaClinica =
-        ModalRoute.of(context)!.settings.arguments as HistoriaClinica;
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Historia Clinica"),
+        title: const Text("Mi Historia Clínica"),
       ),
-      body: Center(
-        child: FutureFetcher(
-          url:
-              "https://tup-pps-api.onrender.com/api/pacientes/mi-historia", // URL a la API de Marvel
-          widget: (data) {
-            return HistoriaClinicaDescription(
-                historiaClinica:
-                    historiaClinica); // Aquí se pasa la información obtenida
-          },
-        ),
+      body: FutureFetcher(
+        url: "https://tup-pps-api.onrender.com/api/pacientes/mi-perfil",
+        widget: (pacienteJson) {
+          final Paciente paciente = Paciente.fromJson(pacienteJson['data']);
+
+          return FutureFetcher(
+            url: "https://tup-pps-api.onrender.com/api/pacientes/mi-historia",
+            widget: (historiaJson) {
+              final List<HistoriaClinica> historias =
+                  HistoriaClinica.listFromJson(historiaJson['data']);
+
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ...historias
+                        .map((historia) =>
+                            HistoriaClinicaCard(historia: historia))
+                        .toList(),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          PDFGenerator.generarHistoriaClinicaPDF(
+                              context, paciente, historias);
+                        },
+                        icon: const Icon(Icons.picture_as_pdf),
+                        label: const Text("Exportar en PDF"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red[400],
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 12),
+                          textStyle: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }
