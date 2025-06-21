@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/services/pacientes_service.dart';
-import 'package:flutter_application_1/widgets/paciente/PacienteItem.dart';
+import 'package:flutter_application_1/widgets/medicos/PacienteItem.dart';
 import 'dart:async';
 
 class PacientesList extends StatefulWidget {

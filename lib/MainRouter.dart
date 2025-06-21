@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/HistoriaClinica.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedico.dart';
-import 'package:flutter_application_1/pages/pacientes/PacienteInfoPage.dart';
-import 'package:flutter_application_1/pages/pacientes/PacienteListPage.dart';
+import 'package:flutter_application_1/pages/medicos/PacienteInfoPage.dart';
+import 'package:flutter_application_1/pages/medicos/PacienteListPage.dart';
+import 'package:flutter_application_1/pages/pacientes/HistoriaClinicaInfoPage.dart';
+import 'package:flutter_application_1/pages/pacientes/MiHistoriaClinicaInfoPage.dart';
 import 'package:flutter_application_1/pages/pacientes/ProfilePaciente.dart';
 import 'package:flutter_application_1/pages/auth/Login.dart';
-import 'package:flutter_application_1/pages/pacientes/RegisterPaciente.dart';
+import 'package:flutter_application_1/pages/RegisterPaciente.dart';
 import 'package:flutter_application_1/pages/medicos/RegisterMedico.dart';
 
 class MainRouter {
@@ -88,6 +89,33 @@ class MainRouter {
         show: false,
       ),
       Route(
+        id: "Historia Clinica",
+        path: '/historia-clinica',
+        widget: const HistoriaClinicaInfoPage(),
+        icon: const Icon(Icons.settings),
+        title: "Historia Clinica del paciente",
+        subtitle: "",
+        show: false,
+      ),
+      Route(
+        id: "Cargar consulta",
+        path: '/cargar-consulta',
+        widget: const HistoriaClinicaInfoPage(),
+        icon: const Icon(Icons.settings),
+        title: "Cargar información de una consulta de un paciente",
+        subtitle: "",
+        show: false,
+      ),
+      Route(
+        id: "¿Esta seguro?",
+        path: '/eliminar-paciente',
+        widget: const HistoriaClinicaInfoPage(),
+        icon: const Icon(Icons.settings),
+        title: "Eliminar un paciente de la base de datos.",
+        subtitle: "",
+        show: false,
+      ),
+      Route(
         id: "login",
         path: '/login',
         widget: const LoginPage(title: 'Iniciar sesión.'),
@@ -109,11 +137,11 @@ class MainRouter {
         show: true,
       ),
       Route(
-        id: "historia-clinica",
-        path: '/historia-clinica',
-        widget: const HistoriaMedicaPage(),
+        id: "mi-historia-clinica",
+        path: '/mi-historia-clinica',
+        widget: const MiHistoriaClinicaInfoPage(),
         icon: const Icon(Icons.settings),
-        title: "Historia Clinica",
+        title: "Mi Historia Clinica",
         subtitle: "",
         show: true,
       ),

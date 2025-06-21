@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
-import 'package:flutter_application_1/widgets/paciente/PacienteDescription.dart'; // La descripción personalizada para los personajes Marvel
+import 'package:flutter_application_1/widgets/medicos/PacienteDescription.dart'; // La descripción personalizada para los personajes Marvel
 
 class PacienteInfoPage extends StatefulWidget {
   const PacienteInfoPage({super.key});

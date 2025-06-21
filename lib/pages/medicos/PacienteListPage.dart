@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
-import 'package:flutter_application_1/widgets/paciente/PacientesList.dart';
+import 'package:flutter_application_1/widgets/medicos/PacientesList.dart';
 
 class PacienteListPage extends StatelessWidget {
   const PacienteListPage({super.key});

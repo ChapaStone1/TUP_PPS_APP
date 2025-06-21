@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/classes/Paciente.dart';
-import 'package:flutter_application_1/widgets/IsFavoriteIcon.dart';
+import 'package:flutter_application_1/classes/HistoriaClinica.dart';
 
-class PacienteDescription extends StatelessWidget {
-  final Paciente paciente;
+class HistoriaClinicaDescription extends StatelessWidget {
+  final HistoriaClinica historiaClinica;
 
-  const PacienteDescription({super.key, required this.paciente});
+  const HistoriaClinicaDescription({super.key, required this.historiaClinica});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class PacienteDescription extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: screenWidth * 0.6,
+            expandedHeight: screenWidth * 0.5,
             floating: false,
             pinned: true,
             automaticallyImplyLeading: true,
@@ -24,7 +23,7 @@ class PacienteDescription extends StatelessWidget {
               title: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
-                  paciente.nombre,
+                  historiaClinica.medico,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 22,
@@ -40,48 +39,32 @@ class PacienteDescription extends StatelessWidget {
                   ),
                 ),
               ),
-              background: Stack(
-                children: [
-                  Container(
-                    color: Colors.blue[200],
-                  ),
-                  Positioned(
-                    top: 14.0,
-                    right: 8.0,
-                    child: IsFavoriteIcon(
-                      id: paciente.nombre,
-                      color: Colors.yellow,
-                      size: 40.0,
-                    ),
-                  ),
-                ],
-              ),
+              background: Container(color: Colors.green[300]),
             ),
           ),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                InfoRow(icon: Icons.badge, label: "DNI", value: paciente.dni),
                 InfoRow(
-                    icon: Icons.person, label: "Sexo", value: paciente.sexo),
+                    icon: Icons.calendar_today,
+                    label: "Fecha",
+                    value: historiaClinica.fecha),
                 InfoRow(
-                    icon: Icons.cake,
-                    label: "Fecha de Nacimiento",
-                    value: paciente.fechaNac),
+                    icon: Icons.note,
+                    label: "Nota médica",
+                    value: historiaClinica.nota),
                 InfoRow(
-                    icon: Icons.phone,
-                    label: "Teléfono",
-                    value: paciente.telefono.toString()),
-                InfoRow(
-                    icon: Icons.email, label: "Email", value: paciente.email),
-                InfoRow(
-                    icon: Icons.opacity,
-                    label: "Grupo Sanguíneo",
-                    value: paciente.grupoSanguineo),
+                    icon: Icons.medication,
+                    label: "Medicación",
+                    value: historiaClinica.medicacion),
                 InfoRow(
                     icon: Icons.local_hospital,
-                    label: "Obra Social",
-                    value: paciente.obraSocial),
+                    label: "Consultorio",
+                    value: historiaClinica.consultorio),
+                InfoRow(
+                    icon: Icons.local_hospital,
+                    label: "Especialidad",
+                    value: historiaClinica.especialidad),
                 const SizedBox(height: 30),
               ],
             ),
@@ -111,7 +94,7 @@ class InfoRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: Colors.red[200], size: 30),
+          Icon(icon, color: Colors.blueGrey[300], size: 30),
           const SizedBox(width: 20),
           Expanded(
             child: RichText(
