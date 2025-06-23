@@ -114,9 +114,9 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          'Clínica UTN',
+                          'Consultorio Médico UTN',
                           style: TextStyle(
-                            fontSize: 48,
+                            fontSize: 36,
                             fontWeight: FontWeight.bold,
                             color: primaryColor,
                             shadows: [

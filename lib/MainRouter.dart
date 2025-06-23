@@ -118,7 +118,7 @@ class MainRouter {
       Route(
         id: "login",
         path: '/login',
-        widget: const LoginPage(title: 'Iniciar sesión.'),
+        widget: const LoginPage(title: 'Iniciar sesión'),
         icon: const Icon(Icons.login),
         title: "Cerrar sesión",
         subtitle: "Volver a la página de Iniciar sesión.",
@@ -148,7 +148,7 @@ class MainRouter {
       Route(
         id: "login",
         path: '/login',
-        widget: const LoginPage(title: 'Iniciar sesión.'),
+        widget: const LoginPage(title: 'Iniciar sesión'),
         icon: const Icon(Icons.login),
         title: "Cerrar sesión",
         subtitle: "Volver a la página de Iniciar sesión.",
