@@ -20,32 +20,28 @@ class IsFavoriteIcon extends StatefulWidget {
 class _IsFavoriteIconState extends State<IsFavoriteIcon> {
   late bool isFav;
 
-  bool darkMode = false;
-
   @override
   void initState() {
     super.initState();
     isFav = Preferences.favs.contains(widget.id);
-    darkMode = Preferences.darkmode;
   }
 
-  Color invertirColor(Color color) {
-    if (color == Colors.yellow) {
-      return color;
-    }
-    return Color.fromARGB(
-      color.alpha,
-      255 - color.red,
-      255 - color.green,
-      255 - color.blue,
-    );
+  Color adaptColor(Color baseColor) {
+    return Preferences.darkmode
+        ? Color.fromARGB(
+            baseColor.alpha,
+            255 - baseColor.red,
+            255 - baseColor.green,
+            255 - baseColor.blue,
+          )
+        : baseColor;
   }
 
   void toggleFavorite() {
     setState(() {
       isFav = !isFav;
     });
-    Preferences.setFav = widget.id;
+    Preferences.toggleFav(widget.id);
   }
 
   @override
@@ -54,7 +50,7 @@ class _IsFavoriteIconState extends State<IsFavoriteIcon> {
       onTap: toggleFavorite,
       child: Icon(
         isFav ? Icons.star : Icons.star_border,
-        color: darkMode ? invertirColor(widget.color) : widget.color,
+        color: adaptColor(widget.color),
         size: widget.size,
       ),
     );

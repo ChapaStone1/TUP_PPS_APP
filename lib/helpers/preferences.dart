@@ -1,64 +1,37 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
-  static bool _darkmode = false;
-  static String _apellido = '';
-  static String _email = '';
-  static String _telefono = '';
-  static final List<String> _favs = [];
-
   static late SharedPreferences _prefs;
 
   static Future<void> initShared() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static bool get darkmode {
-    return _prefs.getBool('darkmode') ?? _darkmode;
-  }
+  static bool get darkmode => _prefs.getBool('darkmode') ?? false;
 
-  static set darkmode(bool value) {
-    _darkmode = value;
-    _prefs.setBool('darkmode', value);
-  }
+  static set darkmode(bool value) => _prefs.setBool('darkmode', value);
 
-  static set apellido(String value) {
-    _apellido = value;
-    _prefs.setString('apellido', value);
-  }
+  static String get apellido => _prefs.getString('apellido') ?? '';
 
-  static set email(String value) {
-    _email = value;
-    _prefs.setString('email', value);
-  }
+  static set apellido(String value) => _prefs.setString('apellido', value);
 
-  static set telefono(String value) {
-    _telefono = value;
-    _prefs.setString('telefono', value);
-  }
+  static String get email => _prefs.getString('email') ?? '';
 
-  static set setFav(String value) {
-    if (_favs.contains(value)) {
-      _favs.remove(value);
+  static set email(String value) => _prefs.setString('email', value);
+
+  static String get telefono => _prefs.getString('telefono') ?? '';
+
+  static set telefono(String value) => _prefs.setString('telefono', value);
+
+  static List<String> get favs => _prefs.getStringList('favs') ?? [];
+
+  static void toggleFav(String value) {
+    final currentFavs = Set<String>.from(favs);
+    if (currentFavs.contains(value)) {
+      currentFavs.remove(value);
     } else {
-      _favs.add(value);
+      currentFavs.add(value);
     }
-    _prefs.setStringList('favs', _favs);
-  }
-
-  static String get apellido {
-    return _prefs.getString('apellido') ?? _apellido;
-  }
-
-  static String get email {
-    return _prefs.getString('email') ?? _email;
-  }
-
-  static String get telefono {
-    return _prefs.getString('telefono') ?? _telefono;
-  }
-
-  static List<String> get favs {
-    return _prefs.getStringList('favs') ?? _favs;
+    _prefs.setStringList('favs', currentFavs.toList());
   }
 }

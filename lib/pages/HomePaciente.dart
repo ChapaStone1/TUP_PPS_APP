@@ -17,22 +17,52 @@ class HomePaciente extends StatelessWidget {
         title: Text(title),
       ),
       drawer: DrawerMenu(routes: routes),
-      body: ListView(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(24),
-            child: Text(
-              "Home",
-              style: TextStyle(fontSize: 40, fontStyle: FontStyle.italic),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(40),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'lib/assets/images/UTN.png',
+                            height: 180,
+                            fit: BoxFit.contain,
+                            color: Theme.of(context).primaryColor,
+                            colorBlendMode: BlendMode.srcIn,
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'PPS UTN | 2025',
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // 🟢 Lista de tarjetas
+                    ...routes.where((r) => r.show).map(
+                          (route) => NavigatorCardWidget(
+                            title: route.title,
+                            route: route.path,
+                            icon: route.icon,
+                            subtitle: route.subtitle,
+                          ),
+                        ),
+                  ],
+                ),
+              ),
             ),
-          ),
-          ...routes.where((r) => r.show).map((route) => NavigatorCardWidget(
-                title: route.title,
-                route: route.path,
-                icon: route.icon,
-                subtitle: route.subtitle,
-              )),
-        ],
+          );
+        },
       ),
     );
   }

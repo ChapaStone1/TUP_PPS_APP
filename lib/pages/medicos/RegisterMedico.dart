@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/RegistroMedico.dart';
-import 'package:flutter_application_1/services/registro_service.dart';
+import 'package:flutter_application_1/services/RegistroService.dart';
 
 class RegisterMedicoPage extends StatefulWidget {
   const RegisterMedicoPage({super.key});
