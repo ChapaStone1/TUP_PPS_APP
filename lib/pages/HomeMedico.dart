@@ -11,53 +11,71 @@ class HomeMedico extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Route> routes = MainRouter.medicoRoutes;
+    final theme = Theme.of(context);
+    final primary = theme.primaryColor;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        centerTitle: true,
+        elevation: 4,
+        backgroundColor: primary,
+        foregroundColor: Colors.white,
       ),
       drawer: DrawerMenu(routes: routes),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: IntrinsicHeight(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(40),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'lib/assets/images/UTN.png',
-                            height: 180,
-                            fit: BoxFit.contain,
-                            color: Theme.of(context).primaryColor,
-                            colorBlendMode: BlendMode.srcIn,
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            'PPS UTN | 2025',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 600),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Agrego sizedBox para los errores visuales de flutter
+                      SizedBox(
+                        height: 200, // Ajustá según necesidad
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ColorFiltered(
+                              colorFilter:
+                                  ColorFilter.mode(primary, BlendMode.srcIn),
+                              child: Image.asset(
+                                'lib/assets/images/UTN.png',
+                                height: 140,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              'PPS UTN | 2025',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // 🟩 Tarjetas de navegación
+                      ...routes.where((r) => r.show).map(
+                            (route) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: NavigatorCardWidget(
+                                title: route.title,
+                                route: route.path,
+                                icon: route.icon,
+                                subtitle: route.subtitle,
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    // 🟢 Lista de tarjetas
-                    ...routes.where((r) => r.show).map(
-                          (route) => NavigatorCardWidget(
-                            title: route.title,
-                            route: route.path,
-                            icon: route.icon,
-                            subtitle: route.subtitle,
-                          ),
-                        ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

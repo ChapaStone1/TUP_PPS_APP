@@ -21,16 +21,20 @@ class HistoriaClinicaCard extends StatelessWidget {
               children: [
                 const Icon(Icons.person, color: Colors.blueGrey),
                 const SizedBox(width: 8),
-                Text(
-                  'Especialista: ${historia.medico}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  // para que el texto no se desborde y tome espacio disponible
+                  child: Text(
+                    'Especialista: ${historia.medico}',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             InfoRow(
                 icon: Icons.calendar_today,
                 label: 'Fecha',
@@ -49,6 +53,7 @@ class HistoriaClinicaCard extends StatelessWidget {
                 icon: Icons.medical_services,
                 label: 'Especialidad',
                 value: historia.especialidad),
+            const SizedBox(height: 8),
           ],
         ),
       ),
@@ -71,12 +76,12 @@ class InfoRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, size: 20, color: Colors.grey[600]),
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
           Expanded(
             child: RichText(
               text: TextSpan(

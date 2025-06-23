@@ -9,6 +9,9 @@ class DefaultTheme {
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: primary,
     scaffoldBackgroundColor: Colors.white,
+    textTheme: ThemeData.light().textTheme.apply(
+          fontFamily: 'CoolveticaRG',
+        ),
     appBarTheme: const AppBarTheme(
       backgroundColor: primary,
       foregroundColor: Colors.white,
@@ -21,7 +24,7 @@ class DefaultTheme {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey,
         foregroundColor: Colors.black,
       ),
     ),
@@ -49,6 +52,9 @@ class DefaultTheme {
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
     primaryColor: primary,
     scaffoldBackgroundColor: const Color(0xFF121212),
+    textTheme: ThemeData.dark().textTheme.apply(
+          fontFamily: 'CoolveticaRG',
+        ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.blueGrey.shade900,
       foregroundColor: Colors.white,

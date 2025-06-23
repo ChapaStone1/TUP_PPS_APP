@@ -174,53 +174,67 @@ class _BodyProfileState extends State<BodyProfile> {
   Widget build(BuildContext context) {
     final temaProvider = Provider.of<ThemeProvider>(context, listen: false);
 
-    return Column(
-      children: [
-        SwitchListTile.adaptive(
-          title: const Text('Dark Mode'),
-          value: darkMode,
-          onChanged: (bool value) {
-            setState(() {
-              Preferences.darkmode = value;
-              value ? temaProvider.setDark() : temaProvider.setLight();
-              darkMode = value;
-            });
-          },
+    return SizedBox(
+      width: double.infinity,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SwitchListTile.adaptive(
+              title: const Text('Dark Mode'),
+              value: darkMode,
+              onChanged: (bool value) {
+                setState(() {
+                  Preferences.darkmode = value;
+                  value ? temaProvider.setDark() : temaProvider.setLight();
+                  darkMode = value;
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            buildTextField(
+                'Nombre y Apellido', _nombreController, Icons.person),
+            buildTextField('DNI', _dniController, Icons.badge, isNumber: true),
+            buildTextField('Sexo', _sexoController, Icons.badge,
+                isNumber: true),
+            buildTextField(
+                'Fecha de nacimiento', _fecha_nacController, Icons.badge,
+                isNumber: true),
+            buildTextField('Teléfono', _telefonoController, Icons.phone),
+            buildTextField('Email', _emailController, Icons.email),
+            buildTextField('Matrícula', _matriculaController, Icons.assignment),
+            buildTextField(
+                'Consultorio', _consultorioController, Icons.assignment),
+            buildEspecialidadDropdown(),
+            buildTextField(
+              'Password',
+              _passwordController,
+              Icons.lock,
+              obscureText: !showPassword,
+              suffixIcon: IconButton(
+                icon: Icon(
+                    showPassword ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    showPassword = !showPassword;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton.icon(
+              onPressed: updatePerfil,
+              icon: const Icon(Icons.save),
+              label: const Text('Guardar cambios'),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
         ),
-        const SizedBox(height: 20),
-        buildTextField('Nombre y Apellido', _nombreController, Icons.person),
-        buildTextField('DNI', _dniController, Icons.badge, isNumber: true),
-        buildTextField('Sexo', _sexoController, Icons.badge, isNumber: true),
-        buildTextField('Fecha de nacimiento', _fecha_nacController, Icons.badge,
-            isNumber: true),
-        buildTextField('Teléfono', _telefonoController, Icons.phone),
-        buildTextField('Email', _emailController, Icons.email),
-        buildTextField('Matrícula', _matriculaController, Icons.assignment),
-        buildTextField('Consultorio', _consultorioController, Icons.assignment),
-        buildEspecialidadDropdown(),
-        buildTextField(
-          'Password',
-          _passwordController,
-          Icons.lock,
-          obscureText: !showPassword,
-          suffixIcon: IconButton(
-            icon: Icon(showPassword ? Icons.visibility : Icons.visibility_off),
-            onPressed: () {
-              setState(() {
-                showPassword = !showPassword;
-              });
-            },
-          ),
-        ),
-        const SizedBox(height: 30),
-        ElevatedButton.icon(
-          onPressed: updatePerfil,
-          icon: const Icon(Icons.save),
-          label: const Text('Guardar cambios'),
-          style:
-              ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
-        ),
-      ],
+      ),
     );
   }
 
@@ -238,8 +252,7 @@ class _BodyProfileState extends State<BodyProfile> {
           labelText: 'Especialidad',
           prefixIcon: const Icon(Icons.local_hospital),
           filled: true,
-          fillColor: Theme.of(context).inputDecorationTheme.fillColor ??
-              Colors.grey.shade900,
+          fillColor: Theme.of(context).colorScheme.surface,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
         items: especialidades.map((esp) {
@@ -272,8 +285,7 @@ class _BodyProfileState extends State<BodyProfile> {
           prefixIcon: Icon(icon),
           suffixIcon: suffixIcon,
           filled: true,
-          fillColor: Theme.of(context).inputDecorationTheme.fillColor ??
-              Colors.grey.shade900,
+          fillColor: Theme.of(context).colorScheme.surface,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),

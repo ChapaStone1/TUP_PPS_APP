@@ -48,8 +48,7 @@ class PacienteDescription extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   Container(
-                    color: Colors.black
-                        .withOpacity(0.3), // opcional para oscurecer un poco
+                    color: Colors.black.withOpacity(0.3),
                   ),
                   Positioned(
                     top: 14.0,
@@ -67,6 +66,7 @@ class PacienteDescription extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
+                const SizedBox(height: 12), // espacio arriba
                 InfoRow(icon: Icons.badge, label: "DNI", value: paciente.dni),
                 InfoRow(
                     icon: Icons.person, label: "Sexo", value: paciente.sexo),
@@ -138,7 +138,7 @@ class PacienteDescription extends StatelessWidget {
                       const SizedBox(height: 30),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -163,7 +163,8 @@ class InfoRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      padding: const EdgeInsets.fromLTRB(
+          20, 16, 20, 0), // un poco menos de padding arriba para no juntar
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

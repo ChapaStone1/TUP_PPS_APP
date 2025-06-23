@@ -106,18 +106,22 @@ class _PacientesListState extends State<PacientesList> {
                 elevation: 1,
                 borderRadius: BorderRadius.circular(8),
                 clipBehavior: Clip.antiAlias,
-                child: TextField(
-                  key: const Key('dni_search_input'),
-                  textAlignVertical: TextAlignVertical.center,
-                  style: const TextStyle(color: Colors.black),
-                  decoration: const InputDecoration(
-                    labelText: 'Buscar por DNI',
-                    prefixIcon: Icon(Icons.search, color: Colors.grey),
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                child: SizedBox(
+                  height:
+                      48, // altura fija para que el TextField no sea demasiado alto o bajo
+                  child: TextField(
+                    key: const Key('dni_search_input'),
+                    textAlignVertical: TextAlignVertical.center,
+                    style: const TextStyle(color: Colors.black),
+                    decoration: const InputDecoration(
+                      labelText: 'Buscar por DNI',
+                      prefixIcon: Icon(Icons.search, color: Colors.grey),
+                      border: InputBorder.none,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    ),
+                    onChanged: _handleSearch,
                   ),
-                  onChanged: _handleSearch,
                 ),
               ),
             ),
@@ -129,13 +133,21 @@ class _PacientesListState extends State<PacientesList> {
                 padding: const EdgeInsets.only(top: 4, bottom: 12),
                 itemBuilder: (BuildContext context, int index) {
                   if (index == _pacientes.length) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Center(child: CircularProgressIndicator()),
+                    );
                   }
                   final paciente = _pacientes[index];
-                  return PacienteItem(paciente: paciente);
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: PacienteItem(paciente: paciente),
+                  );
                 },
               ),
             ),
+            // Opcional: un SizedBox para dar un poco de margen abajo si es necesario
+            const SizedBox(height: 12),
           ],
         ),
       ),
