@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ... mismos imports
+
 class ProfilePacientePage extends StatelessWidget {
   const ProfilePacientePage({super.key});
 
@@ -196,8 +198,8 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
           prefixIcon: Icon(icon),
           suffixIcon: suffixIcon,
           filled: true,
-          fillColor: Theme.of(context).inputDecorationTheme.fillColor ??
-              Colors.grey.shade900,
+          fillColor:
+              Theme.of(context).colorScheme.surface, // <-- este es el cambio
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),

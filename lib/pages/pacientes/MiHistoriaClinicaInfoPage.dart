@@ -26,7 +26,8 @@ class _MiHistoriaClinicaInfoPageState extends State<MiHistoriaClinicaInfoPage> {
           final Paciente paciente = Paciente.fromJson(pacienteJson['data']);
 
           return FutureFetcher(
-            url: "https://tup-pps-api.onrender.com/api/pacientes/mi-historia",
+            url:
+                "https://tup-pps-api.onrender.com/api/pacientes/historia-clinica",
             widget: (historiaJson) {
               final List<HistoriaClinica> historias =
                   HistoriaClinica.listFromJson(historiaJson['data']);

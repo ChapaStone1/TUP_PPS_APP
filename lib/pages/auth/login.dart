@@ -211,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'JUAN JOSE CHAPARRO | PPS UTN 2025',
+                              'Juan Jose Chaparro | PPS UTN 2025',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,

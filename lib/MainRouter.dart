@@ -23,8 +23,8 @@ class MainRouter {
         path: '/register',
         widget: const RegisterPage(),
         icon: const Icon(Icons.person_add),
-        title: "Registrarse",
-        subtitle: "",
+        title: "Registrarse como paciente",
+        subtitle: "Ventana de registro",
         show: true,
       ),
       Route(
@@ -50,7 +50,6 @@ class MainRouter {
         show: false,
       ),
     ];
-    // separo las rutas de acuerdo a quien se logea.
     medicoRoutes = [
       Route(
         id: "profile-medico",
@@ -67,7 +66,7 @@ class MainRouter {
         widget: const RegisterMedicoPage(),
         icon: const Icon(Icons.settings),
         title: "Registrar Medico",
-        subtitle: "",
+        subtitle: "Registrar una nueva cuenta para un medico",
         show: true,
       ),
       Route(
@@ -75,8 +74,9 @@ class MainRouter {
         path: '/pacientes-list',
         widget: const PacienteListPage(),
         icon: const Icon(Icons.settings),
-        title: "Lista de pacientes",
-        subtitle: "",
+        title: "Ver pacientes",
+        subtitle:
+            "Cargar consulta medica, ver historia clinica y eliminar paciente",
         show: true,
       ),
       Route(
@@ -85,7 +85,7 @@ class MainRouter {
         widget: const PacienteInfoPage(),
         icon: const Icon(Icons.settings),
         title: "Datos de paciente",
-        subtitle: "",
+        subtitle: "Datos de paciente",
         show: false,
       ),
       Route(
@@ -94,7 +94,7 @@ class MainRouter {
         widget: const HistoriaClinicaInfoPage(),
         icon: const Icon(Icons.settings),
         title: "Historia Clinica del paciente",
-        subtitle: "",
+        subtitle: "Historia Clinica del paciente",
         show: false,
       ),
       Route(
@@ -111,7 +111,7 @@ class MainRouter {
         path: '/eliminar-paciente',
         widget: const HistoriaClinicaInfoPage(),
         icon: const Icon(Icons.settings),
-        title: "Eliminar un paciente de la base de datos.",
+        title: "Eliminar un paciente de la base de datos",
         subtitle: "",
         show: false,
       ),
@@ -121,7 +121,7 @@ class MainRouter {
         widget: const LoginPage(title: 'Iniciar sesión.'),
         icon: const Icon(Icons.login),
         title: "Cerrar sesión",
-        subtitle: "Volver al login.",
+        subtitle: "Volver a la página de Iniciar sesión.",
         show: true,
       ),
     ];
@@ -142,7 +142,7 @@ class MainRouter {
         widget: const MiHistoriaClinicaInfoPage(),
         icon: const Icon(Icons.settings),
         title: "Mi Historia Clinica",
-        subtitle: "",
+        subtitle: "Ver mi historia en la Clinica UTN y exportar a PDF.",
         show: true,
       ),
       Route(
@@ -151,10 +151,9 @@ class MainRouter {
         widget: const LoginPage(title: 'Iniciar sesión.'),
         icon: const Icon(Icons.login),
         title: "Cerrar sesión",
-        subtitle: "Volver al login.",
+        subtitle: "Volver a la página de Iniciar sesión.",
         show: true,
       ),
-      // Podés agregar más rutas acá si querés
     ];
   }
 

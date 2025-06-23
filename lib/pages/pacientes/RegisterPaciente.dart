@@ -14,8 +14,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final _nombreController = TextEditingController();
   final _dniController = TextEditingController();
-  String? _sexoSeleccionado; // Variable para guardar M o F
-  // Ya no usaremos _sexoController, podés eliminarlo
+  String? _sexoSeleccionado;
   final _fechaNacController = TextEditingController();
   final _telefonoController = TextEditingController();
   final _emailController = TextEditingController();
@@ -26,20 +25,21 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _isLoading = false;
 
   InputDecoration _inputDecoration(String label, IconData icon) {
+    final colorScheme = Theme.of(context).colorScheme;
     return InputDecoration(
       labelText: label,
-      labelStyle: const TextStyle(color: Colors.white70),
-      prefixIcon: Icon(icon, color: Colors.white70),
+      labelStyle: TextStyle(color: colorScheme.onSurface),
+      prefixIcon: Icon(icon, color: colorScheme.onSurface),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.white24),
+        borderSide: BorderSide(color: colorScheme.primary),
         borderRadius: BorderRadius.circular(12),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.deepPurpleAccent),
+        borderSide: BorderSide(color: colorScheme.primary, width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
       filled: true,
-      fillColor: Colors.grey[900], // Fondo oscuro
+      fillColor: colorScheme.surface,
     );
   }
 
@@ -76,9 +76,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Registro de paciente'),
+        title: const Text('Registrarse'),
         centerTitle: true,
       ),
       body: Padding(
@@ -88,8 +91,10 @@ class _RegisterPageState extends State<RegisterPage> {
           child: ListView(
             children: [
               const SizedBox(height: 20),
-              Text('Crear cuenta',
-                  style: Theme.of(context).textTheme.headlineMedium),
+              Text(
+                'Crear cuenta de paciente',
+                style: textTheme.headlineMedium,
+              ),
               const SizedBox(height: 30),
               TextFormField(
                 controller: _nombreController,
@@ -105,7 +110,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     v == null || v.isEmpty ? 'Campo requerido' : null,
               ),
               const SizedBox(height: 16),
-              // Aquí el Dropdown para Sexo
               DropdownButtonFormField<String>(
                 value: _sexoSeleccionado,
                 decoration: _inputDecoration('Sexo', Icons.wc),
@@ -173,11 +177,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 50,
                       child: ElevatedButton.icon(
                         onPressed: _register,
-                        icon: const Icon(Icons.person_add),
-                        label: const Text('Registrarse'),
+                        icon: Icon(Icons.person_add, color: Colors.white),
+                        label: Text(
+                          'Registrarse',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 5, 77, 136),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       ),
                     ),

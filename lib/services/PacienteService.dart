@@ -21,7 +21,7 @@ class PacienteService {
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token', // <- CORREGIDO aquí
+        'Authorization': 'Bearer $token',
       },
     );
 
@@ -29,7 +29,13 @@ class PacienteService {
       final data = jsonDecode(response.body);
       return Paciente.listFromJson(data['data']);
     } else {
-      throw Exception('Error al buscar pacientes');
+      try {
+        final error = jsonDecode(response.body);
+        final message = error['message'] ?? 'Error al buscar pacientes';
+        throw Exception(message);
+      } catch (e) {
+        throw Exception('Error al buscar pacientes');
+      }
     }
   }
 }

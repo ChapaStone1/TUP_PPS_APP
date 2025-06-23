@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/classes/Medico.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
 import 'package:http/http.dart' as http;
@@ -20,8 +21,8 @@ class ProfileMedicoPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            const Padding(
+          children: const [
+            Padding(
               padding: EdgeInsets.all(15.0),
               child: BodyProfile(),
             ),
@@ -55,6 +56,8 @@ class _BodyProfileState extends State<BodyProfile> {
 
   List<Map<String, dynamic>> especialidades = [];
   int? especialidadId;
+
+  Medico? medicoPerfil;
 
   @override
   void initState() {
@@ -104,7 +107,7 @@ class _BodyProfileState extends State<BodyProfile> {
     }
 
     final url =
-        Uri.parse('https://tup-pps-api.onrender.com/api/medicos/perfil');
+        Uri.parse('https://tup-pps-api.onrender.com/api/medicos/mi-perfil');
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
@@ -115,16 +118,16 @@ class _BodyProfileState extends State<BodyProfile> {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body)['data'];
       setState(() {
-        _nombreController.text = data['nombre'] ?? '';
-        _sexoController.text = data['sexo']?.toString() ?? '';
-        _fecha_nacController.text = data['fecha_nac']?.toString() ?? '';
-        _dniController.text = data['dni']?.toString() ?? '';
-        _telefonoController.text = data['telefono']?.toString() ?? '';
-        _emailController.text = data['email'] ?? '';
-        _matriculaController.text = data['matricula'] ?? '';
-        _consultorioController.text = data['consultorio'] ?? '';
-        especialidadId =
-            data['especialidad'] is Map ? data['especialidad']['id'] : null;
+        medicoPerfil = Medico.fromJson(data);
+        _nombreController.text = medicoPerfil!.nombre;
+        _sexoController.text = medicoPerfil!.sexo;
+        _fecha_nacController.text = medicoPerfil!.fechaNac;
+        _dniController.text = medicoPerfil!.dni;
+        _telefonoController.text = medicoPerfil!.telefono.toString();
+        _emailController.text = medicoPerfil!.email;
+        _matriculaController.text = medicoPerfil!.matricula;
+        _consultorioController.text = medicoPerfil!.consultorio;
+        especialidadId = medicoPerfil!.especialidadId;
       });
     }
   }
@@ -135,26 +138,35 @@ class _BodyProfileState extends State<BodyProfile> {
     if (token == null) return;
 
     final url =
-        Uri.parse('https://tup-pps-api.onrender.com/api/medicos/perfil');
+        Uri.parse('https://tup-pps-api.onrender.com/api/medicos/mi-perfil');
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
 
-    final body = jsonEncode({
-      'nombre': _nombreController.text.trim(),
-      'sexo': _sexoController.text.trim(),
-      'fecha_nac': _fecha_nacController.text.trim(),
-      'dni': _dniController.text.trim(),
-      'telefono': _telefonoController.text.trim(),
-      'email': _emailController.text.trim(),
-      'matricula': _matriculaController.text.trim(),
-      'consultorio': _consultorioController.text.trim(),
-      'especialidad_id': especialidadId, // Enviar solo el ID
-      'password': _passwordController.text.trim(),
-    });
+    // Creamos un nuevo objeto Medico con los datos actualizados (excepto id)
+    final medicoActualizado = Medico(
+      nombre: _nombreController.text.trim(),
+      sexo: _sexoController.text.trim(),
+      fechaNac: _fecha_nacController.text.trim(),
+      dni: _dniController.text.trim(),
+      telefono: int.tryParse(_telefonoController.text.trim()) ?? 0,
+      email: _emailController.text.trim(),
+      matricula: _matriculaController.text.trim(),
+      consultorio: _consultorioController.text.trim(),
+      especialidadId: especialidadId,
+    );
+
+    // Convertimos a JSON y añadimos password si hay
+    final bodyMap = medicoActualizado.toJson();
+    final passwordText = _passwordController.text.trim();
+    if (passwordText.isNotEmpty) {
+      bodyMap['password'] = passwordText;
+    }
+    final body = jsonEncode(bodyMap);
 
     final response = await http.put(url, headers: headers, body: body);
+
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -196,12 +208,11 @@ class _BodyProfileState extends State<BodyProfile> {
             buildTextField(
                 'Nombre y Apellido', _nombreController, Icons.person),
             buildTextField('DNI', _dniController, Icons.badge, isNumber: true),
-            buildTextField('Sexo', _sexoController, Icons.badge,
-                isNumber: true),
+            buildTextField('Sexo', _sexoController, Icons.badge),
             buildTextField(
-                'Fecha de nacimiento', _fecha_nacController, Icons.badge,
+                'Fecha de nacimiento', _fecha_nacController, Icons.badge),
+            buildTextField('Teléfono', _telefonoController, Icons.phone,
                 isNumber: true),
-            buildTextField('Teléfono', _telefonoController, Icons.phone),
             buildTextField('Email', _emailController, Icons.email),
             buildTextField('Matrícula', _matriculaController, Icons.assignment),
             buildTextField(

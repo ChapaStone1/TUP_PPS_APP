@@ -22,7 +22,7 @@ class AuthService {
 
         return {'ok': true, 'tipo': data['tipo'], 'message': data['message']};
       } else {
-        return {'ok': false, 'message': json['data']['message'] ?? 'Error'};
+        return {'ok': false, 'message': json['message'] ?? 'Error'};
       }
     } catch (e) {
       return {'ok': false, 'message': 'Error al conectar: $e'};

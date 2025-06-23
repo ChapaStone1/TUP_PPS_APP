@@ -7,6 +7,7 @@ class RegistroMedico {
   final String telefono;
   final String password;
   final String matricula;
+  final String consultorio;
   final int especialidad;
 
   RegistroMedico({
@@ -18,6 +19,7 @@ class RegistroMedico {
     required this.telefono,
     required this.password,
     required this.matricula,
+    required this.consultorio,
     required this.especialidad,
   });
 
@@ -31,6 +33,7 @@ class RegistroMedico {
       'telefono': telefono,
       'password': password,
       'matricula': matricula,
+      'consultorio': matricula,
       'especialidad': especialidad,
     };
   }
