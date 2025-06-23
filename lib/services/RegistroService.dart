@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'package:flutter_application_1/classes/RegistroMedico.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../classes/RegistroPaciente.dart';
 
 class RegistroService {
-  static const String _baseUrl = 'https://tup-pps-api.onrender.com';
+  static const String _baseUrl = 'https://tup-pps-api.onrender.com/api';
 
-  Future<Map<String, dynamic>> registrar(Registro registro) async {
-    final url = Uri.parse('$_baseUrl/api/medicos');
+  Future<Map<String, dynamic>> registrarPaciente(
+      RegistroPaciente registro) async {
+    final url = Uri.parse('$_baseUrl/auth/register');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode(registro.toJson());
 
@@ -15,14 +17,16 @@ class RegistroService {
       final response = await http.post(url, headers: headers, body: body);
       final json = jsonDecode(response.body);
 
-      final ok = response.statusCode == 200 || response.statusCode == 201;
+      final status = json['status'] ?? response.statusCode;
+      final ok = status == 200 || status == 201;
       final message =
-          json['message'] ?? json['data']?['message'] ?? 'Registro exitoso.';
+          json['data']?['message'] ?? json['message'] ?? 'Registro exitoso.';
 
       return {
         'ok': ok,
-        'status': json['status'] ?? response.statusCode,
+        'status': status,
         'message': message,
+        'usuarioId': json['data']?['usuarioId'], // Agregado si querés usarlo
       };
     } catch (e) {
       return {
@@ -34,21 +38,39 @@ class RegistroService {
 
   Future<Map<String, dynamic>> registrarMedico(RegistroMedico registro) async {
     try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+
+      if (token == null) {
+        return {
+          'ok': false,
+          'message': 'Token no encontrado. Inicie sesión nuevamente.'
+        };
+      }
+
       final response = await http.post(
-        Uri.parse('$_baseUrl/cargar-medico'),
-        headers: {'Content-Type': 'application/json'},
+        Uri.parse('$_baseUrl/medicos/cargar-medico'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
         body: jsonEncode(registro.toJson()),
       );
 
       final json = jsonDecode(response.body);
-
-      final ok = response.statusCode == 200 || response.statusCode == 201;
-      final message = json['message'] ??
-          json['data']?['message'] ??
+      final status = json['status'] ?? response.statusCode;
+      final ok = status == 200 || status == 201;
+      final message = json['data']?['message'] ??
+          json['message'] ??
           json['error'] ??
           'Registro fallido.';
 
-      return {'ok': ok, 'message': message};
+      return {
+        'ok': ok,
+        'message': message,
+        'status': status,
+        'usuarioId': json['data']?['usuarioId'],
+      };
     } catch (e) {
       return {'ok': false, 'message': 'Error de red o servidor: $e'};
     }

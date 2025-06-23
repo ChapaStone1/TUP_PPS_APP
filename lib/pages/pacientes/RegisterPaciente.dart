@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/RegistroPaciente.dart';
 import 'package:flutter_application_1/services/RegistroService.dart';
@@ -48,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     setState(() => _isLoading = true);
 
-    final registro = Registro(
+    final registro = RegistroPaciente(
       nombre: _nombreController.text.trim(),
       dni: _dniController.text.trim(),
       sexo: _sexoSeleccionado ?? '',
@@ -61,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
 
     final servicio = RegistroService();
-    final result = await servicio.registrar(registro);
+    final result = await servicio.registrarPaciente(registro);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(result['message']),

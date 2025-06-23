@@ -17,7 +17,6 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
 
   final _nombreController = TextEditingController();
   final _dniController = TextEditingController();
-  final _sexoController = TextEditingController();
   final _fechaNacController = TextEditingController();
   final _telefonoController = TextEditingController();
   final _emailController = TextEditingController();

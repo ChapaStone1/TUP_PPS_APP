@@ -1,4 +1,4 @@
-class Registro {
+class RegistroPaciente {
   final String nombre;
   final String dni;
   final String sexo;
@@ -9,7 +9,7 @@ class Registro {
   final String grupoSanguineo;
   final String obraSocial;
 
-  Registro({
+  RegistroPaciente({
     required this.nombre,
     required this.dni,
     required this.sexo,
@@ -35,15 +35,15 @@ class Registro {
     };
   }
 
-  factory Registro.fromJson(Map<String, dynamic> json) {
-    return Registro(
-      nombre: json['nombre'],
-      dni: json['dni'],
-      sexo: json['sexo'],
-      fechaNac: json['fecha_nac'],
-      telefono: json['telefono'],
-      email: json['email'],
-      password: json['password'],
+  factory RegistroPaciente.fromJson(Map<String, dynamic> json) {
+    return RegistroPaciente(
+      nombre: json['nombre'] ?? '',
+      dni: json['dni'] ?? '',
+      sexo: json['sexo'] ?? '',
+      fechaNac: json['fecha_nac'] ?? '',
+      telefono: json['telefono'] ?? '', // asegurate de que sea número
+      email: json['email'] ?? '',
+      password: json['password'] ?? '',
       grupoSanguineo: json['grupo_sanguineo'] ?? '',
       obraSocial: json['obra_social'] ?? '',
     );

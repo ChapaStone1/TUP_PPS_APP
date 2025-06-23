@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.bold,
-                            color: primaryColor,
+                            color: primaryColor.withAlpha((0.85 * 255).round()),
                             shadows: [
                               Shadow(
                                 offset: const Offset(2, 2),
