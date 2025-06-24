@@ -18,7 +18,7 @@ class PacienteItem extends StatelessWidget {
 
     return CustomCardPaciente(
       trailingIcon: IsFavoriteIcon(
-        id: paciente.dni,
+        id: paciente.id,
         color: Colors.yellow,
         size: 25,
       ),

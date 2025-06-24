@@ -50,7 +50,7 @@ class DefaultTheme {
   );
 
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
-    primaryColor: primary,
+    primaryColor: primaryHover,
     scaffoldBackgroundColor: const Color(0xFF121212),
     textTheme: ThemeData.dark().textTheme.apply(
           fontFamily: 'CoolveticaRG',

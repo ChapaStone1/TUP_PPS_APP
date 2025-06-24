@@ -29,10 +29,14 @@ class NavigatorCardWidget extends StatelessWidget {
                 title: Text(title),
                 subtitle: subtitle == ""
                     ? null
-                    : Row(
+                    : Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          const Icon(Icons.person),
-                          Text(subtitle),
+                          const SizedBox(width: 4),
+                          Text(
+                            subtitle,
+                            overflow: TextOverflow.visible,
+                          ),
                         ],
                       ),
               ),

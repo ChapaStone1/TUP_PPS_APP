@@ -18,7 +18,7 @@ class PacienteDescription extends StatelessWidget {
             expandedHeight: screenWidth * 0.6,
             floating: false,
             pinned: true,
-            automaticallyImplyLeading: true,
+            automaticallyImplyLeading: false,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Padding(
@@ -54,7 +54,7 @@ class PacienteDescription extends StatelessWidget {
                     top: 14.0,
                     right: 8.0,
                     child: IsFavoriteIcon(
-                      id: paciente.nombre,
+                      id: paciente.id,
                       color: Colors.yellow,
                       size: 40.0,
                     ),

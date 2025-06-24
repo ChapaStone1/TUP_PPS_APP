@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 
 class IsFavoriteIcon extends StatefulWidget {
-  final String id;
+  final int id;
   final Color color;
   final double size;
 
@@ -41,7 +41,7 @@ class _IsFavoriteIconState extends State<IsFavoriteIcon> {
     setState(() {
       isFav = !isFav;
     });
-    Preferences.toggleFav(widget.id);
+    Preferences.toggleFav(widget.id as String);
   }
 
   @override

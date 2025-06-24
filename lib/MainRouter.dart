@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
+import 'package:flutter_application_1/pages/medicos/EliminarPacientePage.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedico.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteInfoPage.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteListPage.dart';
@@ -22,7 +23,7 @@ class MainRouter {
         id: "register",
         path: '/register',
         widget: const RegisterPage(),
-        icon: const Icon(Icons.person_add),
+        icon: const Icon(Icons.app_registration), // Ícono de registro
         title: "Registrarse como paciente",
         subtitle: "Ventana de registro",
         show: true,
@@ -30,10 +31,8 @@ class MainRouter {
       Route(
         id: "home-medico",
         path: '/home-medico',
-        widget: HomeMedico(
-          title: 'Bienvenido',
-        ),
-        icon: const Icon(Icons.person),
+        widget: HomeMedico(title: 'Consultorio UTN'),
+        icon: const Icon(Icons.local_hospital), // Médico
         title: "Inicio Médico",
         subtitle: "Opciones para médicos",
         show: false,
@@ -41,10 +40,8 @@ class MainRouter {
       Route(
         id: "home-paciente",
         path: '/home-paciente',
-        widget: HomePaciente(
-          title: 'Bienvenido',
-        ),
-        icon: const Icon(Icons.person_outline),
+        widget: HomePaciente(title: 'Consultorio UTN'),
+        icon: const Icon(Icons.accessibility_new), // Paciente
         title: "Inicio Paciente",
         subtitle: "Opciones para pacientes",
         show: false,
@@ -55,7 +52,7 @@ class MainRouter {
         id: "profile-medico",
         path: '/profile-medico',
         widget: const ProfileMedicoPage(),
-        icon: const Icon(Icons.settings),
+        icon: const Icon(Icons.person), // Perfil
         title: "Perfil",
         subtitle: "Ver y editar perfil",
         show: true,
@@ -64,26 +61,35 @@ class MainRouter {
         id: "register-medico",
         path: '/register-medico',
         widget: const RegisterMedicoPage(),
-        icon: const Icon(Icons.settings),
+        icon: const Icon(Icons.person_add_alt_1), // Alta de usuario
         title: "Registrar Medico",
         subtitle: "Registrar una nueva cuenta para un medico",
+        show: true,
+      ),
+      Route(
+        id: "register",
+        path: '/register',
+        widget: const RegisterPage(),
+        icon: const Icon(Icons.person_add_alt_1), // Ícono de registro
+        title: "Registrar Paciente",
+        subtitle: "Registrar una nueva cuenta para un paciente",
         show: true,
       ),
       Route(
         id: "pacientes-list",
         path: '/pacientes-list',
         widget: const PacienteListPage(),
-        icon: const Icon(Icons.settings),
+        icon: const Icon(Icons.group), // Lista de pacientes
         title: "Ver pacientes",
         subtitle:
-            "Cargar consulta medica, ver historia clinica y eliminar paciente",
+            "Cargar consulta médica, ver historia clínica y eliminar paciente",
         show: true,
       ),
       Route(
         id: "Datos de paciente",
         path: '/datos-paciente',
         widget: const PacienteInfoPage(),
-        icon: const Icon(Icons.settings),
+        icon: const Icon(Icons.info_outline), // Información
         title: "Datos de paciente",
         subtitle: "Datos de paciente",
         show: false,
@@ -92,16 +98,16 @@ class MainRouter {
         id: "Historia Clinica",
         path: '/historia-clinica',
         widget: const HistoriaClinicaInfoPage(),
-        icon: const Icon(Icons.settings),
-        title: "Historia Clinica del paciente",
-        subtitle: "Historia Clinica del paciente",
+        icon: const Icon(Icons.medical_information), // Historia clínica
+        title: "Historia Clínica del paciente",
+        subtitle: "Historia Clínica del paciente",
         show: false,
       ),
       Route(
         id: "Cargar consulta",
         path: '/cargar-consulta',
         widget: const HistoriaClinicaInfoPage(),
-        icon: const Icon(Icons.settings),
+        icon: const Icon(Icons.note_add), // Agregar consulta
         title: "Cargar información de una consulta de un paciente",
         subtitle: "",
         show: false,
@@ -109,8 +115,8 @@ class MainRouter {
       Route(
         id: "eliminar-paciente",
         path: '/eliminar-paciente',
-        widget: const HistoriaClinicaInfoPage(),
-        icon: const Icon(Icons.settings),
+        widget: const EliminarPacientePage(),
+        icon: const Icon(Icons.delete_forever), // Eliminar
         title: "Eliminar un paciente de la base de datos",
         subtitle: "",
         show: false,
@@ -119,7 +125,7 @@ class MainRouter {
         id: "login",
         path: '/login',
         widget: const LoginPage(title: 'Iniciar sesión'),
-        icon: const Icon(Icons.login),
+        icon: const Icon(Icons.logout), // Cerrar sesión
         title: "Cerrar sesión",
         subtitle: "Volver a la página de Iniciar sesión.",
         show: true,
@@ -131,7 +137,7 @@ class MainRouter {
         id: "profile-paciente",
         path: '/profile-paciente',
         widget: const ProfilePacientePage(),
-        icon: const Icon(Icons.settings),
+        icon: const Icon(Icons.person), // Perfil
         title: "Perfil",
         subtitle: "Ver y editar perfil",
         show: true,
@@ -140,16 +146,16 @@ class MainRouter {
         id: "mi-historia-clinica",
         path: '/mi-historia-clinica',
         widget: const MiHistoriaClinicaInfoPage(),
-        icon: const Icon(Icons.settings),
-        title: "Mi Historia Clinica",
-        subtitle: "Ver mi historia en la Clinica UTN y exportar a PDF.",
+        icon: const Icon(Icons.description), // Historia médica
+        title: "Mi Historia Clínica",
+        subtitle: "Ver mi historia en la Clínica UTN y exportar a PDF.",
         show: true,
       ),
       Route(
         id: "login",
         path: '/login',
         widget: const LoginPage(title: 'Iniciar sesión'),
-        icon: const Icon(Icons.login),
+        icon: const Icon(Icons.logout), // Cerrar sesión
         title: "Cerrar sesión",
         subtitle: "Volver a la página de Iniciar sesión.",
         show: true,
