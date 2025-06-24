@@ -3,7 +3,8 @@ class HistoriaClinica {
   final String _fecha;
   final String _nota;
   final String _medicacion;
-  final String _medico;
+  final String _medicoNombre; // separado
+  final String _medicoApellido; // separado
   final String _consultorio;
   final String _especialidad;
 
@@ -12,14 +13,16 @@ class HistoriaClinica {
     required String fecha,
     required String nota,
     required String medicacion,
-    required String medico,
+    required String medicoNombre, // separado
+    required String medicoApellido, // separado
     required String consultorio,
     required String especialidad,
   })  : _id = id,
         _fecha = fecha,
         _nota = nota,
         _medicacion = medicacion,
-        _medico = medico,
+        _medicoNombre = medicoNombre,
+        _medicoApellido = medicoApellido,
         _consultorio = consultorio,
         _especialidad = especialidad;
 
@@ -28,7 +31,8 @@ class HistoriaClinica {
   String get fecha => _fecha;
   String get nota => _nota;
   String get medicacion => _medicacion;
-  String get medico => _medico;
+  String get medicoNombre => _medicoNombre; // separado
+  String get medicoApellido => _medicoApellido; // separado
   String get consultorio => _consultorio;
   String get especialidad => _especialidad;
 
@@ -39,7 +43,10 @@ class HistoriaClinica {
       fecha: json['fecha'],
       nota: json['nota'],
       medicacion: json['medicacion'],
-      medico: json['medico'],
+      medicoNombre: json['medico_nombre'] ??
+          json['medicoNombre'] ??
+          '', // se adapta a posible clave
+      medicoApellido: json['medico_apellido'] ?? json['medicoApellido'] ?? '',
       consultorio: json['consultorio'],
       especialidad: json['especialidad'],
     );
@@ -51,7 +58,8 @@ class HistoriaClinica {
       'fecha': _fecha,
       'nota': _nota,
       'medicacion': _medicacion,
-      'medico': _medico,
+      'medico_nombre': _medicoNombre,
+      'medico_apellido': _medicoApellido,
       'consultorio': _consultorio,
       'especialidad': _especialidad,
     };

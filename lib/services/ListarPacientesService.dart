@@ -3,7 +3,7 @@ import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PacienteService {
+class ListarPacientesService {
   Future<List<Paciente>> fetchPacientes({
     required String query,
     required int limit,

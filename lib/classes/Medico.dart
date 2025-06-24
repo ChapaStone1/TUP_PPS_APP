@@ -1,10 +1,11 @@
 class Medico {
   final int? _id;
   final String _nombre;
+  final String _apellido; // agregado
   final String _dni;
   final String _sexo;
   final String _fechaNac;
-  final int _telefono;
+  final String _telefono;
   final String _email;
   final String _matricula;
   final String _consultorio;
@@ -13,16 +14,18 @@ class Medico {
   Medico({
     int? id,
     required String nombre,
+    required String apellido, // agregado
     required String dni,
     required String sexo,
     required String fechaNac,
-    required int telefono,
+    required String telefono,
     required String email,
     required String matricula,
     required String consultorio,
     int? especialidadId,
   })  : _id = id,
         _nombre = nombre,
+        _apellido = apellido, // agregado
         _dni = dni,
         _sexo = sexo,
         _fechaNac = fechaNac,
@@ -35,10 +38,11 @@ class Medico {
   // Getters
   int? get id => _id;
   String get nombre => _nombre;
+  String get apellido => _apellido; // agregado
   String get dni => _dni;
   String get sexo => _sexo;
   String get fechaNac => _fechaNac;
-  int get telefono => _telefono;
+  String get telefono => _telefono;
   String get email => _email;
   String get matricula => _matricula;
   String get consultorio => _consultorio;
@@ -49,6 +53,7 @@ class Medico {
     return Medico(
       id: json['id'],
       nombre: json['nombre'],
+      apellido: json['apellido'], // agregado
       dni: json['dni'],
       sexo: json['sexo'],
       fechaNac: json['fecha_nac'],
@@ -58,13 +63,14 @@ class Medico {
       consultorio: json['consultorio'],
       especialidadId: json['especialidad'] is Map
           ? json['especialidad']['id']
-          : json['especialidad_id'], // depende de cómo venga del backend
+          : json['especialidad_id'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'nombre': _nombre,
+      'apellido': _apellido, // agregado
       'dni': _dni,
       'sexo': _sexo,
       'fecha_nac': _fechaNac,

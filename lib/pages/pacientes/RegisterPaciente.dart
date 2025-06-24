@@ -15,13 +15,14 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _nombreController = TextEditingController();
+  final _apellidoController = TextEditingController();
   final _dniController = TextEditingController();
   String? _sexoSeleccionado;
   final _fechaNacController = TextEditingController();
   final _telefonoController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _grupoSanguineoController = TextEditingController();
+  String? _grupoSanguineoSeleccionado;
   final _obraSocialController = TextEditingController();
 
   bool _isLoading = false;
@@ -52,13 +53,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
     final registro = RegistroPaciente(
       nombre: _nombreController.text.trim(),
+      apellido: _apellidoController.text.trim(), // <-- agregado
       dni: _dniController.text.trim(),
       sexo: _sexoSeleccionado ?? '',
       fechaNac: _fechaNacController.text.trim(),
       telefono: _telefonoController.text.trim(),
       email: _emailController.text.trim(),
       password: _passwordController.text.trim(),
-      grupoSanguineo: _grupoSanguineoController.text.trim(),
+      grupoSanguineo: _grupoSanguineoSeleccionado ?? '',
       obraSocial: _obraSocialController.text.trim(),
     );
 
@@ -101,6 +103,13 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormField(
                 controller: _nombreController,
                 decoration: _inputDecoration('Nombre completo', Icons.person),
+                validator: (v) =>
+                    v == null || v.isEmpty ? 'Campo requerido' : null,
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _apellidoController,
+                decoration: _inputDecoration('Apellido', Icons.person),
                 validator: (v) =>
                     v == null || v.isEmpty ? 'Campo requerido' : null,
               ),
@@ -161,10 +170,27 @@ class _RegisterPageState extends State<RegisterPage> {
                     v == null || v.isEmpty ? 'Campo requerido' : null,
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                controller: _grupoSanguineoController,
+              DropdownButtonFormField<String>(
+                value: _grupoSanguineoSeleccionado,
                 decoration:
                     _inputDecoration('Grupo sanguíneo', Icons.bloodtype),
+                items: const [
+                  DropdownMenuItem(value: 'A+', child: Text('A+')),
+                  DropdownMenuItem(value: 'A-', child: Text('A-')),
+                  DropdownMenuItem(value: 'B+', child: Text('B+')),
+                  DropdownMenuItem(value: 'B-', child: Text('B-')),
+                  DropdownMenuItem(value: 'AB+', child: Text('AB+')),
+                  DropdownMenuItem(value: 'AB-', child: Text('AB-')),
+                  DropdownMenuItem(value: 'O+', child: Text('O+')),
+                  DropdownMenuItem(value: 'O-', child: Text('O-')),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    _grupoSanguineoSeleccionado = value;
+                  });
+                },
+                validator: (v) =>
+                    v == null || v.isEmpty ? 'Campo requerido' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(

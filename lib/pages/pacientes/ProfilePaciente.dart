@@ -3,11 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-// ... mismos imports
+import 'package:http/http.dart' as http;
 
 class ProfilePacientePage extends StatelessWidget {
   const ProfilePacientePage({super.key});
@@ -40,55 +39,31 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
   bool showPassword = false;
 
   final _nombreController = TextEditingController();
+  final _apellidoController = TextEditingController();
   final _dniController = TextEditingController();
   final _sexoController = TextEditingController();
   final _fechaNacController = TextEditingController();
   final _telefonoController = TextEditingController();
   final _emailController = TextEditingController();
-  final _grupoSanguineoController = TextEditingController();
   final _obraSocialController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  String? _grupoSanguineoSeleccionado;
+  final List<String> grupoSanguineoOpciones = [
+    'A+',
+    'A-',
+    'B+',
+    'B-',
+    'AB+',
+    'AB-',
+    'O+',
+    'O-'
+  ];
 
   @override
   void initState() {
     super.initState();
     darkMode = Preferences.darkmode;
-    getPerfil();
-  }
-
-  Future<void> getPerfil() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-
-    if (token == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Token no encontrado. Iniciá sesión.')),
-      );
-      return;
-    }
-
-    final url =
-        Uri.parse('https://tup-pps-api.onrender.com/api/pacientes/mi-perfil');
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-
-    final response = await http.get(url, headers: headers);
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body)['data'];
-      setState(() {
-        _nombreController.text = data['nombre'] ?? '';
-        _dniController.text = data['dni'] ?? '';
-        _sexoController.text = data['sexo'] ?? '';
-        _fechaNacController.text = data['fecha_nac'] ?? '';
-        _telefonoController.text = data['telefono']?.toString() ?? '';
-        _emailController.text = data['email'] ?? '';
-        _grupoSanguineoController.text = data['grupo_sanguineo'] ?? '';
-        _obraSocialController.text = data['obra_social'] ?? '';
-      });
-    }
   }
 
   Future<void> updatePerfil() async {
@@ -105,12 +80,13 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
 
     final body = jsonEncode({
       'nombre': _nombreController.text.trim(),
+      'apellido': _apellidoController.text.trim(),
       'dni': _dniController.text.trim(),
       'sexo': _sexoController.text.trim(),
       'fecha_nac': _fechaNacController.text.trim(),
       'telefono': _telefonoController.text.trim(),
       'email': _emailController.text.trim(),
-      'grupo_sanguineo': _grupoSanguineoController.text.trim(),
+      'grupo_sanguineo': _grupoSanguineoSeleccionado ?? '',
       'obra_social': _obraSocialController.text.trim(),
       'password': _passwordController.text.trim(),
     });
@@ -127,54 +103,93 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
   Widget build(BuildContext context) {
     final temaProvider = Provider.of<ThemeProvider>(context, listen: false);
 
-    return Column(
-      children: [
-        SwitchListTile.adaptive(
-          title: const Text('Dark Mode'),
-          value: darkMode,
-          onChanged: (value) {
-            setState(() {
-              Preferences.darkmode = value;
-              value ? temaProvider.setDark() : temaProvider.setLight();
-              darkMode = value;
-            });
-          },
-        ),
-        const SizedBox(height: 20),
-        buildTextField('Nombre y apellido', _nombreController, Icons.person),
-        buildTextField('DNI', _dniController, Icons.badge, isNumber: true),
-        buildTextField('Sexo', _sexoController, Icons.transgender),
-        buildTextField('Fecha de nacimiento', _fechaNacController, Icons.cake),
-        buildTextField('Teléfono', _telefonoController, Icons.phone,
-            isNumber: true),
-        buildTextField('Email', _emailController, Icons.email),
-        buildTextField(
-            'Grupo Sanguíneo', _grupoSanguineoController, Icons.bloodtype),
-        buildTextField(
-            'Obra Social', _obraSocialController, Icons.local_hospital),
-        buildTextField(
-          'Contraseña',
-          _passwordController,
-          Icons.lock,
-          obscureText: !showPassword,
-          suffixIcon: IconButton(
-            icon: Icon(showPassword ? Icons.visibility : Icons.visibility_off),
-            onPressed: () {
-              setState(() {
-                showPassword = !showPassword;
-              });
-            },
-          ),
-        ),
-        const SizedBox(height: 30),
-        ElevatedButton.icon(
-          onPressed: updatePerfil,
-          icon: const Icon(Icons.save),
-          label: const Text('Guardar cambios'),
-          style:
-              ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
-        ),
-      ],
+    return FutureFetcher(
+      url: 'https://tup-pps-api.onrender.com/api/pacientes/mi-perfil',
+      widget: (json) {
+        final data = json['data'];
+        _nombreController.text = data['nombre'] ?? '';
+        _apellidoController.text = data['apellido'] ?? '';
+        _dniController.text = data['dni'] ?? '';
+        _sexoController.text = data['sexo'] ?? '';
+        _fechaNacController.text = data['fecha_nac'] ?? '';
+        _telefonoController.text = data['telefono']?.toString() ?? '';
+        _emailController.text = data['email'] ?? '';
+        _grupoSanguineoSeleccionado = data['grupo_sanguineo'] ?? null;
+        _obraSocialController.text = data['obra_social'] ?? '';
+
+        return Column(
+          children: [
+            SwitchListTile.adaptive(
+              title: const Text('Dark Mode'),
+              value: darkMode,
+              onChanged: (value) {
+                setState(() {
+                  Preferences.darkmode = value;
+                  value ? temaProvider.setDark() : temaProvider.setLight();
+                  darkMode = value;
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            buildTextField('Nombre', _nombreController, Icons.person),
+            buildTextField('Apellido', _apellidoController, Icons.person),
+            buildTextField('DNI', _dniController, Icons.badge, isNumber: true),
+            buildTextField('Sexo', _sexoController, Icons.transgender),
+            buildTextField(
+                'Fecha de nacimiento', _fechaNacController, Icons.cake),
+            buildTextField('Teléfono', _telefonoController, Icons.phone,
+                isNumber: true),
+            buildTextField('Email', _emailController, Icons.email),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: DropdownButtonFormField<String>(
+                value: _grupoSanguineoSeleccionado,
+                decoration: InputDecoration(
+                  labelText: 'Grupo Sanguíneo',
+                  prefixIcon: const Icon(Icons.bloodtype),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.surface,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+                items: grupoSanguineoOpciones
+                    .map((gs) => DropdownMenuItem(value: gs, child: Text(gs)))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _grupoSanguineoSeleccionado = value;
+                  });
+                },
+              ),
+            ),
+            buildTextField(
+                'Obra Social', _obraSocialController, Icons.local_hospital),
+            buildTextField(
+              'Contraseña',
+              _passwordController,
+              Icons.lock,
+              obscureText: !showPassword,
+              suffixIcon: IconButton(
+                icon: Icon(
+                    showPassword ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    showPassword = !showPassword;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton.icon(
+              onPressed: updatePerfil,
+              icon: const Icon(Icons.save),
+              label: const Text('Guardar cambios'),
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50)),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -198,8 +213,7 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
           prefixIcon: Icon(icon),
           suffixIcon: suffixIcon,
           filled: true,
-          fillColor:
-              Theme.of(context).colorScheme.surface, // <-- este es el cambio
+          fillColor: Theme.of(context).colorScheme.surface,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/services/auth_service.dart';
+import 'package:flutter_application_1/services/AuthService.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:provider/provider.dart';

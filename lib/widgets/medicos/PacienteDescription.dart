@@ -24,7 +24,7 @@ class PacienteDescription extends StatelessWidget {
               title: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
-                  paciente.nombre,
+                  '${paciente.apellido}, ${paciente.nombre}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 22,

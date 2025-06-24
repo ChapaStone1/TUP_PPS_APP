@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/RegistroMedico.dart';
 import 'package:flutter_application_1/services/RegistroService.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 
 class RegisterMedicoPage extends StatefulWidget {
   const RegisterMedicoPage({super.key});
@@ -16,6 +14,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _nombreController = TextEditingController();
+  final _apellidoController = TextEditingController();
   final _dniController = TextEditingController();
   final _fechaNacController = TextEditingController();
   final _telefonoController = TextEditingController();
@@ -23,9 +22,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
   final _passwordController = TextEditingController();
   final _consultorioController = TextEditingController();
   final _matriculaController = TextEditingController();
-
   int? _especialidadId;
-  List<Map<String, dynamic>> _especialidades = [];
 
   bool _isLoading = false;
   String _sexoSeleccionado = 'M';
@@ -33,39 +30,6 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
   @override
   void initState() {
     super.initState();
-    _fetchEspecialidades();
-  }
-
-  Future<void> _fetchEspecialidades() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-
-    if (token == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Token no encontrado. Iniciá sesión.')),
-      );
-      return;
-    }
-
-    final url = Uri.parse(
-        'https://tup-pps-api.onrender.com/api/medicos/especialidades');
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-
-    final response = await http.get(url, headers: headers);
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body)['data'];
-      setState(() {
-        _especialidades = List<Map<String, dynamic>>.from(data);
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('No se pudieron cargar las especialidades')),
-      );
-    }
   }
 
   InputDecoration _inputDecoration(String label, IconData icon) {
@@ -87,6 +51,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
 
     final registro = RegistroMedico(
       nombre: _nombreController.text.trim(),
+      apellido: _apellidoController.text.trim(),
       dni: _dniController.text.trim(),
       sexo: _sexoSeleccionado,
       fechaNac: _fechaNacController.text.trim(),
@@ -132,7 +97,14 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
               const SizedBox(height: 30),
               TextFormField(
                 controller: _nombreController,
-                decoration: _inputDecoration('Nombre completo', Icons.person),
+                decoration: _inputDecoration('Nombres', Icons.person),
+                validator: (v) =>
+                    v == null || v.isEmpty ? 'Campo requerido' : null,
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _apellidoController,
+                decoration: _inputDecoration('Apellido', Icons.person),
                 validator: (v) =>
                     v == null || v.isEmpty ? 'Campo requerido' : null,
               ),
@@ -202,19 +174,28 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
                     v == null || v.isEmpty ? 'Campo requerido' : null,
               ),
               const SizedBox(height: 16),
-              DropdownButtonFormField<int>(
-                value: _especialidadId,
-                decoration:
-                    _inputDecoration('Especialidad', Icons.medical_services),
-                items: _especialidades.map((esp) {
-                  return DropdownMenuItem<int>(
-                    value: esp['id'],
-                    child: Text(esp['nombre']),
+              FutureFetcher(
+                url:
+                    'https://tup-pps-api.onrender.com/api/medicos/especialidades',
+                widget: (json) {
+                  final especialidades =
+                      List<Map<String, dynamic>>.from(json['data']);
+
+                  return DropdownButtonFormField<int>(
+                    value: _especialidadId,
+                    decoration: _inputDecoration(
+                        'Especialidad', Icons.medical_services),
+                    items: especialidades.map((esp) {
+                      return DropdownMenuItem<int>(
+                        value: esp['id'],
+                        child: Text(esp['nombre']),
+                      );
+                    }).toList(),
+                    onChanged: (val) => setState(() => _especialidadId = val),
+                    validator: (val) =>
+                        val == null ? 'Seleccioná una especialidad' : null,
                   );
-                }).toList(),
-                onChanged: (val) => setState(() => _especialidadId = val),
-                validator: (val) =>
-                    val == null ? 'Seleccioná una especialidad' : null,
+                },
               ),
               const SizedBox(height: 30),
               _isLoading

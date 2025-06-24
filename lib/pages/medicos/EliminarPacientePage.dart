@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/widgets/custom/FutureDeleter.dart';
 
 class EliminarPacientePage extends StatelessWidget {
   const EliminarPacientePage({super.key});
@@ -15,7 +14,8 @@ class EliminarPacientePage extends StatelessWidget {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text("¿Estás seguro?"),
-          content: Text("¿Deseás eliminar al paciente ${paciente.nombre}?"),
+          content: Text(
+              "¿Deseás eliminar al paciente ${paciente.nombre} ${paciente.apellido}?"),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
@@ -30,7 +30,7 @@ class EliminarPacientePage extends StatelessWidget {
       );
 
       if (confirmar1 != true) {
-        Navigator.pop(context); // salir de la pantalla actual
+        Navigator.pushNamed(context, '/pacientes-list');
         return;
       }
 
@@ -55,63 +55,55 @@ class EliminarPacientePage extends StatelessWidget {
       );
 
       if (confirmar2 == true) {
-        final success = await eliminarPaciente(context, paciente);
+        // Usamos FutureDeleter para la eliminación
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FutureDeleter(
+              url:
+                  'https://tup-pps-api.onrender.com/api/medicos/eliminar-paciente/${paciente.id}',
+              widget: (data) {
+                final ok = data['ok'] ?? false;
+                final message = data['message'] ?? '';
 
-        if (success) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/login', (route) => false);
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Error al eliminar al paciente.")),
-          );
-          Navigator.pop(context); // volver atrás
-        }
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(message)),
+                  );
+                  if (ok) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/pacientes-list', (route) => false);
+                  } else {
+                    Navigator.pop(context);
+                  }
+                });
+
+                // Mientras muestra el resultado, dejamos una pantalla vacía o mensaje
+                return Scaffold(
+                  body: Center(
+                    child: ok
+                        ? const Icon(Icons.check_circle,
+                            color: Colors.green, size: 80)
+                        : const Icon(Icons.error, color: Colors.red, size: 80),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
       } else {
-        Navigator.pop(context); // salir de la pantalla actual
+        Navigator.pushNamed(context, '/pacientes-list');
       }
     }
 
-    // Mostramos las alertas apenas se construye
     WidgetsBinding.instance.addPostFrameCallback((_) {
       confirmarEliminacion();
     });
 
-    // Mientras tanto, pantalla de carga
     return const Scaffold(
       body: Center(
         child: CircularProgressIndicator(),
       ),
     );
-  }
-
-  Future<bool> eliminarPaciente(BuildContext context, Paciente paciente) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-
-      if (token == null) return false;
-
-      final url = Uri.parse(
-          'https://tup-pps-api.onrender.com/api/medicos/eliminar-paciente/${paciente.id}');
-
-      final response = await http.delete(
-        url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        debugPrint("Paciente eliminado correctamente.");
-        return true;
-      } else {
-        debugPrint("Error al eliminar paciente: ${response.body}");
-        return false;
-      }
-    } catch (e) {
-      debugPrint("Excepción al eliminar paciente: $e");
-      return false;
-    }
   }
 }

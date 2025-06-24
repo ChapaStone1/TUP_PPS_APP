@@ -1,5 +1,6 @@
 class RegistroMedico {
   final String nombre;
+  final String apellido; // agregado
   final String dni;
   final String sexo;
   final String fechaNac;
@@ -12,6 +13,7 @@ class RegistroMedico {
 
   RegistroMedico({
     required this.nombre,
+    required this.apellido, // agregado
     required this.dni,
     required this.sexo,
     required this.fechaNac,
@@ -26,6 +28,7 @@ class RegistroMedico {
   Map<String, dynamic> toJson() {
     return {
       'nombre': nombre,
+      'apellido': apellido, // agregado
       'dni': dni,
       'sexo': sexo,
       'fecha_nac': fechaNac,
@@ -33,7 +36,7 @@ class RegistroMedico {
       'telefono': telefono,
       'password': password,
       'matricula': matricula,
-      'consultorio': matricula,
+      'consultorio': consultorio, // corregido, estaba 'matricula' repetido
       'especialidad': especialidad,
     };
   }

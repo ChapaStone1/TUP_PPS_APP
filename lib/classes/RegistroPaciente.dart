@@ -1,5 +1,6 @@
 class RegistroPaciente {
   final String nombre;
+  final String apellido; // agregado
   final String dni;
   final String sexo;
   final String fechaNac;
@@ -11,6 +12,7 @@ class RegistroPaciente {
 
   RegistroPaciente({
     required this.nombre,
+    required this.apellido, // agregado
     required this.dni,
     required this.sexo,
     required this.fechaNac,
@@ -24,6 +26,7 @@ class RegistroPaciente {
   Map<String, dynamic> toJson() {
     return {
       'nombre': nombre,
+      'apellido': apellido, // agregado
       'dni': dni,
       'sexo': sexo,
       'fecha_nac': fechaNac,
@@ -38,10 +41,11 @@ class RegistroPaciente {
   factory RegistroPaciente.fromJson(Map<String, dynamic> json) {
     return RegistroPaciente(
       nombre: json['nombre'] ?? '',
+      apellido: json['apellido'] ?? '', // agregado
       dni: json['dni'] ?? '',
       sexo: json['sexo'] ?? '',
       fechaNac: json['fecha_nac'] ?? '',
-      telefono: json['telefono'] ?? '', // asegurate de que sea número
+      telefono: json['telefono'] ?? '',
       email: json['email'] ?? '',
       password: json['password'] ?? '',
       grupoSanguineo: json['grupo_sanguineo'] ?? '',

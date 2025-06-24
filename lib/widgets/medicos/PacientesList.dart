@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
-import 'package:flutter_application_1/services/PacienteService.dart';
+import 'package:flutter_application_1/services/ListarPacientesService.dart';
 import 'package:flutter_application_1/widgets/medicos/PacienteItem.dart';
 import 'dart:async';
 
@@ -42,7 +42,7 @@ class _PacientesListState extends State<PacientesList> {
     setState(() => _isLoadingMore = true);
 
     try {
-      final _pacienteService = PacienteService();
+      final _pacienteService = ListarPacientesService();
 
       final newPacientes = await _pacienteService.fetchPacientes(
         query: _searchQuery,
@@ -146,7 +146,6 @@ class _PacientesListState extends State<PacientesList> {
                 },
               ),
             ),
-            // Opcional: un SizedBox para dar un poco de margen abajo si es necesario
             const SizedBox(height: 12),
           ],
         ),

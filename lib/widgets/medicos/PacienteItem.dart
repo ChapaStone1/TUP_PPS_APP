@@ -13,6 +13,8 @@ class PacienteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nombre = paciente.nombre.isNotEmpty ? paciente.nombre : 'Sin nombre';
+    final apellido =
+        paciente.apellido.isNotEmpty ? paciente.apellido : 'Sin apellido';
     final dni = paciente.dni.isNotEmpty ? paciente.dni : 'N/D';
     final obra = paciente.obraSocial.isNotEmpty ? paciente.obraSocial : 'N/A';
 
@@ -22,7 +24,7 @@ class PacienteItem extends StatelessWidget {
         color: Colors.yellow,
         size: 25,
       ),
-      title: nombre,
+      title: '${apellido}, ${nombre}',
       subtitle:
           'DNI: $dni   |  Obra Social: $obra', //|  Correo: $email  |  Obra Social: $obra
 

@@ -34,9 +34,8 @@ class HomePaciente extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Agrego sizedBox para los errores visuales de flutter
                       SizedBox(
-                        height: 200, // Ajustá según necesidad
+                        height: 200,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -61,8 +60,6 @@ class HomePaciente extends StatelessWidget {
                           ],
                         ),
                       ),
-
-                      // 🟩 Tarjetas de navegación
                       ...routes.where((r) => r.show).map(
                             (route) => Padding(
                               padding: const EdgeInsets.symmetric(vertical: 6),
