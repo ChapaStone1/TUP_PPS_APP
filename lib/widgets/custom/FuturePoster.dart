@@ -41,10 +41,17 @@ class _FuturePosterState extends State<FuturePoster> {
       body: jsonEncode(widget.body ?? {}),
     );
 
-    if (response.statusCode == 200) {
+    final statusCode = response.statusCode;
+
+    if (statusCode == 200 || statusCode == 201) {
       return jsonDecode(response.body);
     } else {
-      throw Exception('Error posting data');
+      try {
+        final errorData = jsonDecode(response.body);
+        throw Exception(errorData['message'] ?? 'Error $statusCode');
+      } catch (_) {
+        throw Exception('Error $statusCode: ${response.reasonPhrase}');
+      }
     }
   }
 
@@ -56,7 +63,7 @@ class _FuturePosterState extends State<FuturePoster> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error: \${snapshot.error}'));
+          return Center(child: Text('Error: ${snapshot.error}'));
         } else if (snapshot.hasData) {
           return widget.widget(snapshot.data!);
         } else {

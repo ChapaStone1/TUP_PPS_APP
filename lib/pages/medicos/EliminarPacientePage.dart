@@ -30,7 +30,7 @@ class EliminarPacientePage extends StatelessWidget {
       );
 
       if (confirmar1 != true) {
-        Navigator.pop(context, false);
+        if (context.mounted) Navigator.pop(context, false);
         return;
       }
 
@@ -67,21 +67,24 @@ class EliminarPacientePage extends StatelessWidget {
                 final message = data['message'] ?? 'Resultado desconocido';
 
                 WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (!context.mounted) return;
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(message)),
                   );
-                  if (ok) {
-                    Navigator.pop(context); // FutureDeleter
-                    Navigator.pop(context); // paciente-description
-                    Navigator.pop(context); // lista
-                    Navigator.pop(context); // home o algo anterior
-                  } else {
-                    Navigator.pop(context); // FutureDeleter
-                    Navigator.pop(context); // paciente-description
-                  }
+
+                  Future.delayed(const Duration(seconds: 1), () {
+                    if (!context.mounted) return;
+
+                    if (ok) {
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    } else {
+                      Navigator.pop(context); // FutureDeleter
+                      Navigator.pop(context); // paciente-description
+                    }
+                  });
                 });
 
-                // Mientras muestra el resultado, dejamos una pantalla vacía o mensaje
                 return Scaffold(
                   body: Center(
                     child: ok
@@ -95,12 +98,14 @@ class EliminarPacientePage extends StatelessWidget {
           ),
         );
       } else {
-        Navigator.pop(context, false);
+        if (context.mounted) Navigator.pop(context, false);
       }
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      confirmarEliminacion();
+      if (context.mounted) {
+        confirmarEliminacion();
+      }
     });
 
     return const Scaffold(

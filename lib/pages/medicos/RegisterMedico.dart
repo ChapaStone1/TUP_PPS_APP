@@ -71,7 +71,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
     );
 
     if (result['ok']) {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.popUntil(context, (route) => route.isFirst);
     }
 
     setState(() => _isLoading = false);

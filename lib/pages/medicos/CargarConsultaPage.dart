@@ -77,18 +77,22 @@ class _CargarConsultaPageState extends State<CargarConsultaPage> {
                               'https://tup-pps-api.onrender.com/api/medicos/cargar-consulta/${paciente.id}',
                           body: body,
                           widget: (data) {
-                            final ok = data['ok'] ?? false;
-                            final message = data['message'] ?? 'Sin mensaje';
-
+                            final status = data['status'] ?? 500;
+                            final ok = status == 200 || status == 201;
+                            final message = data['data']?['message'] ??
+                                'Hubo un error inesperado';
                             WidgetsBinding.instance.addPostFrameCallback((_) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text(message)),
                               );
 
                               Future.delayed(const Duration(seconds: 2), () {
-                                Navigator.pop(context); // salir de FuturePoster
-                                Navigator.pop(
-                                    context); // volver a página anterior
+                                if (mounted) {
+                                  Navigator.popUntil(
+                                      context,
+                                      (route) =>
+                                          route.isFirst); // volver al inicio
+                                }
                               });
                             });
 
