@@ -73,9 +73,12 @@ class EliminarPacientePage extends StatelessWidget {
                   if (ok) {
                     Navigator.pop(context); // Cierra FutureDeleter
                     Navigator.pop(context); // Cierra paciente-description
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   } else {
                     Navigator.pop(
                         context); // Solo cierra FutureDeleter si falló
+                    Navigator.pop(context);
                   }
                 });
 

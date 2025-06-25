@@ -1,0 +1,117 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/widgets/custom/FuturePoster.dart';
+
+class CargarConsultaPage extends StatefulWidget {
+  const CargarConsultaPage({super.key});
+
+  @override
+  State<CargarConsultaPage> createState() => _CargarConsultaPageState();
+}
+
+class _CargarConsultaPageState extends State<CargarConsultaPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _notaController = TextEditingController();
+  final _medicacionController = TextEditingController();
+
+  @override
+  void dispose() {
+    _notaController.dispose();
+    _medicacionController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final paciente = ModalRoute.of(context)!.settings.arguments as Paciente;
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Nueva Consulta")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Text("Paciente: ${paciente.apellido}, ${paciente.nombre}",
+                  style: const TextStyle(fontSize: 16)),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: _notaController,
+                maxLines: 4,
+                decoration: const InputDecoration(
+                  labelText: 'Nota',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) => value == null || value.trim().isEmpty
+                    ? 'Campo requerido'
+                    : null,
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _medicacionController,
+                decoration: const InputDecoration(
+                  labelText: 'Medicacion',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) => value == null || value.trim().isEmpty
+                    ? 'Campo requerido'
+                    : null,
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.save),
+                label: const Text("Cargar Consulta"),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    final body = {
+                      'nota': _notaController.text.trim(),
+                      'medicacion': _medicacionController.text.trim(),
+                    };
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FuturePoster(
+                          url:
+                              'https://tup-pps-api.onrender.com/api/medicos/cargar-consulta/${paciente.id}',
+                          body: body,
+                          widget: (data) {
+                            final ok = data['ok'] ?? false;
+                            final message = data['message'] ?? 'Sin mensaje';
+
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(message)),
+                              );
+
+                              Future.delayed(const Duration(seconds: 2), () {
+                                Navigator.pop(context); // salir de FuturePoster
+                                Navigator.pop(
+                                    context); // volver a página anterior
+                              });
+                            });
+
+                            return Scaffold(
+                              body: Center(
+                                child: ok
+                                    ? const Icon(Icons.check_circle,
+                                        color: Colors.green, size: 80)
+                                    : const Icon(Icons.error,
+                                        color: Colors.red, size: 80),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  }
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

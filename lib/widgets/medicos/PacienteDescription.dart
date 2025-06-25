@@ -95,7 +95,11 @@ class PacienteDescription extends StatelessWidget {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/cargar-consulta');
+                          Navigator.pushNamed(
+                            context,
+                            '/cargar-consulta',
+                            arguments: paciente,
+                          );
                         },
                         icon: const Icon(Icons.add),
                         label: const Text("Cargar consulta"),
