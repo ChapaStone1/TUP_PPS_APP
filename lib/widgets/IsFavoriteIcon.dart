@@ -23,7 +23,14 @@ class _IsFavoriteIconState extends State<IsFavoriteIcon> {
   @override
   void initState() {
     super.initState();
-    isFav = Preferences.favs.contains(widget.id);
+    isFav = Preferences.favs.contains(widget.id.toString()); // CAMBIO AQUÍ
+  }
+
+  void toggleFavorite() {
+    setState(() {
+      isFav = !isFav;
+    });
+    Preferences.toggleFav(widget.id.toString()); // Y AQUÍ
   }
 
   Color adaptColor(Color baseColor) {
@@ -35,13 +42,6 @@ class _IsFavoriteIconState extends State<IsFavoriteIcon> {
             255 - baseColor.blue,
           )
         : baseColor;
-  }
-
-  void toggleFavorite() {
-    setState(() {
-      isFav = !isFav;
-    });
-    Preferences.toggleFav(widget.id as String);
   }
 
   @override

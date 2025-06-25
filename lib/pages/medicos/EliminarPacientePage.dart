@@ -30,7 +30,7 @@ class EliminarPacientePage extends StatelessWidget {
       );
 
       if (confirmar1 != true) {
-        Navigator.pushNamed(context, '/pacientes-list');
+        Navigator.pop(context, false);
         return;
       }
 
@@ -71,10 +71,11 @@ class EliminarPacientePage extends StatelessWidget {
                     SnackBar(content: Text(message)),
                   );
                   if (ok) {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/pacientes-list', (route) => false);
+                    Navigator.pop(context); // Cierra FutureDeleter
+                    Navigator.pop(context); // Cierra paciente-description
                   } else {
-                    Navigator.pop(context);
+                    Navigator.pop(
+                        context); // Solo cierra FutureDeleter si falló
                   }
                 });
 
@@ -92,7 +93,7 @@ class EliminarPacientePage extends StatelessWidget {
           ),
         );
       } else {
-        Navigator.pushNamed(context, '/pacientes-list');
+        Navigator.pop(context, false);
       }
     }
 
