@@ -38,10 +38,20 @@ class _FutureDeleterState extends State<FutureDeleter> {
       },
     );
 
+    final decoded = jsonDecode(response.body);
+
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      return {
+        'status': decoded['status'],
+        'message': decoded['data']?['message'] ?? 'Operación exitosa',
+      };
     } else {
-      throw Exception('Error deleting data');
+      return {
+        'status': decoded['status'] ?? response.statusCode,
+        'message': decoded['data']?['message'] ??
+            decoded['message'] ??
+            'Error desconocido',
+      };
     }
   }
 

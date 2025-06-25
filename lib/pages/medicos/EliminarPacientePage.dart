@@ -63,22 +63,21 @@ class EliminarPacientePage extends StatelessWidget {
               url:
                   'https://tup-pps-api.onrender.com/api/medicos/eliminar-paciente/${paciente.id}',
               widget: (data) {
-                final ok = data['ok'] ?? false;
-                final message = data['message'] ?? '';
+                final ok = data['status'] == 200;
+                final message = data['message'] ?? 'Resultado desconocido';
 
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(message)),
                   );
                   if (ok) {
-                    Navigator.pop(context); // Cierra FutureDeleter
-                    Navigator.pop(context); // Cierra paciente-description
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigator.pop(context); // FutureDeleter
+                    Navigator.pop(context); // paciente-description
+                    Navigator.pop(context); // lista
+                    Navigator.pop(context); // home o algo anterior
                   } else {
-                    Navigator.pop(
-                        context); // Solo cierra FutureDeleter si falló
-                    Navigator.pop(context);
+                    Navigator.pop(context); // FutureDeleter
+                    Navigator.pop(context); // paciente-description
                   }
                 });
 

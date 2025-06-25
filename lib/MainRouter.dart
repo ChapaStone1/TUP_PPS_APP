@@ -4,6 +4,7 @@ import 'package:flutter_application_1/pages/HomePaciente.dart';
 import 'package:flutter_application_1/pages/medicos/EliminarPacientePage.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedico.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteInfoPage.dart';
+import 'package:flutter_application_1/pages/medicos/CargarConsultaPage.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteListPage.dart';
 import 'package:flutter_application_1/pages/pacientes/HistoriaClinicaInfoPage.dart';
 import 'package:flutter_application_1/pages/pacientes/MiHistoriaClinicaInfoPage.dart';
@@ -106,7 +107,7 @@ class MainRouter {
       Route(
         id: "Cargar consulta",
         path: '/cargar-consulta',
-        widget: const HistoriaClinicaInfoPage(),
+        widget: const CargarConsultaPage(),
         icon: const Icon(Icons.note_add), // Agregar consulta
         title: "Cargar información de una consulta de un paciente",
         subtitle: "",
