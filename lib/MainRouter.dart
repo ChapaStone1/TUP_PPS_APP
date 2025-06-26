@@ -8,7 +8,7 @@ import 'package:flutter_application_1/pages/medicos/CargarConsultaPage.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteListPage.dart';
 import 'package:flutter_application_1/pages/pacientes/HistoriaClinicaInfoPage.dart';
 import 'package:flutter_application_1/pages/pacientes/MiHistoriaClinicaInfoPage.dart';
-import 'package:flutter_application_1/pages/pacientes/ProfilePaciente.dart';
+import 'package:flutter_application_1/pages/pacientes/ProfilePacientePage.dart';
 import 'package:flutter_application_1/pages/auth/Login.dart';
 import 'package:flutter_application_1/pages/pacientes/RegisterPaciente.dart';
 import 'package:flutter_application_1/pages/medicos/RegisterMedico.dart';

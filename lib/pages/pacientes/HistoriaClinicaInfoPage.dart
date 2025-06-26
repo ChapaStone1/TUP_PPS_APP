@@ -4,7 +4,7 @@ import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 import 'package:flutter_application_1/widgets/pacientes/HistoriaClinicaCard.dart';
-import 'package:flutter_application_1/utils/PDFGenerator.dart'; // Asegurate de tener esta función
+import 'package:flutter_application_1/utils/PDFGenerator.dart';
 
 class HistoriaClinicaInfoPage extends StatefulWidget {
   const HistoriaClinicaInfoPage({super.key});

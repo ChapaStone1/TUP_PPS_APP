@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/RegistroMedico.dart';
 import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/services/RegistroService.dart';
+import 'package:flutter_application_1/widgets/custom/DataPickerFormField.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
-import 'package:flutter_application_1/utils/GeneralValidator.dart'; // <-- Importá la clase GeneralValidator
+import 'package:flutter_application_1/utils/GeneralValidator.dart';
 
 class RegisterMedicoPage extends StatefulWidget {
   const RegisterMedicoPage({super.key});
@@ -125,10 +126,10 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
                 validator: GeneralValidator.validarDropdown,
               ),
               const SizedBox(height: 16),
-              TextFormField(
+              DatePickerFormField(
                 controller: _fechaNacController,
-                decoration: _inputDecoration(
-                    'Fecha de nacimiento (YYYY-MM-DD)', Icons.calendar_today),
+                label: 'Fecha de nacimiento',
+                icon: Icons.calendar_today,
                 validator: GeneralValidator.validarFecha,
               ),
               const SizedBox(height: 16),

@@ -1,9 +1,8 @@
-// ignore_for_file: unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/RegistroPaciente.dart';
 import 'package:flutter_application_1/services/RegistroService.dart';
-import 'package:flutter_application_1/utils/GeneralValidator.dart'; // <-- Importado
+import 'package:flutter_application_1/utils/GeneralValidator.dart';
+import 'package:flutter_application_1/widgets/custom/DataPickerFormField.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -82,7 +81,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -134,10 +132,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 validator: GeneralValidator.validarDropdown,
               ),
               const SizedBox(height: 16),
-              TextFormField(
+              DatePickerFormField(
                 controller: _fechaNacController,
-                decoration: _inputDecoration(
-                    'Fecha de nacimiento (YYYY-MM-DD)', Icons.calendar_today),
+                label: 'Fecha de nacimiento',
+                icon: Icons.calendar_today,
                 validator: GeneralValidator.validarFecha,
               ),
               const SizedBox(height: 16),

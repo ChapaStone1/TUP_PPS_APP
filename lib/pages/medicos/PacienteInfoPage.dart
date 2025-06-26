@@ -1,11 +1,8 @@
-// ignore: unused_import
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
-import 'package:flutter_application_1/widgets/medicos/PacienteDescription.dart'; // La descripción personalizada para los personajes Marvel
+import 'package:flutter_application_1/widgets/medicos/PacienteDescription.dart';
 
 class PacienteInfoPage extends StatefulWidget {
   const PacienteInfoPage({super.key});
@@ -17,7 +14,6 @@ class PacienteInfoPage extends StatefulWidget {
 class _PacienteInfoPageState extends State<PacienteInfoPage> {
   @override
   Widget build(BuildContext context) {
-    // Extract the arguments from the current ModalRoute
     final Paciente paciente =
         ModalRoute.of(context)!.settings.arguments as Paciente;
 
@@ -29,8 +25,7 @@ class _PacienteInfoPageState extends State<PacienteInfoPage> {
         child: FutureFetcher(
           url: ApiConfig.buscarPacientePorDni(paciente.dni),
           widget: (data) {
-            return PacienteDescription(
-                paciente: paciente); // Aquí se pasa la información obtenida
+            return PacienteDescription(paciente: paciente);
           },
         ),
       ),

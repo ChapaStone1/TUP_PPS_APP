@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
+import 'package:flutter_application_1/widgets/custom/DataPickerFormField.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 import 'package:flutter_application_1/utils/GeneralValidator.dart';
 import 'package:flutter_application_1/widgets/custom/FutureUpdater.dart';
@@ -188,10 +189,10 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
                   validator: GeneralValidator.validarDropdown,
                 ),
               ),
-              buildValidatedTextFormField(
-                label: 'Fecha de nacimiento',
+              DatePickerFormField(
                 controller: _fechaNacController,
-                icon: Icons.cake,
+                label: 'Fecha de nacimiento',
+                icon: Icons.calendar_today,
                 validator: GeneralValidator.validarFecha,
               ),
               buildValidatedTextFormField(

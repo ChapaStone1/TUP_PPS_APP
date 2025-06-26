@@ -3,6 +3,7 @@ import 'package:flutter_application_1/classes/Medico.dart';
 import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
+import 'package:flutter_application_1/widgets/custom/DataPickerFormField.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 import 'package:flutter_application_1/utils/GeneralValidator.dart'; // Importa GeneralValidator
 import 'package:flutter_application_1/widgets/custom/FutureUpdater.dart';
@@ -186,9 +187,12 @@ class _BodyProfileState extends State<BodyProfile> {
                   validator: GeneralValidator.validarDropdown,
                 ),
               ),
-              buildTextFormField('Fecha de nacimiento', _fechaNacController,
-                  Icons.calendar_today,
-                  validator: GeneralValidator.validarFecha),
+              DatePickerFormField(
+                controller: _fechaNacController,
+                label: 'Fecha de nacimiento',
+                icon: Icons.calendar_today,
+                validator: GeneralValidator.validarFecha,
+              ),
               buildTextFormField('Teléfono', _telefonoController, Icons.phone,
                   validator: GeneralValidator.validarTelefono, isNumber: true),
               buildTextFormField('Email', _emailController, Icons.email,
