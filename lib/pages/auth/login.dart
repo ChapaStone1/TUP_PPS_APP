@@ -193,10 +193,14 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           child: Text(
                             '¿No tenés cuenta? Registrarse',
-                            style: TextStyle(color: primaryColor),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: primaryColor,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-
                         const SizedBox(height: 30),
 
                         // Imagen + Texto al final
@@ -204,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Image.asset(
                               'lib/assets/images/UTN.png',
-                              height: 80,
+                              height: 100,
                               fit: BoxFit.contain,
                               color: primaryColor,
                               colorBlendMode: BlendMode.srcIn,
@@ -213,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                             Text(
                               'Juan Jose Chaparro | PPS UTN 2025',
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: primaryColor,
                               ),

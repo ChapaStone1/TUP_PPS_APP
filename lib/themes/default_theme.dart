@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DefaultTheme {
-  // Paleta principal
-  static const Color primary = Color(0xFF0D47A1);
+  // Colores celestes
+  static const Color primary = Color(0xFF03A9F4); // light blue
   static const Color secondary = Colors.grey;
-  static final Color primaryHover = Colors.blue.shade700;
+  static const Color primaryHover = Color(0xFF0288D1); // darker light blue
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: primary,
@@ -59,7 +59,7 @@ class DefaultTheme {
       backgroundColor: Colors.blueGrey.shade900,
       foregroundColor: Colors.white,
     ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: primaryHover,
       foregroundColor: Colors.white,
     ),
@@ -72,7 +72,7 @@ class DefaultTheme {
       hintStyle: const TextStyle(color: Colors.grey),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: Colors.blue),
+        borderSide: const BorderSide(color: primary),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
@@ -80,7 +80,7 @@ class DefaultTheme {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: Colors.blue, width: 2),
+        borderSide: const BorderSide(color: primary, width: 2),
       ),
     ),
   );

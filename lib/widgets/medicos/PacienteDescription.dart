@@ -55,7 +55,7 @@ class PacienteDescription extends StatelessWidget {
                     right: 8.0,
                     child: IsFavoriteIcon(
                       id: paciente.id,
-                      color: Colors.yellow,
+                      color: const Color.fromARGB(255, 218, 197, 13),
                       size: 40.0,
                     ),
                   ),

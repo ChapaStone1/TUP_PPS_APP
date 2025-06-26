@@ -21,8 +21,8 @@ class PacienteItem extends StatelessWidget {
     return CustomCardPaciente(
       trailingIcon: IsFavoriteIcon(
         id: paciente.id,
-        color: Colors.yellow,
-        size: 25,
+        color: const Color.fromARGB(255, 218, 197, 13),
+        size: 30,
       ),
       title: '${apellido}, ${nombre}',
       subtitle:

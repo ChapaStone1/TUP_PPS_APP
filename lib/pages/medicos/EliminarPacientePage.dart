@@ -77,7 +77,11 @@ class EliminarPacientePage extends StatelessWidget {
                     if (!context.mounted) return;
 
                     if (ok) {
-                      Navigator.popUntil(context, (route) => route.isFirst);
+                      Navigator.pop(context); // FutureDeleter
+                      Navigator.pop(context); // paciente-description
+                      Navigator.pop(context); // lista
+                      Navigator.pop(
+                          context); // Al home, hago 4 pops xq el isFirst no me anda acá
                     } else {
                       Navigator.pop(context); // FutureDeleter
                       Navigator.pop(context); // paciente-description
