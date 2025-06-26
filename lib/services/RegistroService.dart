@@ -1,15 +1,14 @@
 import 'dart:convert';
 import 'package:flutter_application_1/classes/RegistroMedico.dart';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../classes/RegistroPaciente.dart';
 
 class RegistroService {
-  static const String _baseUrl = 'https://tup-pps-api.onrender.com/api';
-
   Future<Map<String, dynamic>> registrarPaciente(
       RegistroPaciente registro) async {
-    final url = Uri.parse('$_baseUrl/auth/register');
+    final url = Uri.parse(ApiConfig.registerPaciente());
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode(registro.toJson());
 
@@ -49,7 +48,7 @@ class RegistroService {
       }
 
       final response = await http.post(
-        Uri.parse('$_baseUrl/medicos/cargar-medico'),
+        Uri.parse(ApiConfig.registerMedico()),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',

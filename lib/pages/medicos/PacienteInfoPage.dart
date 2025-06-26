@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 import 'package:flutter_application_1/widgets/medicos/PacienteDescription.dart'; // La descripción personalizada para los personajes Marvel
 
@@ -26,8 +27,7 @@ class _PacienteInfoPageState extends State<PacienteInfoPage> {
       ),
       body: Center(
         child: FutureFetcher(
-          url:
-              "https://tup-pps-api.onrender.com/api/medicos/buscar-paciente/${paciente.dni}", // URL a la API de Marvel
+          url: ApiConfig.buscarPacientePorDni(paciente.dni),
           widget: (data) {
             return PacienteDescription(
                 paciente: paciente); // Aquí se pasa la información obtenida

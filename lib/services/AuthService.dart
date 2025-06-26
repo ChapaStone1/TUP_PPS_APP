@@ -1,12 +1,11 @@
 import 'dart:convert';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  static const String _baseUrl = 'https://tup-pps-api.onrender.com';
-
   Future<Map<String, dynamic>> login(String email, String password) async {
-    final url = Uri.parse('$_baseUrl/api/auth/login');
+    final url = Uri.parse(ApiConfig.login());
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'email': email, 'password': password});
 

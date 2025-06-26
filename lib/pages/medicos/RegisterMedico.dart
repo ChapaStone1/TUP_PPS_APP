@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/RegistroMedico.dart';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/services/RegistroService.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 import 'package:flutter_application_1/utils/GeneralValidator.dart'; // <-- Importá la clase GeneralValidator
@@ -164,8 +165,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
               ),
               const SizedBox(height: 16),
               FutureFetcher(
-                url:
-                    'https://tup-pps-api.onrender.com/api/medicos/especialidades',
+                url: ApiConfig.especialidadesMedico(),
                 widget: (json) {
                   final especialidades =
                       List<Map<String, dynamic>>.from(json['data']);

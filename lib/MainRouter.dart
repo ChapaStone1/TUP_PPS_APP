@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
 import 'package:flutter_application_1/pages/medicos/EliminarPacientePage.dart';
-import 'package:flutter_application_1/pages/medicos/ProfileMedico.dart';
+import 'package:flutter_application_1/pages/medicos/ProfileMedicoPage.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteInfoPage.dart';
 import 'package:flutter_application_1/pages/medicos/CargarConsultaPage.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteListPage.dart';

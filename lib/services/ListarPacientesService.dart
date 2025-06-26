@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,8 +15,7 @@ class ListarPacientesService {
 
     if (token == null) throw Exception('Token no encontrado');
 
-    final url =
-        "https://tup-pps-api.onrender.com/api/medicos/all-pacientes?dni=$query&limit=$limit&offset=$offset";
+    final url = ApiConfig.allPacientes(query, limit, offset);
 
     final response = await http.get(
       Uri.parse(url),

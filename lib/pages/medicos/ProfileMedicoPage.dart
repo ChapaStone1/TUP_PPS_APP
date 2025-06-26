@@ -1,14 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Medico.dart';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 import 'package:flutter_application_1/utils/GeneralValidator.dart'; // Importa GeneralValidator
-import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/widgets/custom/FutureUpdater.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileMedicoPage extends StatelessWidget {
   const ProfileMedicoPage({super.key});
@@ -22,9 +20,9 @@ class ProfileMedicoPage extends StatelessWidget {
         elevation: 10,
       ),
       body: FutureFetcher(
-        url: 'https://tup-pps-api.onrender.com/api/medicos/mi-perfil',
+        url: ApiConfig.perfilMedico(),
         widget: (json) => FutureFetcher(
-          url: 'https://tup-pps-api.onrender.com/api/medicos/especialidades',
+          url: ApiConfig.especialidadesMedico(),
           widget: (espJson) => BodyProfile(
             medico: Medico.fromJson(json['data']),
             especialidades: List<Map<String, dynamic>>.from(espJson['data']),
@@ -39,8 +37,11 @@ class BodyProfile extends StatefulWidget {
   final Medico medico;
   final List<Map<String, dynamic>> especialidades;
 
-  const BodyProfile(
-      {super.key, required this.medico, required this.especialidades});
+  const BodyProfile({
+    super.key,
+    required this.medico,
+    required this.especialidades,
+  });
 
   @override
   State<BodyProfile> createState() => _BodyProfileState();
@@ -82,19 +83,8 @@ class _BodyProfileState extends State<BodyProfile> {
     especialidadId = m.especialidadId;
   }
 
-  Future<void> updatePerfil() async {
+  void updatePerfilConFutureUpdater() {
     if (!_formKey.currentState!.validate()) return;
-
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    if (token == null) return;
-
-    final url =
-        Uri.parse('https://tup-pps-api.onrender.com/api/medicos/mi-perfil');
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
 
     final medicoActualizado = Medico(
       nombre: _nombreController.text.trim(),
@@ -114,13 +104,30 @@ class _BodyProfileState extends State<BodyProfile> {
     if (passwordText.isNotEmpty) {
       bodyMap['password'] = passwordText;
     }
-    final body = jsonEncode(bodyMap);
 
-    final response = await http.put(url, headers: headers, body: body);
-
-    final json = jsonDecode(response.body);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(json['message'] ?? 'Perfil actualizado')),
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        title: const Text('Actualizando perfil'),
+        content: SizedBox(
+          height: 100,
+          child: FutureUpdater(
+            url: ApiConfig.perfilMedico(),
+            body: bodyMap,
+            widget: (json) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(json['message'] ?? 'Perfil actualizado')),
+                );
+              });
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
+        ),
+      ),
     );
   }
 
@@ -168,7 +175,7 @@ class _BodyProfileState extends State<BodyProfile> {
                   'Matrícula', _matriculaController, Icons.assignment_ind,
                   validator: GeneralValidator.campoRequerido),
               buildTextFormField(
-                  'Consultorio', _consultorioController, Icons.assignment_ind,
+                  'Consultorio', _consultorioController, Icons.local_hospital,
                   validator: GeneralValidator.campoRequerido),
               buildEspecialidadDropdown(),
               buildTextFormField(
@@ -186,14 +193,13 @@ class _BodyProfileState extends State<BodyProfile> {
                   },
                 ),
                 validator: (val) {
-                  // La contraseña solo valida si no está vacía (opcional en update)
                   if (val == null || val.isEmpty) return null;
                   return GeneralValidator.validarPassword(val);
                 },
               ),
               const SizedBox(height: 10),
               ElevatedButton.icon(
-                onPressed: updatePerfil,
+                onPressed: updatePerfilConFutureUpdater,
                 icon: const Icon(Icons.save),
                 label: const Text('Guardar cambios'),
                 style: ElevatedButton.styleFrom(

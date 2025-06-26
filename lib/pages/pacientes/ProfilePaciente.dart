@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 import 'package:flutter_application_1/utils/GeneralValidator.dart';
+import 'package:flutter_application_1/widgets/custom/FutureUpdater.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class ProfilePacientePage extends StatelessWidget {
   const ProfilePacientePage({super.key});
@@ -68,21 +67,10 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
     darkMode = Preferences.darkmode;
   }
 
-  Future<void> updatePerfil() async {
+  void updatePerfilConFutureUpdater() {
     if (!_formKey.currentState!.validate()) return;
 
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    if (token == null) return;
-
-    final url =
-        Uri.parse('https://tup-pps-api.onrender.com/api/pacientes/mi-perfil');
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-
-    final body = jsonEncode({
+    final body = {
       'nombre': _nombreController.text.trim(),
       'apellido': _apellidoController.text.trim(),
       'dni': _dniController.text.trim(),
@@ -93,13 +81,31 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
       'grupo_sanguineo': _grupoSanguineoSeleccionado ?? '',
       'obra_social': _obraSocialController.text.trim(),
       'password': _passwordController.text.trim(),
-    });
+    };
 
-    final response = await http.put(url, headers: headers, body: body);
-    final json = jsonDecode(response.body);
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(json['message'] ?? 'Perfil actualizado')),
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        title: const Text('Actualizando perfil'),
+        content: SizedBox(
+          height: 100,
+          child: FutureUpdater(
+            url: ApiConfig.perfilPaciente(),
+            body: body,
+            widget: (json) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.of(context).pop(); // cerrar el diálogo
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(json['message'] ?? 'Perfil actualizado')),
+                );
+              });
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
+        ),
+      ),
     );
   }
 
@@ -108,7 +114,7 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
     final temaProvider = Provider.of<ThemeProvider>(context, listen: false);
 
     return FutureFetcher(
-      url: 'https://tup-pps-api.onrender.com/api/pacientes/mi-perfil',
+      url: ApiConfig.perfilPaciente(),
       widget: (json) {
         final data = json['data'];
         _nombreController.text = data['nombre'] ?? '';
@@ -155,7 +161,7 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
                 icon: Icons.badge,
                 validator: GeneralValidator.validarDNI,
                 isNumber: true,
-                readOnly: true, // ← evita que el usuario edite el campo
+                readOnly: true,
                 fillColor: Colors.grey.shade200,
               ),
               buildValidatedTextFormField(
@@ -230,7 +236,7 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
               ),
               const SizedBox(height: 30),
               ElevatedButton.icon(
-                onPressed: updatePerfil,
+                onPressed: updatePerfilConFutureUpdater,
                 icon: const Icon(Icons.save),
                 label: const Text('Guardar cambios'),
                 style: ElevatedButton.styleFrom(
@@ -252,7 +258,7 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
     bool obscureText = false,
     bool readOnly = false,
     Widget? suffixIcon,
-    Color? fillColor, // ← nuevo
+    Color? fillColor,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -268,7 +274,7 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
           prefixIcon: Icon(icon),
           suffixIcon: suffixIcon,
           filled: true,
-          fillColor: fillColor ?? Colors.white, // ← aplica color si se pasó
+          fillColor: fillColor ?? Colors.white,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),

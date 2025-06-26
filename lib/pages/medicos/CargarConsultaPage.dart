@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/widgets/custom/FuturePoster.dart';
 import 'package:flutter_application_1/utils/GeneralValidator.dart'; // Importá tu validador
 
@@ -70,8 +71,7 @@ class _CargarConsultaPageState extends State<CargarConsultaPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => FuturePoster(
-                          url:
-                              'https://tup-pps-api.onrender.com/api/medicos/cargar-consulta/${paciente.id}',
+                          url: ApiConfig.cargarConsulta(paciente.id),
                           body: body,
                           widget: (data) {
                             final status = data['status'] ?? 500;

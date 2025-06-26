@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/widgets/custom/FutureDeleter.dart';
 
 class EliminarPacientePage extends StatelessWidget {
@@ -60,8 +61,7 @@ class EliminarPacientePage extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => FutureDeleter(
-              url:
-                  'https://tup-pps-api.onrender.com/api/medicos/eliminar-paciente/${paciente.id}',
+              url: ApiConfig.eliminarPaciente(paciente.id),
               widget: (data) {
                 final ok = data['status'] == 200;
                 final message = data['message'] ?? 'Resultado desconocido';

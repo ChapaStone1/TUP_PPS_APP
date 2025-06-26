@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/HistoriaClinica.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
+import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
 import 'package:flutter_application_1/widgets/pacientes/HistoriaClinicaCard.dart';
 import 'package:flutter_application_1/utils/PDFGenerator.dart'; // Asegurate de tener esta función
@@ -24,8 +25,7 @@ class HistoriaClinicaInfoPageState extends State<HistoriaClinicaInfoPage> {
         title: const Text("Historia Clínica"),
       ),
       body: FutureFetcher(
-        url:
-            "https://tup-pps-api.onrender.com/api/medicos/historia-clinica/${paciente.id}",
+        url: ApiConfig.historiaClinica(paciente.id),
         widget: (jsonData) {
           final List<HistoriaClinica> historias =
               HistoriaClinica.listFromJson(jsonData['data']);
