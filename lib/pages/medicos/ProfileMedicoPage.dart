@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Medico.dart';
+import 'package:flutter_application_1/classes/RegistroMedico.dart';
 import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
@@ -87,7 +88,7 @@ class _BodyProfileState extends State<BodyProfile> {
   void updatePerfilConFutureUpdater() {
     if (!_formKey.currentState!.validate()) return;
 
-    final medicoActualizado = Medico(
+    final medicoActualizado = RegistroMedico(
       nombre: _nombreController.text.trim(),
       apellido: _apellidoController.text.trim(),
       sexo: _sexoSeleccionado ?? '',
@@ -96,8 +97,9 @@ class _BodyProfileState extends State<BodyProfile> {
       telefono: _telefonoController.text.trim(),
       email: _emailController.text.trim(),
       matricula: _matriculaController.text.trim(),
+      password: _passwordController.text.trim(),
       consultorio: _consultorioController.text.trim(),
-      especialidadId: especialidadId,
+      especialidad_id: especialidadId,
     );
 
     final bodyMap = medicoActualizado.toJson();

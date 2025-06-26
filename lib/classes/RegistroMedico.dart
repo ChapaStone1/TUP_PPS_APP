@@ -9,11 +9,11 @@ class RegistroMedico {
   final String password;
   final String matricula;
   final String consultorio;
-  final int especialidad_id;
+  final int? especialidad_id;
 
   RegistroMedico({
     required this.nombre,
-    required this.apellido, // agregado
+    required this.apellido,
     required this.dni,
     required this.sexo,
     required this.fechaNac,
@@ -22,7 +22,7 @@ class RegistroMedico {
     required this.password,
     required this.matricula,
     required this.consultorio,
-    required this.especialidad_id,
+    required this.especialidad_id, // <- corregido
   });
 
   Map<String, dynamic> toJson() {
@@ -37,7 +37,7 @@ class RegistroMedico {
       'password': password,
       'matricula': matricula,
       'consultorio': consultorio, // corregido, estaba 'matricula' repetido
-      'especialidad_id': especialidad_id,
+      'especialidad_id': especialidad_id ?? 0,
     };
   }
 }
