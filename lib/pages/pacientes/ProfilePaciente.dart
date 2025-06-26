@@ -155,6 +155,8 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
                 icon: Icons.badge,
                 validator: GeneralValidator.validarDNI,
                 isNumber: true,
+                readOnly: true, // ← evita que el usuario edite el campo
+                fillColor: Colors.grey.shade200,
               ),
               buildValidatedTextFormField(
                 label: 'Sexo',
@@ -248,7 +250,9 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
     required String? Function(String?) validator,
     bool isNumber = false,
     bool obscureText = false,
+    bool readOnly = false,
     Widget? suffixIcon,
+    Color? fillColor, // ← nuevo
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -256,14 +260,15 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
         controller: controller,
         keyboardType: isNumber ? TextInputType.number : TextInputType.text,
         obscureText: obscureText,
-        validator: validator,
+        readOnly: readOnly,
         style: const TextStyle(fontSize: 18),
+        validator: validator,
         decoration: InputDecoration(
           labelText: label,
           prefixIcon: Icon(icon),
           suffixIcon: suffixIcon,
           filled: true,
-          fillColor: Theme.of(context).colorScheme.surface,
+          fillColor: fillColor ?? Colors.white, // ← aplica color si se pasó
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),
