@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/RegistroMedico.dart';
 import 'package:flutter_application_1/services/RegistroService.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
+import 'package:flutter_application_1/utils/GeneralValidator.dart'; // <-- Importá la clase GeneralValidator
 
 class RegisterMedicoPage extends StatefulWidget {
   const RegisterMedicoPage({super.key});
@@ -45,7 +46,6 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
 
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
-    if (_especialidadId == null) return;
 
     setState(() => _isLoading = true);
 
@@ -98,22 +98,19 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
               TextFormField(
                 controller: _nombreController,
                 decoration: _inputDecoration('Nombres', Icons.person),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.campoRequerido,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _apellidoController,
                 decoration: _inputDecoration('Apellido', Icons.person),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.campoRequerido,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _dniController,
                 decoration: _inputDecoration('DNI', Icons.badge),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarDNI,
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
@@ -123,55 +120,47 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
                     .map((s) => DropdownMenuItem(value: s, child: Text(s)))
                     .toList(),
                 onChanged: (val) => setState(() => _sexoSeleccionado = val!),
+                validator: GeneralValidator.validarDropdown,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _fechaNacController,
                 decoration: _inputDecoration(
                     'Fecha de nacimiento (YYYY-MM-DD)', Icons.calendar_today),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarFecha,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _telefonoController,
                 decoration: _inputDecoration('Teléfono', Icons.phone),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarTelefono,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
                 decoration: _inputDecoration('Correo electrónico', Icons.email),
-                validator: (v) {
-                  if (v == null || v.isEmpty) return 'Campo requerido';
-                  if (!v.contains('@')) return 'Correo inválido';
-                  return null;
-                },
+                validator: GeneralValidator.validarEmail,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 decoration: _inputDecoration('Contraseña', Icons.lock),
                 obscureText: true,
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarPassword,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _matriculaController,
                 decoration:
                     _inputDecoration('Matrícula médica', Icons.assignment_ind),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.campoRequerido,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _consultorioController,
                 decoration:
                     _inputDecoration('Consultorio', Icons.assignment_ind),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.campoRequerido,
               ),
               const SizedBox(height: 16),
               FutureFetcher(
@@ -193,7 +182,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
                     }).toList(),
                     onChanged: (val) => setState(() => _especialidadId = val),
                     validator: (val) =>
-                        val == null ? 'Seleccioná una especialidad' : null,
+                        GeneralValidator.validarDropdownEspecialidad(val),
                   );
                 },
               ),

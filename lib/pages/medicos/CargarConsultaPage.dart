@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/widgets/custom/FuturePoster.dart';
+import 'package:flutter_application_1/utils/GeneralValidator.dart'; // Importá tu validador
 
 class CargarConsultaPage extends StatefulWidget {
   const CargarConsultaPage({super.key});
@@ -26,7 +27,7 @@ class _CargarConsultaPageState extends State<CargarConsultaPage> {
     final paciente = ModalRoute.of(context)!.settings.arguments as Paciente;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Nueva Consulta")),
+      appBar: AppBar(title: const Text("Cargar consulta a paciente")),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -43,9 +44,7 @@ class _CargarConsultaPageState extends State<CargarConsultaPage> {
                   labelText: 'Nota',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) => value == null || value.trim().isEmpty
-                    ? 'Campo requerido'
-                    : null,
+                validator: GeneralValidator.campoRequerido,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -54,9 +53,7 @@ class _CargarConsultaPageState extends State<CargarConsultaPage> {
                   labelText: 'Medicacion',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) => value == null || value.trim().isEmpty
-                    ? 'Campo requerido'
-                    : null,
+                validator: GeneralValidator.campoRequerido,
               ),
               const SizedBox(height: 24),
               ElevatedButton.icon(

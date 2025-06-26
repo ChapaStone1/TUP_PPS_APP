@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
 import 'package:flutter_application_1/widgets/custom/FutureFetcher.dart';
+import 'package:flutter_application_1/utils/GeneralValidator.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -38,6 +38,8 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
   bool darkMode = false;
   bool showPassword = false;
 
+  final _formKey = GlobalKey<FormState>();
+
   final _nombreController = TextEditingController();
   final _apellidoController = TextEditingController();
   final _dniController = TextEditingController();
@@ -67,6 +69,8 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
   }
 
   Future<void> updatePerfil() async {
+    if (!_formKey.currentState!.validate()) return;
+
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     if (token == null) return;
@@ -117,96 +121,142 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
         _grupoSanguineoSeleccionado = data['grupo_sanguineo'] ?? null;
         _obraSocialController.text = data['obra_social'] ?? '';
 
-        return Column(
-          children: [
-            SwitchListTile.adaptive(
-              title: const Text('Dark Mode'),
-              value: darkMode,
-              onChanged: (value) {
-                setState(() {
-                  Preferences.darkmode = value;
-                  value ? temaProvider.setDark() : temaProvider.setLight();
-                  darkMode = value;
-                });
-              },
-            ),
-            const SizedBox(height: 20),
-            buildTextField('Nombre', _nombreController, Icons.person),
-            buildTextField('Apellido', _apellidoController, Icons.person),
-            buildTextField('DNI', _dniController, Icons.badge, isNumber: true),
-            buildTextField('Sexo', _sexoController, Icons.transgender),
-            buildTextField(
-                'Fecha de nacimiento', _fechaNacController, Icons.cake),
-            buildTextField('Teléfono', _telefonoController, Icons.phone,
-                isNumber: true),
-            buildTextField('Email', _emailController, Icons.email),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: DropdownButtonFormField<String>(
-                value: _grupoSanguineoSeleccionado,
-                decoration: InputDecoration(
-                  labelText: 'Grupo Sanguíneo',
-                  prefixIcon: const Icon(Icons.bloodtype),
-                  filled: true,
-                  fillColor: Theme.of(context).colorScheme.surface,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-                items: grupoSanguineoOpciones
-                    .map((gs) => DropdownMenuItem(value: gs, child: Text(gs)))
-                    .toList(),
+        return Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              SwitchListTile.adaptive(
+                title: const Text('Dark Mode'),
+                value: darkMode,
                 onChanged: (value) {
                   setState(() {
-                    _grupoSanguineoSeleccionado = value;
+                    Preferences.darkmode = value;
+                    value ? temaProvider.setDark() : temaProvider.setLight();
+                    darkMode = value;
                   });
                 },
               ),
-            ),
-            buildTextField(
-                'Obra Social', _obraSocialController, Icons.local_hospital),
-            buildTextField(
-              'Contraseña',
-              _passwordController,
-              Icons.lock,
-              obscureText: !showPassword,
-              suffixIcon: IconButton(
-                icon: Icon(
-                    showPassword ? Icons.visibility : Icons.visibility_off),
-                onPressed: () {
-                  setState(() {
-                    showPassword = !showPassword;
-                  });
-                },
+              const SizedBox(height: 20),
+              buildValidatedTextFormField(
+                label: 'Nombre',
+                controller: _nombreController,
+                icon: Icons.person,
+                validator: GeneralValidator.campoRequerido,
               ),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton.icon(
-              onPressed: updatePerfil,
-              icon: const Icon(Icons.save),
-              label: const Text('Guardar cambios'),
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(50)),
-            ),
-          ],
+              buildValidatedTextFormField(
+                label: 'Apellido',
+                controller: _apellidoController,
+                icon: Icons.person,
+                validator: GeneralValidator.campoRequerido,
+              ),
+              buildValidatedTextFormField(
+                label: 'DNI',
+                controller: _dniController,
+                icon: Icons.badge,
+                validator: GeneralValidator.validarDNI,
+                isNumber: true,
+              ),
+              buildValidatedTextFormField(
+                label: 'Sexo',
+                controller: _sexoController,
+                icon: Icons.transgender,
+                validator: GeneralValidator.campoRequerido,
+              ),
+              buildValidatedTextFormField(
+                label: 'Fecha de nacimiento',
+                controller: _fechaNacController,
+                icon: Icons.cake,
+                validator: GeneralValidator.validarFecha,
+              ),
+              buildValidatedTextFormField(
+                label: 'Teléfono',
+                controller: _telefonoController,
+                icon: Icons.phone,
+                isNumber: true,
+                validator: GeneralValidator.validarTelefono,
+              ),
+              buildValidatedTextFormField(
+                label: 'Email',
+                controller: _emailController,
+                icon: Icons.email,
+                validator: GeneralValidator.validarEmail,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: DropdownButtonFormField<String>(
+                  value: _grupoSanguineoSeleccionado,
+                  decoration: InputDecoration(
+                    labelText: 'Grupo Sanguíneo',
+                    prefixIcon: const Icon(Icons.bloodtype),
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.surface,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  items: grupoSanguineoOpciones
+                      .map((gs) => DropdownMenuItem(value: gs, child: Text(gs)))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _grupoSanguineoSeleccionado = value;
+                    });
+                  },
+                  validator: GeneralValidator.validarDropdown,
+                ),
+              ),
+              buildValidatedTextFormField(
+                label: 'Obra Social',
+                controller: _obraSocialController,
+                icon: Icons.local_hospital,
+                validator: GeneralValidator.campoRequerido,
+              ),
+              buildValidatedTextFormField(
+                label: 'Contraseña',
+                controller: _passwordController,
+                icon: Icons.lock,
+                obscureText: !showPassword,
+                validator: GeneralValidator.validarPassword,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                      showPassword ? Icons.visibility : Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      showPassword = !showPassword;
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton.icon(
+                onPressed: updatePerfil,
+                icon: const Icon(Icons.save),
+                label: const Text('Guardar cambios'),
+                style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50)),
+              ),
+            ],
+          ),
         );
       },
     );
   }
 
-  Widget buildTextField(
-    String label,
-    TextEditingController controller,
-    IconData icon, {
+  Widget buildValidatedTextFormField({
+    required String label,
+    required TextEditingController controller,
+    required IconData icon,
+    required String? Function(String?) validator,
     bool isNumber = false,
     bool obscureText = false,
     Widget? suffixIcon,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         keyboardType: isNumber ? TextInputType.number : TextInputType.text,
         obscureText: obscureText,
+        validator: validator,
         style: const TextStyle(fontSize: 18),
         decoration: InputDecoration(
           labelText: label,

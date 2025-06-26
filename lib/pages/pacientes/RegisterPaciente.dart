@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/RegistroPaciente.dart';
 import 'package:flutter_application_1/services/RegistroService.dart';
+import 'package:flutter_application_1/utils/GeneralValidator.dart'; // <-- Importado
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -53,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     final registro = RegistroPaciente(
       nombre: _nombreController.text.trim(),
-      apellido: _apellidoController.text.trim(), // <-- agregado
+      apellido: _apellidoController.text.trim(),
       dni: _dniController.text.trim(),
       sexo: _sexoSeleccionado ?? '',
       fechaNac: _fechaNacController.text.trim(),
@@ -103,22 +104,19 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormField(
                 controller: _nombreController,
                 decoration: _inputDecoration('Nombre completo', Icons.person),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.campoRequerido,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _apellidoController,
                 decoration: _inputDecoration('Apellido', Icons.person),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.campoRequerido,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _dniController,
                 decoration: _inputDecoration('DNI', Icons.badge),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarDNI,
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
@@ -133,41 +131,33 @@ class _RegisterPageState extends State<RegisterPage> {
                     _sexoSeleccionado = value;
                   });
                 },
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarDropdown,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _fechaNacController,
                 decoration: _inputDecoration(
                     'Fecha de nacimiento (YYYY-MM-DD)', Icons.calendar_today),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarFecha,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _telefonoController,
                 decoration: _inputDecoration('Teléfono', Icons.phone),
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarTelefono,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
                 decoration: _inputDecoration('Correo electrónico', Icons.email),
-                validator: (v) {
-                  if (v == null || v.isEmpty) return 'Campo requerido';
-                  if (!v.contains('@')) return 'Correo inválido';
-                  return null;
-                },
+                validator: GeneralValidator.validarEmail,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 decoration: _inputDecoration('Contraseña', Icons.lock),
                 obscureText: true,
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarPassword,
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
@@ -189,8 +179,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     _grupoSanguineoSeleccionado = value;
                   });
                 },
-                validator: (v) =>
-                    v == null || v.isEmpty ? 'Campo requerido' : null,
+                validator: GeneralValidator.validarDropdown,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -205,8 +194,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 50,
                       child: ElevatedButton.icon(
                         onPressed: _register,
-                        icon: Icon(Icons.person_add, color: Colors.white),
-                        label: Text(
+                        icon: const Icon(Icons.person_add, color: Colors.white),
+                        label: const Text(
                           'Registrarse',
                           style: TextStyle(color: Colors.white),
                         ),
