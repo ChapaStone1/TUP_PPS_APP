@@ -42,7 +42,7 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
   final _nombreController = TextEditingController();
   final _apellidoController = TextEditingController();
   final _dniController = TextEditingController();
-  final _sexoController = TextEditingController();
+  String? _sexoSeleccionado;
   final _fechaNacController = TextEditingController();
   final _telefonoController = TextEditingController();
   final _emailController = TextEditingController();
@@ -74,7 +74,7 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
       'nombre': _nombreController.text.trim(),
       'apellido': _apellidoController.text.trim(),
       'dni': _dniController.text.trim(),
-      'sexo': _sexoController.text.trim(),
+      'sexo': _sexoSeleccionado ?? '',
       'fecha_nac': _fechaNacController.text.trim(),
       'telefono': _telefonoController.text.trim(),
       'email': _emailController.text.trim(),
@@ -120,7 +120,7 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
         _nombreController.text = data['nombre'] ?? '';
         _apellidoController.text = data['apellido'] ?? '';
         _dniController.text = data['dni'] ?? '';
-        _sexoController.text = data['sexo'] ?? '';
+        _sexoSeleccionado = data['sexo'] ?? '';
         _fechaNacController.text = data['fecha_nac'] ?? '';
         _telefonoController.text = data['telefono']?.toString() ?? '';
         _emailController.text = data['email'] ?? '';
@@ -164,11 +164,29 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
                 readOnly: true,
                 fillColor: Colors.grey.shade200,
               ),
-              buildValidatedTextFormField(
-                label: 'Sexo',
-                controller: _sexoController,
-                icon: Icons.transgender,
-                validator: GeneralValidator.campoRequerido,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: DropdownButtonFormField<String>(
+                  value: _sexoSeleccionado,
+                  decoration: InputDecoration(
+                    labelText: 'Sexo',
+                    prefixIcon: const Icon(Icons.transgender),
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.surface,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  items: const [
+                    DropdownMenuItem(value: 'F', child: Text('Femenino')),
+                    DropdownMenuItem(value: 'M', child: Text('Masculino')),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      _sexoSeleccionado = value;
+                    });
+                  },
+                  validator: GeneralValidator.validarDropdown,
+                ),
               ),
               buildValidatedTextFormField(
                 label: 'Fecha de nacimiento',

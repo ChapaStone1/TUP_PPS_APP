@@ -61,7 +61,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
       password: _passwordController.text.trim(),
       matricula: _matriculaController.text.trim(),
       consultorio: _consultorioController.text.trim(),
-      especialidad: _especialidadId!,
+      especialidad_id: _especialidadId!,
     );
 
     final servicio = RegistroService();
@@ -83,7 +83,7 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Registro de médico'),
+        title: const Text('Alta de cuenta Médico'),
         centerTitle: true,
       ),
       body: Padding(
@@ -117,9 +117,10 @@ class _RegisterMedicoPageState extends State<RegisterMedicoPage> {
               DropdownButtonFormField<String>(
                 value: _sexoSeleccionado,
                 decoration: _inputDecoration('Sexo', Icons.wc),
-                items: ['M', 'F']
-                    .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-                    .toList(),
+                items: const [
+                  DropdownMenuItem(value: 'F', child: Text('Femenino')),
+                  DropdownMenuItem(value: 'M', child: Text('Masculino')),
+                ],
                 onChanged: (val) => setState(() => _sexoSeleccionado = val!),
                 validator: GeneralValidator.validarDropdown,
               ),

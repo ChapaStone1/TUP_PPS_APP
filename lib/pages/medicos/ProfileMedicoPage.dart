@@ -55,7 +55,7 @@ class _BodyProfileState extends State<BodyProfile> {
 
   late TextEditingController _nombreController;
   late TextEditingController _apellidoController;
-  late TextEditingController _sexoController;
+  String? _sexoSeleccionado;
   late TextEditingController _dniController;
   late TextEditingController _fechaNacController;
   late TextEditingController _telefonoController;
@@ -73,7 +73,7 @@ class _BodyProfileState extends State<BodyProfile> {
     final m = widget.medico;
     _nombreController = TextEditingController(text: m.nombre);
     _apellidoController = TextEditingController(text: m.apellido);
-    _sexoController = TextEditingController(text: m.sexo);
+    _sexoSeleccionado = m.sexo;
     _dniController = TextEditingController(text: m.dni);
     _fechaNacController = TextEditingController(text: m.fechaNac);
     _telefonoController = TextEditingController(text: m.telefono.toString());
@@ -89,7 +89,7 @@ class _BodyProfileState extends State<BodyProfile> {
     final medicoActualizado = Medico(
       nombre: _nombreController.text.trim(),
       apellido: _apellidoController.text.trim(),
-      sexo: _sexoController.text.trim(),
+      sexo: _sexoSeleccionado ?? '',
       fechaNac: _fechaNacController.text.trim(),
       dni: _dniController.text.trim(),
       telefono: _telefonoController.text.trim(),
@@ -162,8 +162,30 @@ class _BodyProfileState extends State<BodyProfile> {
                   validator: GeneralValidator.campoRequerido),
               buildTextFormField('DNI', _dniController, Icons.badge,
                   validator: GeneralValidator.validarDNI, isNumber: true),
-              buildTextFormField('Sexo', _sexoController, Icons.wc,
-                  validator: GeneralValidator.validarDropdown),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: DropdownButtonFormField<String>(
+                  value: _sexoSeleccionado,
+                  decoration: InputDecoration(
+                    labelText: 'Sexo',
+                    prefixIcon: const Icon(Icons.wc),
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.surface,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  items: const [
+                    DropdownMenuItem(value: 'F', child: Text('Femenino')),
+                    DropdownMenuItem(value: 'M', child: Text('Masculino')),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      _sexoSeleccionado = value;
+                    });
+                  },
+                  validator: GeneralValidator.validarDropdown,
+                ),
+              ),
               buildTextFormField('Fecha de nacimiento', _fechaNacController,
                   Icons.calendar_today,
                   validator: GeneralValidator.validarFecha),

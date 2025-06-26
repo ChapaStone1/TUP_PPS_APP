@@ -9,7 +9,7 @@ class RegistroMedico {
   final String password;
   final String matricula;
   final String consultorio;
-  final int especialidad;
+  final int especialidad_id;
 
   RegistroMedico({
     required this.nombre,
@@ -22,7 +22,7 @@ class RegistroMedico {
     required this.password,
     required this.matricula,
     required this.consultorio,
-    required this.especialidad,
+    required this.especialidad_id,
   });
 
   Map<String, dynamic> toJson() {
@@ -37,7 +37,7 @@ class RegistroMedico {
       'password': password,
       'matricula': matricula,
       'consultorio': consultorio, // corregido, estaba 'matricula' repetido
-      'especialidad': especialidad,
+      'especialidad_id': especialidad_id,
     };
   }
 }
