@@ -24,7 +24,7 @@ class DefaultTheme {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        backgroundColor: Colors.grey,
+        backgroundColor: const Color.fromARGB(255, 194, 194, 194),
         foregroundColor: Colors.black,
       ),
     ),
