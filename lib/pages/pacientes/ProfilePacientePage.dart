@@ -182,7 +182,6 @@ class _BodyProfilePacienteState extends State<BodyProfilePaciente> {
                 onPressed: () => setState(() => showPassword = !showPassword),
               ),
               validator: (val) {
-                if (val == null || val.isEmpty) return null;
                 return GeneralValidator.validarPassword(val);
               },
             ),

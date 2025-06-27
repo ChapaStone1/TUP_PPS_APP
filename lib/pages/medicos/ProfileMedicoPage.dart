@@ -221,7 +221,6 @@ class _BodyProfileState extends State<BodyProfile> {
                   },
                 ),
                 validator: (val) {
-                  if (val == null || val.isEmpty) return null;
                   return GeneralValidator.validarPassword(val);
                 },
               ),
