@@ -35,7 +35,7 @@ class HomePaciente extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 200,
+                        height: 140,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -44,7 +44,7 @@ class HomePaciente extends StatelessWidget {
                                   ColorFilter.mode(primary, BlendMode.srcIn),
                               child: Image.asset(
                                 'lib/assets/images/UTN.png',
-                                height: 140,
+                                height: 80,
                                 fit: BoxFit.contain,
                               ),
                             ),

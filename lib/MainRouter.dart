@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
+import 'package:flutter_application_1/pages/SoporteTecnicoPage.dart';
 import 'package:flutter_application_1/pages/medicos/EliminarPacientePage.dart';
 import 'package:flutter_application_1/pages/medicos/MedicoListPage.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedicoPage.dart';
@@ -124,6 +125,15 @@ class MainRouter {
         show: false,
       ),
       Route(
+        id: "soporte",
+        path: '/soporte',
+        widget: const SoporteTecnicoPage(),
+        icon: const Icon(Icons.support_agent), // Mismo ícono para consistencia
+        title: "Soporte Técnico",
+        subtitle: "Ayuda con el acceso y asistencia técnica",
+        show: true,
+      ),
+      Route(
         id: "login",
         path: '/login',
         widget: const LoginPage(title: 'Iniciar sesión'),
@@ -160,6 +170,15 @@ class MainRouter {
         icon: const Icon(Icons.group), // Lista de pacientes
         title: "Médicos en Consultorio UTN",
         subtitle: "Ver especialistas disponibles.",
+        show: true,
+      ),
+      Route(
+        id: "soporte",
+        path: '/soporte',
+        widget: const SoporteTecnicoPage(),
+        icon: const Icon(Icons.support_agent), // Mismo ícono para consistencia
+        title: "Soporte Técnico",
+        subtitle: "Ayuda con el acceso y asistencia técnica",
         show: true,
       ),
       Route(

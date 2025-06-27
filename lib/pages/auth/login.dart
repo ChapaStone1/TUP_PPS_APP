@@ -50,6 +50,47 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _mostrarDialogoSoporte() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: const Text('Soporte Técnico'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Por favor, contactarse con el soporte técnico:\n\n'
+                '📧 chapapr@gmail.com\n'
+                '📞 291-4705104\n\n'
+                '📧 Alumno: Juan Jose Chaparro\n'
+                '📧 Legajo Académico: 21737\n'
+                'UTN - PPS 2025',
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 12),
+              Image.asset(
+                'lib/assets/images/UTN.png',
+                height: 40,
+                fit: BoxFit.contain,
+                color: const Color(0xFF03A9F4),
+                colorBlendMode: BlendMode.srcIn,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cerrar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final temaProvider = Provider.of<ThemeProvider>(context, listen: false);
@@ -186,7 +227,19 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
+                        TextButton(
+                          onPressed: _mostrarDialogoSoporte,
+                          child: Text(
+                            '¿Olvidaste tu contraseña?',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.redAccent,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 5),
                         TextButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/register');
@@ -201,14 +254,14 @@ class _LoginPageState extends State<LoginPage> {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 20),
 
                         // Imagen + Texto al final
                         Column(
                           children: [
                             Image.asset(
                               'lib/assets/images/UTN.png',
-                              height: 100,
+                              height: 40,
                               fit: BoxFit.contain,
                               color: primaryColor,
                               colorBlendMode: BlendMode.srcIn,

@@ -13,9 +13,7 @@ class MedicoItem extends StatelessWidget {
     return CustomCardMedico(
       title: '${medico.apellido}, ${medico.nombre}',
       subtitle: '''
-DNI: ${medico.dni}
 Sexo: ${medico.sexo}
-Fecha de Nac.: ${medico.fechaNac}
 Teléfono: ${medico.telefono}
 Email: ${medico.email}
 Matrícula: ${medico.matricula}

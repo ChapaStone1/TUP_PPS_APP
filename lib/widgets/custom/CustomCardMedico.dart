@@ -30,14 +30,14 @@ class CustomCardMedico extends StatelessWidget {
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Container(
-            width: 60,
-            height: 60,
+            width: 120,
+            height: 120,
             color: Colors.grey[300],
             child: imagePath != null
                 ? Image.asset(
                     imagePath!,
-                    width: 60,
-                    height: 60,
+                    width: 120,
+                    height: 120,
                     fit: BoxFit.cover,
                   )
                 : const Icon(Icons.person, size: 30),
