@@ -25,7 +25,7 @@ class SoporteTecnicoPage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             const Text(
-              '¿Tenés problemas con la APP? Contactanos.',
+              '¿Tenés problemas con la aplicación? Contactanos.',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -42,7 +42,7 @@ class SoporteTecnicoPage extends StatelessWidget {
             ),
             const Divider(height: 30),
             const Text(
-              'Alumno: Juan Jose Chaparro\n Legajo Académico: 21737\n UTN-TUP | PPS 2025',
+              'Alumno: Juan Jose Chaparro\n Legajo Académico: 21737\n UTN - TUP | PPS 2025',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),

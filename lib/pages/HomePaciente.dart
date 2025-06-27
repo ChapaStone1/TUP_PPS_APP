@@ -68,7 +68,7 @@ class HomePaciente extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             Text(
-                              'UTN-TUP | PPS 2025',
+                              'UTN - TUP | PPS 2025',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,

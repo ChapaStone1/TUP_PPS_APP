@@ -62,12 +62,12 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                'Por favor, contactarse con el soporte técnico:\n\n'
+                'Contactarse con el soporte técnico:\n\n'
                 '📧 chapapr@gmail.com\n'
                 '📞 291-4705104\n\n'
                 'Alumno: Juan Jose Chaparro\n'
                 'Legajo Académico: 21737\n'
-                'UTN-TUP | PPS 2025',
+                'UTN - TUP | PPS 2025',
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
@@ -183,8 +183,9 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
-                            if (value == null || value.isEmpty)
+                            if (value == null || value.isEmpty) {
                               return 'Campo requerido';
+                            }
                             if (!value.contains('@')) return 'Correo inválido';
                             return null;
                           },
@@ -245,7 +246,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.pushNamed(context, '/register');
                           },
                           child: Text(
-                            '¿No tenés cuenta? Registrarse',
+                            '¿No tenés cuenta? Registrate',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -268,7 +269,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'UTN-TUP | PPS 2025',
+                              'UTN - TUP | PPS 2025',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
