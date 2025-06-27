@@ -72,6 +72,7 @@ flutter:
         - asset: lib/assets/fonts/CoolveticaRgCond.otf
   assets:
       - lib/assets/images/paciente.jpg
+      - lib/assets/images/medico.png
       - lib/assets/images/UTN.png
       - lib/assets/icons/UTN.png
   # The following line ensures that the Material Icons font is

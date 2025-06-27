@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
 import 'package:flutter_application_1/pages/medicos/EliminarPacientePage.dart';
+import 'package:flutter_application_1/pages/medicos/MedicoListPage.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedicoPage.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteInfoPage.dart';
 import 'package:flutter_application_1/pages/medicos/CargarConsultaPage.dart';
@@ -32,7 +33,7 @@ class MainRouter {
       Route(
         id: "home-medico",
         path: '/home-medico',
-        widget: HomeMedico(title: 'Consultorio UTN'),
+        widget: const HomeMedico(title: 'Consultorio UTN'),
         icon: const Icon(Icons.local_hospital), // Médico
         title: "Inicio Médico",
         subtitle: "Opciones para médicos",
@@ -41,7 +42,7 @@ class MainRouter {
       Route(
         id: "home-paciente",
         path: '/home-paciente',
-        widget: HomePaciente(title: 'Consultorio UTN'),
+        widget: const HomePaciente(title: 'Consultorio UTN'),
         icon: const Icon(Icons.accessibility_new), // Paciente
         title: "Inicio Paciente",
         subtitle: "Opciones para pacientes",
@@ -150,6 +151,15 @@ class MainRouter {
         icon: const Icon(Icons.description), // Historia médica
         title: "Mi Historia Clínica",
         subtitle: "Ver mi historia en la Clínica UTN y exportar a PDF.",
+        show: true,
+      ),
+      Route(
+        id: "medicos-list",
+        path: '/medicos-list',
+        widget: const MedicoListPage(),
+        icon: const Icon(Icons.group), // Lista de pacientes
+        title: "Médicos en Consultorio UTN",
+        subtitle: "Ver especialistas disponibles.",
         show: true,
       ),
       Route(

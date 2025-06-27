@@ -1,5 +1,3 @@
-// ignore_for_file: sort_child_properties_last
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/widgets/IsFavoriteIcon.dart';
