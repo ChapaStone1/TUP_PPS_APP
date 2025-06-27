@@ -1,19 +1,41 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
+# Flutter/Dart
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+build/
+.idea/
+.vscode/
+.melody/
 
-# IntelliJ related
+# Archivos específicos de plataformas
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/.symlinks/
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/Runner.xcodeproj/project.xcworkspace/
+macos/Flutter/ephemeral/
+macos/Pods/
+macos/.symlinks/
+linux/flutter/ephemeral/
+windows/flutter/ephemeral/
+web/ephemeral/
+
+# Archivos generados
 *.iml
-*.ipr
-*.iws
+*.lock
+*.log
+*.tmp
+*.swp
+
+# Archivos de configuración personales
+*.orig
+*.DS_Store
+*.idea/
+.vscode/
+
 .idea/
 
 # The .vscode folder contains launch configuration and tasks you configure in
