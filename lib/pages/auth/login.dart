@@ -65,9 +65,9 @@ class _LoginPageState extends State<LoginPage> {
                 'Por favor, contactarse con el soporte técnico:\n\n'
                 '📧 chapapr@gmail.com\n'
                 '📞 291-4705104\n\n'
-                '📧 Alumno: Juan Jose Chaparro\n'
-                '📧 Legajo Académico: 21737\n'
-                'UTN - PPS 2025',
+                'Alumno: Juan Jose Chaparro\n'
+                'Legajo Académico: 21737\n'
+                'UTN-TUP | PPS 2025',
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
@@ -230,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 10),
                         TextButton(
                           onPressed: _mostrarDialogoSoporte,
-                          child: Text(
+                          child: const Text(
                             '¿Olvidaste tu contraseña?',
                             style: TextStyle(
                               fontSize: 16,
@@ -268,7 +268,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'Juan Jose Chaparro | PPS UTN 2025',
+                              'UTN-TUP | PPS 2025',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,

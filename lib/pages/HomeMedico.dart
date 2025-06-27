@@ -32,8 +32,26 @@ class HomeMedico extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Column(
+                        children: [
+                          ...routes.where((r) => r.show).map(
+                                (route) => Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 6),
+                                  child: NavigatorCardWidget(
+                                    title: route.title,
+                                    route: route.path,
+                                    icon: route.icon,
+                                    subtitle: route.subtitle,
+                                  ),
+                                ),
+                              ),
+                        ],
+                      ),
+                      const SizedBox(height: 20), // Espaciado opcional
                       SizedBox(
                         height: 140,
                         child: Column(
@@ -50,7 +68,7 @@ class HomeMedico extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             Text(
-                              'PPS UTN | 2025',
+                              'UTN-TUP | PPS 2025',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -60,17 +78,6 @@ class HomeMedico extends StatelessWidget {
                           ],
                         ),
                       ),
-                      ...routes.where((r) => r.show).map(
-                            (route) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 6),
-                              child: NavigatorCardWidget(
-                                title: route.title,
-                                route: route.path,
-                                icon: route.icon,
-                                subtitle: route.subtitle,
-                              ),
-                            ),
-                          ),
                     ],
                   ),
                 ),
