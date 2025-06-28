@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="ConsultorioUTN"
+        android:label="Consultorios UTN"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
