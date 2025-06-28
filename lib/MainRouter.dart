@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/HomeAdmin.dart';
 import 'package:flutter_application_1/pages/HomeMedico.dart';
 import 'package:flutter_application_1/pages/HomePaciente.dart';
 import 'package:flutter_application_1/pages/SoporteTecnicoPage.dart';
-import 'package:flutter_application_1/pages/medicos/EliminarPacientePage.dart';
-import 'package:flutter_application_1/pages/medicos/MedicoListPage.dart';
+import 'package:flutter_application_1/pages/admin/EliminarPacientePage.dart';
+import 'package:flutter_application_1/pages/admin/MedicosAllListPage.dart';
+import 'package:flutter_application_1/pages/admin/PacienteListForDeletePage.dart';
+import 'package:flutter_application_1/pages/medicos/MedicosListPage.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedicoPage.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteInfoPage.dart';
 import 'package:flutter_application_1/pages/medicos/CargarConsultaPage.dart';
@@ -12,13 +15,14 @@ import 'package:flutter_application_1/pages/pacientes/HistoriaClinicaInfoPage.da
 import 'package:flutter_application_1/pages/pacientes/MiHistoriaClinicaInfoPage.dart';
 import 'package:flutter_application_1/pages/pacientes/ProfilePacientePage.dart';
 import 'package:flutter_application_1/pages/auth/Login.dart';
-import 'package:flutter_application_1/pages/pacientes/RegisterPaciente.dart';
-import 'package:flutter_application_1/pages/medicos/RegisterMedico.dart';
+import 'package:flutter_application_1/pages/pacientes/RegisterPacientePage.dart';
+import 'package:flutter_application_1/pages/admin/RegisterMedicoPage.dart';
 
 class MainRouter {
   static List<Route> generalRoutes = [];
   static List<Route> medicoRoutes = [];
   static List<Route> pacienteRoutes = [];
+  static List<Route> adminRoutes = [];
 
   static void initRoutes() {
     generalRoutes = [
@@ -49,6 +53,53 @@ class MainRouter {
         subtitle: "Opciones para pacientes",
         show: false,
       ),
+      Route(
+        id: "home-admin",
+        path: '/home-admin',
+        widget: const HomeAdmin(title: 'Panel de administración.'),
+        icon: const Icon(Icons.accessibility_new), // Administrador
+        title: "Inicio admin",
+        subtitle: "",
+        show: false,
+      ),
+    ];
+    adminRoutes = [
+      Route(
+        id: "register-medico",
+        path: '/register-medico',
+        widget: const RegisterMedicoPage(),
+        icon: const Icon(Icons.person_add_alt_1), // Alta de usuario
+        title: "Registrar Medico",
+        subtitle: "Registrar una nueva cuenta para un medico",
+        show: true,
+      ),
+      Route(
+        id: "paciente-list-delete",
+        path: '/paciente-list-delete',
+        widget: const PacientesListForDeletePage(),
+        icon: const Icon(Icons.delete_forever), // Eliminar
+        title: "Eliminar un paciente de la base de datos",
+        subtitle: "",
+        show: true,
+      ),
+      Route(
+        id: "eliminar-paciente",
+        path: '/eliminar-paciente',
+        widget: const EliminarPacientePage(),
+        icon: const Icon(Icons.delete_forever), // Eliminar
+        title: "Eliminar un paciente de la base de datos",
+        subtitle: "",
+        show: false,
+      ),
+      Route(
+        id: "Cambiar estado de médico",
+        path: '/estado-medico',
+        widget: const MedicosAllListPage(),
+        icon: const Icon(Icons.delete_forever), // Eliminar
+        title: "Habilitar o deshabilitar un médico para atender.",
+        subtitle: "",
+        show: true,
+      ),
     ];
     medicoRoutes = [
       Route(
@@ -58,15 +109,6 @@ class MainRouter {
         icon: const Icon(Icons.person), // Perfil
         title: "Perfil",
         subtitle: "Ver y editar perfil",
-        show: true,
-      ),
-      Route(
-        id: "register-medico",
-        path: '/register-medico',
-        widget: const RegisterMedicoPage(),
-        icon: const Icon(Icons.person_add_alt_1), // Alta de usuario
-        title: "Registrar Medico",
-        subtitle: "Registrar una nueva cuenta para un medico",
         show: true,
       ),
       Route(
@@ -85,7 +127,7 @@ class MainRouter {
         icon: const Icon(Icons.group), // Lista de pacientes
         title: "Ver pacientes",
         subtitle:
-            "Cargar consulta médica, ver historia clínica y eliminar paciente",
+            "Cargar consulta médica, ver información e historia clinica de pacientes",
         show: true,
       ),
       Route(
@@ -112,15 +154,6 @@ class MainRouter {
         widget: const CargarConsultaPage(),
         icon: const Icon(Icons.note_add), // Agregar consulta
         title: "Cargar información de una consulta de un paciente",
-        subtitle: "",
-        show: false,
-      ),
-      Route(
-        id: "eliminar-paciente",
-        path: '/eliminar-paciente',
-        widget: const EliminarPacientePage(),
-        icon: const Icon(Icons.delete_forever), // Eliminar
-        title: "Eliminar un paciente de la base de datos",
         subtitle: "",
         show: false,
       ),
@@ -198,6 +231,7 @@ class MainRouter {
       ...generalRoutes,
       ...medicoRoutes,
       ...pacienteRoutes,
+      ...adminRoutes,
     ];
 
     return {

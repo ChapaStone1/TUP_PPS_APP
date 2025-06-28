@@ -13,6 +13,7 @@ class Medico {
   final String _consultorio;
   final int? _especialidadId;
   final String _especialidad_nombre;
+  final bool _habilitado;
 
   Medico({
     required int id,
@@ -27,6 +28,7 @@ class Medico {
     required String consultorio,
     int? especialidadId,
     required String especialidad_nombre,
+    required bool habilitado,
   })  : _id = id,
         _nombre = nombre,
         _apellido = apellido,
@@ -39,7 +41,8 @@ class Medico {
         _consultorio = consultorio,
         _especialidadId = especialidadId,
         _especialidad_nombre =
-            especialidad_nombre; // <- FALTABA ESTE PUNTO Y COMA
+            especialidad_nombre, // <- FALTABA ESTE PUNTO Y COMA
+        _habilitado = habilitado;
 
   // Getters
   int get id => _id;
@@ -54,6 +57,7 @@ class Medico {
   String get consultorio => _consultorio;
   int? get especialidadId => _especialidadId;
   String get especialidad_nombre => _especialidad_nombre;
+  bool get habilitado => _habilitado;
 
   // Factory
   factory Medico.fromJson(Map<String, dynamic> json) {
@@ -72,6 +76,7 @@ class Medico {
           ? json['especialidad']['id']
           : json['especialidad_id'],
       especialidad_nombre: json['especialidad_nombre'] ?? 'Sin especialidad',
+      habilitado: json['habilitado'] == 1, // <-- cambio clave
     );
   }
 

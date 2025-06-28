@@ -16,7 +16,7 @@ class _MedicosListState extends State<MedicosList> {
   @override
   void initState() {
     super.initState();
-    _futureMedicos = ListarMedicosService().fetchMedicos();
+    _futureMedicos = ListarMedicosService().fetchEnableMedicos();
   }
 
   @override

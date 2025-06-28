@@ -42,6 +42,8 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacementNamed(context, '/home-medico');
       } else if (tipo == 'paciente') {
         Navigator.pushReplacementNamed(context, '/home-paciente');
+      } else if (tipo == 'admin') {
+        Navigator.pushReplacementNamed(context, '/home-admin');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Tipo de usuario desconocido')),
@@ -155,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          'Consultorio Médico UTN',
+                          'Consultorios Médicos UTN',
                           style: TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.bold,

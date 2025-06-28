@@ -124,22 +124,6 @@ class PacienteDescription extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            '/eliminar-paciente',
-                            arguments: paciente,
-                          );
-                        },
-                        icon: const Icon(Icons.delete),
-                        label: const Text("Eliminar paciente"),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50),
-                          backgroundColor: Colors.red,
-                        ),
-                      ),
-                      const SizedBox(height: 30),
                     ],
                   ),
                 ),
