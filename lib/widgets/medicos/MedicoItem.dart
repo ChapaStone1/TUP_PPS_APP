@@ -23,7 +23,7 @@ Especialidad: ${medico.especialidad_nombre}
       trailingIcon: IsFavoriteIcon(
         id: medico.id,
         color: Colors.blueAccent,
-        size: 28,
+        size: 24,
       ),
       imagePath: 'lib/assets/images/medico.png',
     );

@@ -7,21 +7,23 @@ class Preferences {
     _prefs = await SharedPreferences.getInstance();
   }
 
+  static Future<void> clear() async {
+    final dark = _prefs.getBool('darkmode') ?? false;
+    final favoritos = _prefs.getStringList('favs') ?? [];
+
+    await _prefs.clear();
+
+    await _prefs.setBool('darkmode', dark);
+    await _prefs.setStringList('favs', favoritos);
+  }
+
   static bool get darkmode => _prefs.getBool('darkmode') ?? false;
 
   static set darkmode(bool value) => _prefs.setBool('darkmode', value);
 
-  static String get apellido => _prefs.getString('apellido') ?? '';
-
-  static set apellido(String value) => _prefs.setString('apellido', value);
-
   static String get email => _prefs.getString('email') ?? '';
 
   static set email(String value) => _prefs.setString('email', value);
-
-  static String get telefono => _prefs.getString('telefono') ?? '';
-
-  static set telefono(String value) => _prefs.setString('telefono', value);
 
   static List<String> get favs => _prefs.getStringList('favs') ?? [];
 

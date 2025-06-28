@@ -25,14 +25,6 @@ class PacienteItem extends StatelessWidget {
       title: '${apellido}, ${nombre}',
       subtitle:
           'DNI: $dni   |  Obra Social: $obra', //|  Correo: $email  |  Obra Social: $obra
-
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          '/datos-paciente',
-          arguments: paciente,
-        );
-      },
     );
   }
 }

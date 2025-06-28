@@ -140,7 +140,16 @@ class _PacientesListState extends State<PacientesList> {
                   final paciente = _pacientes[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6),
-                    child: PacienteItem(paciente: paciente),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/datos-paciente',
+                          arguments: paciente,
+                        );
+                      },
+                      child: PacienteItem(paciente: paciente),
+                    ),
                   );
                 },
               ),

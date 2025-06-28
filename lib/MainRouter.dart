@@ -6,6 +6,7 @@ import 'package:flutter_application_1/pages/SoporteTecnicoPage.dart';
 import 'package:flutter_application_1/pages/admin/EliminarPacientePage.dart';
 import 'package:flutter_application_1/pages/admin/MedicosAllListPage.dart';
 import 'package:flutter_application_1/pages/admin/PacienteListForDeletePage.dart';
+import 'package:flutter_application_1/pages/auth/LogoutPage.dart';
 import 'package:flutter_application_1/pages/medicos/MedicosListPage.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedicoPage.dart';
 import 'package:flutter_application_1/pages/medicos/PacienteInfoPage.dart';
@@ -14,7 +15,7 @@ import 'package:flutter_application_1/pages/medicos/PacienteListPage.dart';
 import 'package:flutter_application_1/pages/pacientes/HistoriaClinicaInfoPage.dart';
 import 'package:flutter_application_1/pages/pacientes/MiHistoriaClinicaInfoPage.dart';
 import 'package:flutter_application_1/pages/pacientes/ProfilePacientePage.dart';
-import 'package:flutter_application_1/pages/auth/Login.dart';
+import 'package:flutter_application_1/pages/auth/LoginPage.dart';
 import 'package:flutter_application_1/pages/pacientes/RegisterPacientePage.dart';
 import 'package:flutter_application_1/pages/admin/RegisterMedicoPage.dart';
 
@@ -38,7 +39,7 @@ class MainRouter {
       Route(
         id: "home-medico",
         path: '/home-medico',
-        widget: const HomeMedico(title: 'Consultorio UTN'),
+        widget: const HomeMedico(title: 'Consultorios UTN'),
         icon: const Icon(Icons.local_hospital), // Médico
         title: "Inicio Médico",
         subtitle: "Opciones para médicos",
@@ -47,7 +48,7 @@ class MainRouter {
       Route(
         id: "home-paciente",
         path: '/home-paciente',
-        widget: const HomePaciente(title: 'Consultorio UTN'),
+        widget: const HomePaciente(title: 'Consultorios UTN'),
         icon: const Icon(Icons.accessibility_new), // Paciente
         title: "Inicio Paciente",
         subtitle: "Opciones para pacientes",
@@ -56,11 +57,20 @@ class MainRouter {
       Route(
         id: "home-admin",
         path: '/home-admin',
-        widget: const HomeAdmin(title: 'Panel de administración.'),
+        widget: const HomeAdmin(title: 'Panel de administración'),
         icon: const Icon(Icons.accessibility_new), // Administrador
         title: "Inicio admin",
         subtitle: "",
         show: false,
+      ),
+      Route(
+        id: "login",
+        path: '/login',
+        widget: const LoginPage(title: 'Iniciar sesión'),
+        icon: const Icon(Icons.logout), // Cerrar sesión
+        title: "Cerrar sesión",
+        subtitle: "Volver a la página de Iniciar sesión.",
+        show: true,
       ),
     ];
     adminRoutes = [
@@ -71,6 +81,15 @@ class MainRouter {
         icon: const Icon(Icons.person_add_alt_1), // Alta de usuario
         title: "Registrar Medico",
         subtitle: "Registrar una nueva cuenta para un medico",
+        show: true,
+      ),
+      Route(
+        id: "register",
+        path: '/register',
+        widget: const RegisterPage(),
+        icon: const Icon(Icons.person_add_alt_1), // Ícono de registro
+        title: "Registrar Paciente",
+        subtitle: "Registrar una nueva cuenta para un paciente",
         show: true,
       ),
       Route(
@@ -98,6 +117,24 @@ class MainRouter {
         icon: const Icon(Icons.delete_forever), // Eliminar
         title: "Habilitar o deshabilitar un médico para atender.",
         subtitle: "",
+        show: true,
+      ),
+      Route(
+        id: "medicos-list",
+        path: '/medicos-list',
+        widget: const MedicoListPage(),
+        icon: const Icon(Icons.group), // Lista de pacientes
+        title: "Médicos disponibles en Consultorio UTN",
+        subtitle: "Ver especialistas disponibles.",
+        show: true,
+      ),
+      Route(
+        id: "logout",
+        path: '/logout',
+        widget: const LogoutPage(),
+        icon: const Icon(Icons.logout), // Cerrar sesión
+        title: "Cerrar sesión",
+        subtitle: "Volver a la página de Iniciar sesión.",
         show: true,
       ),
     ];
@@ -167,9 +204,9 @@ class MainRouter {
         show: true,
       ),
       Route(
-        id: "login",
-        path: '/login',
-        widget: const LoginPage(title: 'Iniciar sesión'),
+        id: "logout",
+        path: '/logout',
+        widget: const LogoutPage(),
         icon: const Icon(Icons.logout), // Cerrar sesión
         title: "Cerrar sesión",
         subtitle: "Volver a la página de Iniciar sesión.",
@@ -215,9 +252,9 @@ class MainRouter {
         show: true,
       ),
       Route(
-        id: "login",
-        path: '/login',
-        widget: const LoginPage(title: 'Iniciar sesión'),
+        id: "logout",
+        path: '/logout',
+        widget: const LogoutPage(),
         icon: const Icon(Icons.logout), // Cerrar sesión
         title: "Cerrar sesión",
         subtitle: "Volver a la página de Iniciar sesión.",
