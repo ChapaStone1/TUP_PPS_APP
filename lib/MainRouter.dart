@@ -94,10 +94,10 @@ class MainRouter {
         show: true,
       ),
       Route(
-        id: "paciente-list-delete",
+        id: "resetear-password-usuarios",
         path: '/users-list',
         widget: const UsersListPage(),
-        icon: const Icon(Icons.delete_forever), // Eliminar
+        icon: const Icon(Icons.lock_reset), // Resetear contraseña
         title: "Resetear contraseña de Usuarios",
         subtitle: "Resetear la contraseña de cualquier usuario del sistema",
         show: true,
@@ -106,7 +106,7 @@ class MainRouter {
         id: "paciente-list-delete",
         path: '/paciente-list-delete',
         widget: const PacientesListForDeletePage(),
-        icon: const Icon(Icons.delete_forever), // Eliminar
+        icon: const Icon(Icons.person_remove), // Eliminar paciente
         title: "Eliminar un paciente de la base de datos",
         subtitle: "",
         show: true,
@@ -115,16 +115,16 @@ class MainRouter {
         id: "eliminar-paciente",
         path: '/eliminar-paciente',
         widget: const EliminarPacientePage(),
-        icon: const Icon(Icons.delete_forever), // Eliminar
+        icon: const Icon(Icons.person_remove_alt_1), // Eliminar paciente
         title: "Eliminar un paciente de la base de datos",
         subtitle: "",
         show: false,
       ),
       Route(
-        id: "Cambiar estado de médico",
+        id: "cambiar-estado-medico",
         path: '/estado-medico',
         widget: const MedicosAllListPage(),
-        icon: const Icon(Icons.delete_forever), // Eliminar
+        icon: const Icon(Icons.verified_user), // Cambiar estado/habilitación
         title: "Habilitar o deshabilitar un médico para atender.",
         subtitle: "",
         show: true,
