@@ -27,12 +27,12 @@ class ApiConfig {
   // Médicos
   static String perfilMedico() => '$baseUrl/api/medicos/mi-perfil';
   static String buscarPacientePorDni(String dni) =>
-      '$baseUrl/api/medicos/buscar-paciente/$dni';
+      '$baseUrl/api/medicos/buscar-paciente/$dni'; // Solo datos de paciente
   static String allPacientes(String query, int limit, int offset) =>
-      '$baseUrl/api/medicos/all-pacientes?dni=$query&limit=$limit&offset=$offset';
+      '$baseUrl/api/medicos/all-pacientes?dni=$query&limit=$limit&offset=$offset'; // Lista pacientes completos
   static String cargarConsulta(int id) =>
       '$baseUrl/api/medicos/cargar-consulta/$id';
   static String historiaClinica(int id) =>
-      '$baseUrl/api/medicos/historia-clinica/$id';
+      '$baseUrl/api/medicos/historia-clinica/$id'; // Para ver la historia clinica más actualizada.
   static String especialidadesMedico() => '$baseUrl/api/medicos/especialidades';
 }
