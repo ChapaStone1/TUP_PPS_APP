@@ -4,21 +4,18 @@ class CustomCardUser extends StatelessWidget {
   final String title; // Nombre completo del usuario
   final String subtitle; // Información adicional: tipo, DNI, email, etc.
   final Widget? trailingIcon;
-  final Color? color; // ✅ Nuevo parámetro opcional para fondo
 
   const CustomCardUser({
     super.key,
     required this.title,
     required this.subtitle,
     this.trailingIcon,
-    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      color: color, // ✅ Se aplica el color recibido
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -32,7 +29,7 @@ class CustomCardUser extends StatelessWidget {
         ),
         subtitle: Text(
           subtitle,
-          maxLines: 2,
+          maxLines: 3,
           overflow: TextOverflow.ellipsis,
         ),
       ),

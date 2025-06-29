@@ -16,16 +16,18 @@ class CustomCardMedico extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 3,
+      color: theme.cardColor,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Imagen arriba
             Image.asset(
               imagePath,
               height: 100,
@@ -33,24 +35,20 @@ class CustomCardMedico extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 12),
-            // Título (nombre)
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 18,
+              style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
-            // Subtítulo
             Text(
               subtitle,
-              style: const TextStyle(fontSize: 14, color: Colors.black87),
+              style: theme.textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
-            // Ícono opcional
             if (trailingIcon != null) trailingIcon!,
           ],
         ),
