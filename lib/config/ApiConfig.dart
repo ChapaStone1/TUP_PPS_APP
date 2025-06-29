@@ -13,6 +13,10 @@ class ApiConfig {
   static String cambiarDisponibilidad(int id) =>
       '$baseUrl/api/admin/habilitacion-medico/$id';
   static String allMedicos() => '$baseUrl/api/admin/all-medicos';
+  static String allUsers(String query, int limit, int offset) =>
+      '$baseUrl/api/admin/all-users?dni=$query&limit=$limit&offset=$offset';
+  static String resetearPassword(int id) =>
+      '$baseUrl/api/admin/reset-password/$id';
 
   // Pacientes
   static String perfilPaciente() => '$baseUrl/api/pacientes/mi-perfil';

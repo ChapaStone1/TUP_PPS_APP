@@ -6,6 +6,7 @@ import 'package:flutter_application_1/pages/SoporteTecnicoPage.dart';
 import 'package:flutter_application_1/pages/admin/EliminarPacientePage.dart';
 import 'package:flutter_application_1/pages/admin/MedicosAllListPage.dart';
 import 'package:flutter_application_1/pages/admin/PacienteListForDeletePage.dart';
+import 'package:flutter_application_1/pages/admin/UsersListPage.dart';
 import 'package:flutter_application_1/pages/auth/LogoutPage.dart';
 import 'package:flutter_application_1/pages/medicos/MedicosListPage.dart';
 import 'package:flutter_application_1/pages/medicos/ProfileMedicoPage.dart';
@@ -90,6 +91,15 @@ class MainRouter {
         icon: const Icon(Icons.person_add_alt_1), // Ícono de registro
         title: "Registrar Paciente",
         subtitle: "Registrar una nueva cuenta para un paciente",
+        show: true,
+      ),
+      Route(
+        id: "paciente-list-delete",
+        path: '/users-list',
+        widget: const UsersListPage(),
+        icon: const Icon(Icons.delete_forever), // Eliminar
+        title: "Resetear contraseña de Usuarios",
+        subtitle: "Resetear la contraseña de cualquier usuario del sistema",
         show: true,
       ),
       Route(
