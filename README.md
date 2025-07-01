@@ -1,77 +1,112 @@
-# Frontend - App para Android en Flutter
-# CONSULTORIOS MÉDICOS UTN
-# UTN - TUP | PPS 2025
-# Alumno Juan Jose Chaparro
+# 📱 Frontend - App Android en Flutter  
+## 🏥 CONSULTORIOS MÉDICOS UTN  
+**UTN - TUP | PPS 2025**  
+**Alumno:** Juan José Chaparro
 
-## Descripción
-SDK Flutter/Dart: Compatible con Dart SDK ^3.5.3
+---
 
-Esta aplicación para Android desarrollada en Flutter tiene como objetivo gestionar usuarios e historias medicas en el marco de un Proyecto PPS para la Tecnicatura Universitaria en Programación (UTN FRBB). La app permite una experiencia personalizada tanto para pacientes, para médicos y usuarios administradores, integrando funciones como generación de documentos PDF, manejo de sesiones y preferencias de usuario, carga de historias clinicas, reseteo de claves, creacion de usuarios, entre otras.
+## 📘 Descripción
+
+**SDK Flutter/Dart:** Compatible con Dart SDK `^3.5.3`  
+
+Esta aplicación para Android desarrollada en Flutter tiene como objetivo gestionar usuarios e historias clínicas en el marco del Proyecto PPS de la Tecnicatura Universitaria en Programación (UTN FRBB).  
+
+La app permite una experiencia personalizada para **pacientes**, **médicos** y **usuarios administradores**, e integra funcionalidades como:  
+
+- Generación de documentos PDF  
+- Manejo de sesiones y preferencias  
+- Carga de historias clínicas  
+- Reseteo de contraseñas  
+- Creación y gestión de usuarios  
+
+---
 
 ## 🔧 Funcionalidades técnicas
-Internacionalización: Soporte multilenguaje con flutter_localizations e intl.
 
-Conectividad: Comunicación con APIs REST usando http. Uso de clases Future para gestionar solicitudes a la API.
+- **🌍 Internacionalización:** Soporte multilenguaje con `flutter_localizations` e `intl`  
+- **🌐 Conectividad:** Comunicación con APIs REST utilizando `http`. Uso de clases `Future` para solicitudes asincrónicas.  
+- **🔄 Gestión de estado:** `provider` para cambiar entre tema claro y oscuro.  
+- **💾 Persistencia local:** Uso de `shared_preferences` para almacenar preferencias como el tema oscuro, pacientes favoritos y token de sesión.  
+- **🔐 Gestión de entorno:** Variables de entorno seguras mediante `flutter_dotenv`.  
+- **📄 Exportación de datos:** Generación y visualización de archivos PDF con `pdf` y `printing`.  
+- **🔤 Tipografía personalizada:** Uso de *CoolveticaRg.otf*, extraída de [dafont.com](https://www.dafont.com/).  
+- **🧪 Dispositivo de prueba:** Motorola Edge 40 Neo (teléfono personal).
 
-Gestión de Estado: Provider para cambiar entre tema claro y oscuro.
+---
 
-Persistencia local: SharedPreferences para almacenar preferencias como tema oscuro, pacientes favoritos y token de sesión.
+## 1. 🔐 Pantallas de Inicio
 
-Gestión de entorno: Uso de variables de entorno seguras a través de flutter_dotenv.
+Pantallas de login y registro de pacientes.
 
-Exportación de datos: Generación y visualización de archivos PDF mediante pdf y printing.
+<img src="doc/images/home/login.jpeg" width="300" alt="Pantalla de Login - Modo Claro" />
+<img src="doc/images/home/loginblack.jpeg" width="300" alt="Pantalla de Login - Modo Oscuro" />
+<img src="doc/images/home/registerpaciente.jpeg" width="300" alt="Registro de nuevo paciente" />
+<img src="doc/images/home/fechanac.jpeg" width="300" alt="Selector de fecha de nacimiento" />
 
-Font personalizada: "assets/fonts/CoolveticaRg.otf" extraida de la pagina https://www.dafont.com/.
+---
 
-Debug: Motorola Edge 40 Neo, mi teléfono personal.
+## 2. 🛠️ Home Admin
 
+Panel principal del administrador con funciones como alta de médicos, reseteo de contraseñas y disponibilidad médica.
 
-### 1. Inicio.
+<img src="doc/images/admin/home.jpeg" width="300" alt="Home del administrador" />
+<img src="doc/images/admin/altamedico.jpeg" width="300" alt="Formulario para alta de médico" />
+<img src="doc/images/admin/deletepaciente.jpeg" width="300" alt="Eliminar paciente" />
+<img src="doc/images/admin/cambiardisponibilidadmedico.jpeg" width="300" alt="Cambio de disponibilidad de médico" />
+<img src="doc/images/admin/medicosdisponibles.jpeg" width="300" alt="Listado de médicos disponibles" />
+<img src="doc/images/admin/resetpass1.jpeg" width="300" alt="Pantalla de reseteo de contraseña (1)" />
+<img src="doc/images/admin/resetpass2.jpeg" width="300" alt="Pantalla de reseteo de contraseña (2)" />
 
-![Login](doc/images/home/login.jpeg)
-![Login modo Oscuro](doc/images/home/loginblack.jpeg)
-![Registrarse](doc/images/home/registerpaciente.jpeg)
-![Fechas](doc/images/home/fechanac.jpeg)
+---
 
-### 2. Home Admin.
+## 3. 🩺 Home Médico
 
-![Home](doc/images/admin/home.jpeg)
-![Alta de un médico](doc/images/admin/altamedico.jpeg)
-![Eliminar un paciente](doc/images/admin/deletepaciente.jpeg)
-![Disponbilidadd](doc/images/admin/cambiardisponibilidadmedico.jpeg)
-![Solo disponibles](doc/images/admin/medicosdisponibles.jpeg)
-![Resetear Password](doc/images/admin/resetpass1.jpeg)
-![Resetear Password](doc/images/admin/resetpass2.jpeg)
+Acceso al listado de pacientes, historial clínico y carga de consultas.
 
-### 3. Home Médico.
+<img src="doc/images/medico/home_normal.jpeg" width="300" alt="Home del médico - Modo Claro" />
+<img src="doc/images/medico/home.jpeg" width="300" alt="Home del médico - Modo Oscuro" />
+<img src="doc/images/medico/editar_perfil.jpeg" width="300" alt="Edición del perfil médico" />
+<img src="doc/images/medico/ver_pacientes.jpeg" width="300" alt="Listado de pacientes" />
+<img src="doc/images/medico/datos_paciente.jpeg" width="300" alt="Vista de datos del paciente" />
+<img src="doc/images/medico/cargar_consulta.jpeg" width="300" alt="Formulario para cargar consulta médica" />
+<img src="doc/images/medico/ver_historia.jpeg" width="300" alt="Historia clínica del paciente" />
+<img src="doc/images/medico/soporte.jpeg" width="300" alt="Pantalla de soporte médico" />
 
-![Home](doc/images/medico/home_normal.jpeg)
-![Home modo Oscuro](doc/images/medico/home.jpeg)
-![Editar perfil](doc/images/medico/editar_perfil.jpeg)
-![Listado de pacientes](doc/images/medico/ver_pacientes.jpeg)
-![Datos de un paciente](doc/images/medico/datos_paciente.jpeg)
-![Cargar una consulta](doc/images/medico/cargar_consulta.jpeg)
-![Ver historia clinica de un paciente](doc/images/medico/ver_historia.jpeg)
-![Soporte](doc/images/medico/soporte.jpeg)
+---
 
-### 3. Home Paciente.
+## 4. 👨‍⚕️ Home Paciente
 
-![Home](doc/images/paciente/home.jpeg)
-![Home](doc/images/paciente/editarperfil.jpeg)
-![Home](doc/images/paciente/mi_historia.jpeg)
-![Home](doc/images/paciente/medicosdisponibles.jpeg)
+Panel del paciente con opciones de edición de perfil, visualización de historia clínica y listado de médicos.
 
-### 4. Sobre el código.
+<img src="doc/images/paciente/home.jpeg" width="300" alt="Home del paciente" />
+<img src="doc/images/paciente/editarperfil.jpeg" width="300" alt="Edición del perfil del paciente" />
+<img src="doc/images/paciente/mi_historia.jpeg" width="300" alt="Historia clínica del paciente" />
+<img src="doc/images/paciente/medicosdisponibles.jpeg" width="300" alt="Listado de médicos disponibles" />
 
-![ApiConfig](doc/images/otros/ApiConfig.png)
-![Estructura](doc/images/otros/estructura.png)
-![Lib](doc/images/otros/lib.png)
-![MainRouter](doc/images/otros/MainRouter.png)
+---
 
-### 5. Widgets Reutilizables implementados:
+## 5. 🧠 Estructura del Código
 
-a. CustomCardMedico.
-b. CustomCardPaciente.
-c. CustomCardUser.
-d. DataPickerFormField.
-e. FutureFetcher, Updater, Poster, Deleter, Patcher.
+Vistas sobre la configuración de API, estructura del proyecto y ruteo.
+
+<img src="doc/images/otros/ApiConfig.png" width="300" alt="Configuración de API (ApiConfig.dart)" />
+<img src="doc/images/otros/estructura.png" width="300" alt="Estructura general del proyecto" />
+<img src="doc/images/otros/lib.png" width="300" alt="Contenido de la carpeta lib/" />
+<img src="doc/images/otros/MainRouter.png" width="300" alt="Ruteo principal (MainRouter)" />
+
+---
+
+## 6. ♻️ Widgets Reutilizables
+
+Listado de componentes personalizados reutilizados en la aplicación:
+
+- `CustomCardMedico`  
+- `CustomCardPaciente`  
+- `CustomCardUser`  
+- `DataPickerFormField`  
+- `FutureFetcher`, `FutureUpdater`, `FuturePoster`, `FutureDeleter`, `FuturePatcher`
+
+---
+
+> Para más detalles sobre funcionalidades internas o pruebas en otros dispositivos, consultar al desarrollador.
+
