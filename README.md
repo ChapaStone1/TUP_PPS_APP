@@ -37,12 +37,19 @@ La app permite una experiencia personalizada para **pacientes**, **médicos** y 
 ## 1. 🔐 Pantallas de Inicio
 
 Pantalla de Login - Modo Claro
+
 <img src="doc/images/home/login.jpeg" width="300" alt="Pantalla de Login - Modo Claro" />
+
 Pantalla de Login - Modo Oscuro
+
 <img src="doc/images/home/loginblack.jpeg" width="300" alt="Pantalla de Login - Modo Oscuro" />
+
 Registro de nuevo paciente
+
 <img src="doc/images/home/registerpaciente.jpeg" width="300" alt="Registro de nuevo paciente" />
+
 Selector de fechas de nacimiento con la clase reutilizable DataPickerFormField, que luego la configura con el formato que solicita la API(YYYY-MM-DD).
+
 <img src="doc/images/home/fechanac.jpeg" width="300" alt="Selector de fecha de nacimiento" />
 
 ---
