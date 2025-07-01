@@ -28,45 +28,45 @@ Debug: Motorola Edge 40 Neo, mi teléfono personal.
 
 ### 1. Inicio.
 
-![Login](lib/doc/images/home/login.jpeg)
-![Login modo Oscuro](lib/doc/images/home/loginblack.jpeg)
-![Registrarse](lib/doc/images/home/registerpaciente.jpeg)
-![Fechas](lib/doc/images/home/fechanac.jpeg)
+![Login](doc/images/home/login.jpeg)
+![Login modo Oscuro](doc/images/home/loginblack.jpeg)
+![Registrarse](doc/images/home/registerpaciente.jpeg)
+![Fechas](doc/images/home/fechanac.jpeg)
 
 ### 2. Home Admin.
 
-![Home](lib/doc/images/admin/home.jpeg)
-![Alta de un médico](lib/doc/images/admin/altamedico.jpeg)
-![Eliminar un paciente](lib/doc/images/admin/deletepaciente.jpeg)
-![Disponbilidadd](lib/doc/images/admin/cambiardisponibilidadmedico.jpeg)
-![Solo disponibles](lib/doc/images/admin/medicosdisponibles.jpeg)
-![Resetear Password](lib/doc/images/admin/resetpass1.jpeg)
-![Resetear Password](lib/doc/images/admin/resetpass2.jpeg)
+![Home](doc/images/admin/home.jpeg)
+![Alta de un médico](doc/images/admin/altamedico.jpeg)
+![Eliminar un paciente](doc/images/admin/deletepaciente.jpeg)
+![Disponbilidadd](doc/images/admin/cambiardisponibilidadmedico.jpeg)
+![Solo disponibles](doc/images/admin/medicosdisponibles.jpeg)
+![Resetear Password](doc/images/admin/resetpass1.jpeg)
+![Resetear Password](doc/images/admin/resetpass2.jpeg)
 
 ### 3. Home Médico.
 
-![Home](lib/doc/images/medico/home_normal.jpeg)
-![Home modo Oscuro](lib/doc/images/medico/home.jpeg)
-![Editar perfil](lib/doc/images/medico/editar_perfil.jpeg)
-![Listado de pacientes](lib/doc/images/medico/ver_pacientes.jpeg)
-![Datos de un paciente](lib/doc/images/medico/datos_paciente.jpeg)
-![Cargar una consulta](lib/doc/images/medico/cargar_consulta.jpeg)
-![Ver historia clinica de un paciente](lib/doc/images/medico/ver_historia.jpeg)
-![Soporte](lib/doc/images/medico/soporte.jpeg)
+![Home](doc/images/medico/home_normal.jpeg)
+![Home modo Oscuro](doc/images/medico/home.jpeg)
+![Editar perfil](doc/images/medico/editar_perfil.jpeg)
+![Listado de pacientes](doc/images/medico/ver_pacientes.jpeg)
+![Datos de un paciente](doc/images/medico/datos_paciente.jpeg)
+![Cargar una consulta](doc/images/medico/cargar_consulta.jpeg)
+![Ver historia clinica de un paciente](doc/images/medico/ver_historia.jpeg)
+![Soporte](doc/images/medico/soporte.jpeg)
 
 ### 3. Home Paciente.
 
-![Home](lib/doc/images/paciente/home.jpeg)
-![Home](lib/doc/images/paciente/editarperfil.jpeg)
-![Home](lib/doc/images/paciente/mi_historia.jpeg)
-![Home](lib/doc/images/paciente/medicosdisponibles.jpeg)
+![Home](doc/images/paciente/home.jpeg)
+![Home](doc/images/paciente/editarperfil.jpeg)
+![Home](doc/images/paciente/mi_historia.jpeg)
+![Home](doc/images/paciente/medicosdisponibles.jpeg)
 
 ### 4. Sobre el código.
 
-![ApiConfig](lib/doc/images/otros/ApiConfig.png)
-![Estructura](lib/doc/images/otros/estructura.png)
-![Lib](lib/doc/images/otros/lib.png)
-![MainRouter](lib/doc/images/otros/MainRouter.png)
+![ApiConfig](doc/images/otros/ApiConfig.png)
+![Estructura](doc/images/otros/estructura.png)
+![Lib](doc/images/otros/lib.png)
+![MainRouter](doc/images/otros/MainRouter.png)
 
 ### 5. Widgets Reutilizables implementados:
 
