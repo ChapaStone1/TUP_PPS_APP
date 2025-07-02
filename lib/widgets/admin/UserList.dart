@@ -107,7 +107,7 @@ class _UserListState extends State<UserList> {
           TextButton(
             onPressed: () {
               Navigator.pop(
-                  context); // Cierra el primer diálogo (de confirmación)
+                  context); // Cierra el primer dialog (de confirmacion)
               showDialog(
                 context: context,
                 barrierDismissible: false,
@@ -116,7 +116,7 @@ class _UserListState extends State<UserList> {
                     url: ApiConfig.resetearPassword(usuario.id),
                     body: {},
                     builder: (response) {
-                      // Cerrá el loading dialog correctamente
+                      // Cierra el loading dialog
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         if (Navigator.of(loadingContext).canPop()) {
                           Navigator.of(loadingContext)

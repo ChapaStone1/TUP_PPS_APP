@@ -3,8 +3,8 @@ class HistoriaClinica {
   final String _fecha;
   final String _nota;
   final String _medicacion;
-  final String _medicoNombre; // separado
-  final String _medicoApellido; // separado
+  final String _medicoNombre;
+  final String _medicoApellido;
   final String _consultorio;
   final String _especialidad;
 
@@ -13,8 +13,8 @@ class HistoriaClinica {
     required String fecha,
     required String nota,
     required String medicacion,
-    required String medicoNombre, // separado
-    required String medicoApellido, // separado
+    required String medicoNombre,
+    required String medicoApellido,
     required String consultorio,
     required String especialidad,
   })  : _id = id,
@@ -31,8 +31,8 @@ class HistoriaClinica {
   String get fecha => _fecha;
   String get nota => _nota;
   String get medicacion => _medicacion;
-  String get medicoNombre => _medicoNombre; // separado
-  String get medicoApellido => _medicoApellido; // separado
+  String get medicoNombre => _medicoNombre;
+  String get medicoApellido => _medicoApellido;
   String get consultorio => _consultorio;
   String get especialidad => _especialidad;
 

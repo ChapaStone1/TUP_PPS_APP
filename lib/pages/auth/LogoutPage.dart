@@ -17,12 +17,9 @@ class _LogoutPageState extends State<LogoutPage> {
 
   Future<void> _logout() async {
     // 1. Limpiar SharedPreferences o cualquier sesión guardada
-    await Preferences
-        .clear(); // Asegurate de tener este método en tu clase Preferences
+    await Preferences.clear();
 
-    // 2. Si usás Provider o algún state global, podés resetearlo acá también (opcional)
-
-    // 3. Redirigir al login y limpiar toda la pila de navegación
+    // 2. Redirigir al login y limpiar toda la pila de navegación
     if (context.mounted) {
       Navigator.of(context).pushNamedAndRemoveUntil(
         '/login',

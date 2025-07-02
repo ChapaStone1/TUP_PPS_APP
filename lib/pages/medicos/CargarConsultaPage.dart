@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/Paciente.dart';
 import 'package:flutter_application_1/config/ApiConfig.dart';
 import 'package:flutter_application_1/widgets/custom/FuturePoster.dart';
-import 'package:flutter_application_1/utils/GeneralValidator.dart'; // Importá tu validador
+import 'package:flutter_application_1/utils/GeneralValidator.dart';
 
 class CargarConsultaPage extends StatefulWidget {
   const CargarConsultaPage({super.key});

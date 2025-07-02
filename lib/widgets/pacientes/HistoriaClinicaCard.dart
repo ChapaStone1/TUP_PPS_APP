@@ -22,7 +22,7 @@ class HistoriaClinicaCard extends StatelessWidget {
                 const Icon(Icons.person, color: Colors.blueGrey),
                 const SizedBox(width: 8),
                 Expanded(
-                  // para que el texto no se desborde y tome espacio disponible
+                  // Para que el texto no se desborde y tome espacio disponible
                   child: Text(
                     'Especialista: ${historia.medicoNombre} ${historia.medicoApellido}',
                     style: const TextStyle(

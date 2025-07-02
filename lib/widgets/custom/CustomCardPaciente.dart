@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomCardPaciente extends StatelessWidget {
   final String title; // Nombre del paciente
-  final String subtitle; // DNI o info extra
+  final String subtitle;
   final Widget? trailingIcon;
 
   const CustomCardPaciente({

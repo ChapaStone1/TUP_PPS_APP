@@ -51,7 +51,7 @@ class HomeAdmin extends StatelessWidget {
                               ),
                         ],
                       ),
-                      const SizedBox(height: 20), // Espaciado opcional
+                      const SizedBox(height: 20), // Espaciado
                       SizedBox(
                         height: 140,
                         child: Column(

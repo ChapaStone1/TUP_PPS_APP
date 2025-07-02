@@ -32,7 +32,7 @@ class MainRouter {
         id: "register",
         path: '/register',
         widget: const RegisterPage(),
-        icon: const Icon(Icons.app_registration), // Ícono de registro
+        icon: const Icon(Icons.app_registration),
         title: "Registrarse como paciente",
         subtitle: "Ventana de registro",
         show: true,
@@ -79,7 +79,7 @@ class MainRouter {
         id: "register-medico",
         path: '/register-medico',
         widget: const RegisterMedicoPage(),
-        icon: const Icon(Icons.person_add_alt_1), // Alta de usuario
+        icon: const Icon(Icons.person_add_alt_1),
         title: "Registrar Medico",
         subtitle: "Registrar una nueva cuenta para un medico",
         show: true,
@@ -88,7 +88,7 @@ class MainRouter {
         id: "register",
         path: '/register',
         widget: const RegisterPage(),
-        icon: const Icon(Icons.person_add_alt_1), // Ícono de registro
+        icon: const Icon(Icons.person_add_alt_1),
         title: "Registrar Paciente",
         subtitle: "Registrar una nueva cuenta para un paciente",
         show: true,
@@ -97,7 +97,7 @@ class MainRouter {
         id: "resetear-password-usuarios",
         path: '/users-list',
         widget: const UsersListPage(),
-        icon: const Icon(Icons.lock_reset), // Resetear contraseña
+        icon: const Icon(Icons.lock_reset),
         title: "Resetear contraseña de Usuarios",
         subtitle: "Resetear la contraseña de cualquier usuario del sistema",
         show: true,
@@ -106,7 +106,7 @@ class MainRouter {
         id: "paciente-list-delete",
         path: '/paciente-list-delete',
         widget: const PacientesListForDeletePage(),
-        icon: const Icon(Icons.person_remove), // Eliminar paciente
+        icon: const Icon(Icons.person_remove),
         title: "Eliminar un paciente de la base de datos",
         subtitle: "",
         show: true,
@@ -115,7 +115,7 @@ class MainRouter {
         id: "eliminar-paciente",
         path: '/eliminar-paciente',
         widget: const EliminarPacientePage(),
-        icon: const Icon(Icons.person_remove_alt_1), // Eliminar paciente
+        icon: const Icon(Icons.person_remove_alt_1),
         title: "Eliminar un paciente de la base de datos",
         subtitle: "",
         show: false,
@@ -124,7 +124,7 @@ class MainRouter {
         id: "cambiar-estado-medico",
         path: '/estado-medico',
         widget: const MedicosAllListPage(),
-        icon: const Icon(Icons.verified_user), // Cambiar estado/habilitación
+        icon: const Icon(Icons.verified_user),
         title: "Habilitar o deshabilitar un médico para atender.",
         subtitle: "",
         show: true,
@@ -133,7 +133,7 @@ class MainRouter {
         id: "medicos-list",
         path: '/medicos-list',
         widget: const MedicoListPage(),
-        icon: const Icon(Icons.group), // Lista de pacientes
+        icon: const Icon(Icons.group),
         title: "Médicos disponibles en Consultorio UTN",
         subtitle: "Ver especialistas disponibles.",
         show: true,
@@ -153,7 +153,7 @@ class MainRouter {
         id: "profile-medico",
         path: '/profile-medico',
         widget: const ProfileMedicoPage(),
-        icon: const Icon(Icons.person), // Perfil
+        icon: const Icon(Icons.person),
         title: "Perfil",
         subtitle: "Ver y editar perfil",
         show: true,
@@ -162,7 +162,7 @@ class MainRouter {
         id: "register",
         path: '/register',
         widget: const RegisterPage(),
-        icon: const Icon(Icons.person_add_alt_1), // Ícono de registro
+        icon: const Icon(Icons.person_add_alt_1),
         title: "Registrar Paciente",
         subtitle: "Registrar una nueva cuenta para un paciente",
         show: true,
@@ -208,7 +208,7 @@ class MainRouter {
         id: "soporte",
         path: '/soporte',
         widget: const SoporteTecnicoPage(),
-        icon: const Icon(Icons.support_agent), // Mismo ícono para consistencia
+        icon: const Icon(Icons.support_agent),
         title: "Soporte Técnico",
         subtitle: "Ayuda con el acceso y asistencia técnica",
         show: true,
@@ -229,7 +229,7 @@ class MainRouter {
         id: "profile-paciente",
         path: '/profile-paciente',
         widget: const ProfilePacientePage(),
-        icon: const Icon(Icons.person), // Perfil
+        icon: const Icon(Icons.person),
         title: "Perfil",
         subtitle: "Ver y editar perfil",
         show: true,
@@ -238,7 +238,7 @@ class MainRouter {
         id: "mi-historia-clinica",
         path: '/mi-historia-clinica',
         widget: const MiHistoriaClinicaInfoPage(),
-        icon: const Icon(Icons.description), // Historia médica
+        icon: const Icon(Icons.description),
         title: "Mi Historia Clínica",
         subtitle: "Ver mi historia en la Clínica UTN y exportar a PDF.",
         show: true,
@@ -247,7 +247,7 @@ class MainRouter {
         id: "medicos-list",
         path: '/medicos-list',
         widget: const MedicoListPage(),
-        icon: const Icon(Icons.group), // Lista de pacientes
+        icon: const Icon(Icons.group), // Lista de medicos disponibles
         title: "Médicos en Consultorio UTN",
         subtitle: "Ver especialistas disponibles.",
         show: true,
@@ -256,7 +256,7 @@ class MainRouter {
         id: "soporte",
         path: '/soporte',
         widget: const SoporteTecnicoPage(),
-        icon: const Icon(Icons.support_agent), // Mismo ícono para consistencia
+        icon: const Icon(Icons.support_agent),
         title: "Soporte Técnico",
         subtitle: "Ayuda con el acceso y asistencia técnica",
         show: true,

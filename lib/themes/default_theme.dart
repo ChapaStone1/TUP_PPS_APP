@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class DefaultTheme {
-  // Colores celestes
   static const Color primary = Color(0xFF03A9F4); // light blue
   static const Color secondary = Colors.grey;
   static const Color primaryHover = Color(0xFF0288D1); // darker light blue

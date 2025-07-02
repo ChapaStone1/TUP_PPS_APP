@@ -14,7 +14,7 @@ class ApiConfig {
       '$baseUrl/api/admin/habilitacion-medico/$id';
   static String allMedicos() => '$baseUrl/api/admin/all-medicos';
   static String allUsers(String query, int limit, int offset) =>
-      '$baseUrl/api/admin/all-users?dni=$query&limit=$limit&offset=$offset';
+      '$baseUrl/api/admin/all-users?dni=$query&limit=$limit&offset=$offset'; // Lista de todos los usuarios
   static String resetearPassword(int id) =>
       '$baseUrl/api/admin/reset-password/$id';
 

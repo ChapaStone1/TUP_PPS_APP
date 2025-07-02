@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 class Medico {
   final int _id;
   final String _nombre;
@@ -40,8 +38,7 @@ class Medico {
         _matricula = matricula,
         _consultorio = consultorio,
         _especialidadId = especialidadId,
-        _especialidad_nombre =
-            especialidad_nombre, // <- FALTABA ESTE PUNTO Y COMA
+        _especialidad_nombre = especialidad_nombre,
         _habilitado = habilitado;
 
   // Getters
@@ -76,7 +73,7 @@ class Medico {
           ? json['especialidad']['id']
           : json['especialidad_id'],
       especialidad_nombre: json['especialidad_nombre'] ?? 'Sin especialidad',
-      habilitado: json['habilitado'] == 1, // <-- cambio clave
+      habilitado: json['habilitado'] == 1,
     );
   }
 

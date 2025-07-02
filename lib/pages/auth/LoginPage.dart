@@ -258,8 +258,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         const SizedBox(height: 20),
-
-                        // Imagen + Texto al final
                         Column(
                           children: [
                             Image.asset(

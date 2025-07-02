@@ -88,8 +88,8 @@ class GeneralValidator {
 
   static String? validarDropdownEspecialidad(int? valor) {
     if (valor == null) {
-      return 'Seleccioná una especialidad'; // mensaje de error
+      return 'Seleccioná una especialidad';
     }
-    return null; // es válido
+    return null;
   }
 }

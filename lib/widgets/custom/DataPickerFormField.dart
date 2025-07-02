@@ -49,7 +49,8 @@ class DatePickerFormField extends StatelessWidget {
           );
 
           if (pickedDate != null) {
-            controller.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+            controller.text = DateFormat('yyyy-MM-dd')
+                .format(pickedDate); // Formatear para la DB
           }
         },
       ),

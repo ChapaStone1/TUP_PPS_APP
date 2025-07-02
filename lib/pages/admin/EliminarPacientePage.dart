@@ -56,7 +56,7 @@ class EliminarPacientePage extends StatelessWidget {
       );
 
       if (confirmar2 == true) {
-        // Usamos FutureDeleter para la eliminación
+        // Uso FutureDeleter para la eliminación
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -77,12 +77,12 @@ class EliminarPacientePage extends StatelessWidget {
                     if (!context.mounted) return;
 
                     if (ok) {
-                      Navigator.pop(context); // FutureDeleter
+                      Navigator.pop(context);
                       Navigator.pop(context);
                       Navigator.pop(context);
                     } else {
-                      Navigator.pop(context); // FutureDeleter
-                      Navigator.pop(context); // paciente-description
+                      Navigator.pop(context);
+                      Navigator.pop(context);
                     }
                   });
                 });

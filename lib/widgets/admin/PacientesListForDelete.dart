@@ -148,8 +148,7 @@ class _PacientesListForDeleteState extends State<PacientesListForDelete> {
                           arguments: paciente,
                         );
                       },
-                      child: PacienteItem(
-                          paciente: paciente), // o cualquier widget visual
+                      child: PacienteItem(paciente: paciente),
                     ),
                   );
                 },

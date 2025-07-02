@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomCardUser extends StatelessWidget {
   final String title; // Nombre completo del usuario
-  final String subtitle; // Información adicional: tipo, DNI, email, etc.
+  final String subtitle;
   final Widget? trailingIcon;
 
   const CustomCardUser({

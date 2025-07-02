@@ -25,7 +25,7 @@ class RegistroService {
         'ok': ok,
         'status': status,
         'message': message,
-        'usuarioId': json['data']?['usuarioId'], // Agregado si querés usarlo
+        'usuarioId': json['data']?['usuarioId'],
       };
     } catch (e) {
       return {

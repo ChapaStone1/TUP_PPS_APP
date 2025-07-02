@@ -23,14 +23,14 @@ class _IsFavoriteIconState extends State<IsFavoriteIcon> {
   @override
   void initState() {
     super.initState();
-    isFav = Preferences.favs.contains(widget.id.toString()); // CAMBIO AQUÍ
+    isFav = Preferences.favs.contains(widget.id.toString());
   }
 
   void toggleFavorite() {
     setState(() {
       isFav = !isFav;
     });
-    Preferences.toggleFav(widget.id.toString()); // Y AQUÍ
+    Preferences.toggleFav(widget.id.toString());
   }
 
   Color adaptColor(Color baseColor) {

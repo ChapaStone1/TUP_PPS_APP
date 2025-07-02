@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/MainRouter.dart';
 import 'package:flutter_application_1/helpers/preferences.dart';
 import 'package:flutter_application_1/providers/theme_provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart'; // Para las fechas
+import 'package:flutter_localizations/flutter_localizations.dart'; // Para el DatePicker
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
       routes: MainRouter.generateRoutes(context),
       supportedLocales: const [
         Locale('es'), // Español
-        Locale('en'), // Inglés (opcional)
+        Locale('en'),
       ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

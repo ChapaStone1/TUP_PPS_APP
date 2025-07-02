@@ -1,7 +1,7 @@
 class Paciente {
   final int _id;
   final String _nombre;
-  final String _apellido; // agregado
+  final String _apellido;
   final String _dni;
   final String _sexo;
   final String _fechaNac;
@@ -13,7 +13,7 @@ class Paciente {
   Paciente({
     required int id,
     required String nombre,
-    required String apellido, // agregado
+    required String apellido,
     required String dni,
     required String sexo,
     required String fechaNac,
@@ -23,7 +23,7 @@ class Paciente {
     required String obraSocial,
   })  : _id = id,
         _nombre = nombre,
-        _apellido = apellido, // agregado
+        _apellido = apellido,
         _dni = dni,
         _sexo = sexo,
         _fechaNac = fechaNac,
@@ -35,7 +35,7 @@ class Paciente {
   // Getters
   int get id => _id;
   String get nombre => _nombre;
-  String get apellido => _apellido; // agregado
+  String get apellido => _apellido;
   String get dni => _dni;
   String get sexo => _sexo;
   String get fechaNac => _fechaNac;
@@ -49,7 +49,7 @@ class Paciente {
     return Paciente(
       id: json['id'],
       nombre: json['nombre'],
-      apellido: json['apellido'], // agregado
+      apellido: json['apellido'],
       dni: json['dni'],
       sexo: json['sexo'],
       fechaNac: json['fecha_nac'],

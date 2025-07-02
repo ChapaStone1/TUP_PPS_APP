@@ -23,8 +23,7 @@ class PacienteItem extends StatelessWidget {
         size: 30,
       ),
       title: '${apellido}, ${nombre}',
-      subtitle:
-          'DNI: $dni   |  Obra Social: $obra', //|  Correo: $email  |  Obra Social: $obra
+      subtitle: 'DNI: $dni   |  Obra Social: $obra',
     );
   }
 }
